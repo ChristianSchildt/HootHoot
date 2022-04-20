@@ -1,4 +1,4 @@
-CREATE DATABASE hoothoot;
+CREATE EXTENSION "uuid-ossp";
 
 CREATE TABLE users(
   user_id UUID DEFAULT uuid_generate_v4(),
@@ -18,8 +18,7 @@ CREATE TABLE todos(
 
 --fake users data
 
-insert into users (user_name, user_email, user_password) values ('Jacob', 'jacob@gmail.com', 'kthl8822');
+insert into users (user_name, user_email, user_password) values ('Jacob', 'test', 'test');
 
 --fake todos data
-
-insert into todos (user_id, description) values ('60dc16dd-c7f1-4fde-827a-90c0e101555c', 'clean room');
+--insert into todos (user_id, description) values ('60dc16dd-c7f1-4fde-827a-90c0e101555c', 'clean room');
