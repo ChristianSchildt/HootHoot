@@ -1,4 +1,4 @@
-CREATE DATABASE authtodolist;
+CREATE DATABASE hoothoot;
 
 CREATE TABLE users(
   user_id UUID DEFAULT uuid_generate_v4(),

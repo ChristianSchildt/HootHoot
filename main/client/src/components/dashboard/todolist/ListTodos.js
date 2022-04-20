@@ -1,3 +1,10 @@
+/*
+
+Diese Datei stammt aus dem Template und hat nichts mit HootHoot zu tun
+
+*/
+
+
 import React, { Fragment, useState, useEffect } from "react";
 import EditTodo from "./EditTodo";
 

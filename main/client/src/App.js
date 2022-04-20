@@ -15,6 +15,13 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import Dashboard from "./components/dashboard/Dashboard";
 import Landing from "./components/Landing";
+import TestComponent from "./components/TestComponent"
+
+/*
+
+Diese Datei enthält noch Code aus dem Template
+
+*/
 
 toast.configure();
 
@@ -46,6 +53,7 @@ function App() {
 
   return (
     <Fragment>
+      <TestComponent></TestComponent>
       <Router>
         <div className="container">
           <Routes>

@@ -1,3 +1,10 @@
+/*
+
+Diese Datei stammt aus dem Template und hat nichts mit HootHoot zu tun
+
+*/
+
+
 import React, { Fragment, useState } from "react";
 
 const InputTodo = ({ setTodosChange }) => {

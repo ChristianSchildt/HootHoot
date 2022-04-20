@@ -1,3 +1,10 @@
+/*
+
+Diese Datei stammt aus dem Template und hat derzeit nur bedingt etwas mit HootHoot zu tun
+
+*/
+
+
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
