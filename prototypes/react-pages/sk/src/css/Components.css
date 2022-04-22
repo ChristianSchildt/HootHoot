@@ -1,0 +1,150 @@
+/* TODO: Aufteilen - jede Komponente hat eigene CSS-Datei */
+
+body
+{
+    background-color: #040E23;
+}
+
+/* sites centering */
+.welcomePage, .tLandingPage, .tRegistrationPage,
+.tLoginPage, .tHomeMenuPage
+{
+    color: #476D7C;
+    text-align: center;
+}
+/* ------------------------------------------------- */
+
+/* texts */
+.headerrole
+{
+    margin-top: 5em;
+    margin-bottom: 10em;
+}
+
+.headertext
+{
+    font-family: 'Calibri';
+    font-size: 3em;
+    font-weight: bold;
+    margin-bottom: 0em;
+}
+
+.roletext
+{
+    font-family: 'Calibri';
+    font-size: 1.5em;
+    margin-top: 0em;
+}
+
+.projectname-left
+{
+    text-align: left;
+    font-family: 'Calibri';
+    font-size: 1.8em;
+    font-weight: bold;
+}
+
+#text-welcome-teacher
+{
+    text-align: right;
+}
+
+/* inputfield */
+.inputField
+{
+    margin-top: 0.4em;
+    border-radius: 0.5em;
+    background-color: #476D7C;
+    font-family: 'Calibri';
+    text-align: center;
+    color: white;
+    width: 20em;
+    height: 2.2em;
+    border-color: #476D7C;
+}
+::placeholder{
+    color: white;
+}
+
+/* buttons */
+.tile
+{
+    border: 2px solid #ffffff;
+    border-radius: 1em;
+    font-family: 'Calibri';
+    font-size: 1.3em;
+    background-color: #040E23;
+    color: #ffffff;
+    width: 10em;
+    height: 15em;
+}
+
+
+.button
+{
+    border: 2px solid #ffffff;
+    border-radius: 0.5em;
+    font-family: 'Calibri';
+    font-size: 1.5em;
+    font-weight: bold;
+    background-color: #040E23;
+    color: white;
+    width: 8em;
+    height: 2em;
+}
+
+#button-registration-tlandingpage
+{
+    margin-top: 3em;
+}
+
+#button-login-tlandingpage
+{
+    margin-top: 3em;
+}
+
+#button-registration-registrationpage
+{
+    margin-top: 3em;
+}
+
+#button-login-loginpage{
+    margin-top: 3em;
+}
+
+.createTile
+{
+    border: 2px solid #476D7C;
+    border-radius: 1em;
+    font-family: 'Calibri';
+    font-size: 1.3em;
+    color: #ffffff;
+    width: 15em;
+    height: 9.5em;
+    margin-top: 53vh;
+    margin-left:0.5vw;
+}
+#createTile-header
+{
+    color: #476D7C;
+    font-weight: bold;
+}
+
+.my-courses
+{
+    border: 2px solid #476D7C;
+    border-radius: 1em;
+    color: #476D7C;
+}
+
+.coursetile
+{
+    border: 2px solid #476D7C;
+    border-radius: 0.8em;
+    color: #476D7C;
+    margin-left: 1em;
+    margin-right: 0.5em;
+    margin-bottom: 0.3em;
+}
+
+ 
