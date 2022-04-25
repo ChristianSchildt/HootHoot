@@ -1,7 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import "./TestComponent.css"
+// TODO: fix that file is applied to the whole page
+//import "./TestComponent.css"
 
 const TestComponent = () => {
   return (
