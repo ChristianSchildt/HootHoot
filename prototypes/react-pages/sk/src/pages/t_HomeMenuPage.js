@@ -15,12 +15,7 @@ class t_HomeMenuPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            courses: {}
-        };
-    }
-
-    componentDidMount() {
-            const coursesdata = [
+            courses: [
                 {   
                     "id": 1,
                     "name": "Webtechnologien I",
@@ -41,9 +36,9 @@ class t_HomeMenuPage extends React.Component {
                     "name": 'Betriebssysteme',
                     "kalenderwoche": ['kw1']
                 }
-            ];
-            this.setState({courses: coursesdata});
-    }   
+            ]
+        };
+    }  
 
     render(){
         return(
@@ -89,7 +84,7 @@ class t_HomeMenuPage extends React.Component {
                             <Field classNameField="field"
                                 classNameTitle="field-title"
                                 valueTitle="Meine Kurse">
-                                {this.state.courses?.map((course) => (  
+                                {this.state.courses.map((course) => (  
                                     <CourseTile key={course.id.toString()} classNameCoursetext="coursetext" valuetext={course.name} /> 
                                 ))}
                             </Field>
