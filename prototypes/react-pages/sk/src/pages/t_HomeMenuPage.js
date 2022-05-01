@@ -36,6 +36,30 @@ class t_HomeMenuPage extends React.Component {
                     "name": 'Betriebssysteme',
                     "kalenderwoche": ['kw1']
                 }
+                ,
+                {
+                    "id": 5,
+                    "name": 'Betriebssysteme',
+                    "kalenderwoche": ['kw1']
+                }
+                ,
+                {
+                    "id": 6,
+                    "name": 'Betriebssysteme',
+                    "kalenderwoche": ['kw1']
+                }
+                ,
+                {
+                    "id": 7,
+                    "name": 'Betriebssysteme',
+                    "kalenderwoche": ['kw1']
+                }
+                ,
+                {
+                    "id": 8,
+                    "name": 'Betriebssysteme',
+                    "kalenderwoche": ['kw1']
+                }
             ]
         };
     }  
