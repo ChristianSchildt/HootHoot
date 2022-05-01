@@ -1,5 +1,5 @@
 import React from 'react';
-import '../css/Components.css';
+import '../css/CreateTile.css';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -20,36 +20,40 @@ class CreateTile extends React.Component {
                         </Text>
                     </Col>
                 </Row>
-                <Row>
-                    <Col>
-                        <Text
-                            className="createTile-kurs"
-                            // TODO: Values auslagern
-                            value="Kurs">
-                        </Text>
-                    </Col>
-                    <Col>
-                        <Text
-                            // TODO: Values auslagern
-                            value="Plus EINFÜGEN">
-                        </Text>
-                    </Col>
-                </Row>   
-                <Row>
-                    <Col>
-                        <Text
-                            className="createTile-hoothoot"
-                            // TODO: Values auslagern
-                            value="HootHoot">
-                        </Text>
-                    </Col>
-                    <Col>
-                        <Text
-                            // TODO: Values auslagern
-                            value="Plus EINFÜGEN">
-                        </Text>
-                    </Col>
-                </Row> 
+                <div className="div-createTile">
+                    <Row>
+                        <Col>
+                            <Text
+                                className="createTile-text"
+                                // TODO: Values auslagern
+                                value="Kurs">
+                            </Text>
+                        </Col>
+                        <Col>
+                            <Text
+                                // TODO: Values auslagern
+                                value="Plus EINFÜGEN">
+                            </Text>
+                        </Col>
+                    </Row>
+                </div>
+                <div className="div-createTile">
+                    <Row>
+                        <Col>
+                            <Text
+                                className="createTile-text"
+                                // TODO: Values auslagern
+                                value="HootHoot">
+                            </Text>
+                        </Col>
+                        <Col>
+                            <Text
+                                // TODO: Values auslagern
+                                value="Plus EINFÜGEN">
+                            </Text>
+                        </Col>
+                    </Row>
+                </div>
             </Container>
         </div>
     )

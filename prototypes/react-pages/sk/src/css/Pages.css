@@ -1,0 +1,12 @@
+body
+{
+    background-color: #040E23;
+}
+
+/* sites centering */
+.welcomePage, .tLandingPage, .tRegistrationPage,
+.tLoginPage, .tHomeMenuPage
+{
+    color: #476D7C;
+    text-align: center;
+}

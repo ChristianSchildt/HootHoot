@@ -1,11 +1,15 @@
 import React from 'react';
 import Text from '../components/Text.js';
-import '../css/Components.css';
+import '../css/CourseTile.css';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
 class CourseTile extends React.Component {
+
+    constructor(props){
+        super(props);
+    }
 
     render(){
         return(
@@ -13,7 +17,7 @@ class CourseTile extends React.Component {
             <Container fluid>
                 <Row>
                     <Col>
-                        {/* <img>
+                        {/* TODO: <img>
                             id={this.props.imgId}
                             src={this.props.imgSrc}
                             alt={this.props.imgAlt}
@@ -21,12 +25,12 @@ class CourseTile extends React.Component {
                     </Col>
                     <Col>
                         <Text
-                            className={this.props.coursetext}
-                            value={this.props.textvalue}>
+                            className={this.props.classNameCoursetext}
+                            value={this.props.valuetext}>
                         </Text>
                     </Col>
                     <Col>
-                        {/* Playbutton */}
+                        {/* TODO: Playbutton */}
                     </Col>
                 </Row>
             </Container>

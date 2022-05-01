@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import '../css/Components.css';
+import '../css/InputField.css';
 
 class InputField extends React.Component{
     

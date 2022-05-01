@@ -1,0 +1,35 @@
+.createTile
+{
+    border: 1px solid #040E23;
+    border-radius: 1em;
+    font-family: 'Calibri';
+    color: #476D7C;
+    /* width: 15em;
+    height: 9.5em; */
+    /* margin-top: 29.5em; */
+    margin-left:0.5vw;
+}
+
+#createTile-header
+{
+    color: white;
+    font-family: 'Calibri';
+    font-size: 1.6em;
+}
+
+.div-createTile
+{
+    border: 1px solid #476D7C;
+    border-radius: 1em;
+    margin-left: 12vw;
+    margin-right: 12vw;
+    margin-bottom: 1em;
+    /* max-width: 15em; */
+}
+
+.createTile-text
+{
+    font-family: 'Calibri';
+    font-size: 1.3em;
+    padding-top: 0.5em;
+}

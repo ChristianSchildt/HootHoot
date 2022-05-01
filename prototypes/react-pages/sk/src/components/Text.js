@@ -1,5 +1,5 @@
 import React from 'react';
-import '../css/Components.css';
+import '../css/Text.css';
 
 class Text extends React.Component{
 

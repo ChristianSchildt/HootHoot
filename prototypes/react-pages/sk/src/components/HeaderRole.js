@@ -1,6 +1,6 @@
 import React from 'react';
 import Text from '../components/Text.js';
-import '../css/Components.css';
+import '../css/HeaderRole.css';
 
 class HeaderRole extends React.Component {
 

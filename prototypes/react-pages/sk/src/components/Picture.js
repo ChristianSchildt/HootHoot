@@ -1,19 +1,21 @@
 import React from 'react';
-import '../css/Components.css';
+import '../css/Picture.css';
 
-class Profilepicture extends React.Component {
+class Picture extends React.Component {
   
   render() {
     return (
+      <div className="div-picture">
         <a href={this.props.href}>
-            <img>
+            <img
                 id={this.props.id}
                 src={this.props.src}
-                alt={this.props.alt}
+                alt={this.props.alt}>
             </img>
         </a>
+      </div>
     )
   }
 }
 
-export default Profilepicture;
+export default Picture;

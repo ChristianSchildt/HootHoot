@@ -1,0 +1,25 @@
+.coursetile
+{
+    border: 1px solid #476D7C;
+    border-radius: 0.8em;
+    /* font-family: 'Calibri';
+    font-size: 1.3em; */
+    color: #476D7C;
+    margin-left: 5vw;
+    margin-right: 5vw;
+    margin-bottom: 1.5em;
+}
+.coursetile:hover
+{
+    /* border: 2px solid white; */
+    color: white;
+    transition: 0.3s;
+}
+
+
+.coursetext
+{
+    font-family: Calibri;
+    font-size: 1.3em;
+    padding-top: 0.5em;
+}
