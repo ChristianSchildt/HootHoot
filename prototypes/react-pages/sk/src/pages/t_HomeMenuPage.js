@@ -45,34 +45,35 @@ class t_HomeMenuPage extends React.Component {
             <div className = "tHomeMenuPage">
                 <Container fluid>
                     <Row>
-                        <Col md={1}>
-                            {/* Eule einbinden */}
+                        <Col md={2}>
+                             <Picture
+                                id="logomenue"
+                                src="/images/profil.png"
+                                alt="Platzhalter Profilbild">
+                            </Picture>
                             <Text
                                 className="projectname-left"
                                 value="HootHoot">
                             </Text>
                         </Col>
+
                         <Col md={7}>
                             <MenuNavigation className="menu-navigation"/>
                         </Col>
-                        <Col md={{ span: 2, offset: 2 }}>
+                        <Col md={{ span: 2, offset: 1}}>
                             <Text
                                 id="text-welcome-teacher"
                                 value="Guten Tag, Herr Köhn">
                             </Text>
-                            {/* TODO: Profilbild einbinden */}
                             <Picture
                                 id="profilepicture"
-                                src=""
+                                src="/images/profilbild.jpg"
                                 alt="Platzhalter Profilbild">
                             </Picture>
                         </Col>
                     </Row>
                     <Row>
                         <Col>
-                            <CreateTile
-                                className="createTile">
-                            </CreateTile>
                             <Field classNameField="field"
                                 classNameTitle="field-title"
                                 valueTitle="Neuigkeiten">
@@ -89,6 +90,9 @@ class t_HomeMenuPage extends React.Component {
                                 ))}
                             </Field>
                         </Col>
+                        <CreateTile
+                                className="createTile">
+                            </CreateTile>
                     </Row>
                 </Container>
             </div>

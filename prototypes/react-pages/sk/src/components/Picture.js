@@ -8,6 +8,7 @@ class Picture extends React.Component {
       <div className="div-picture">
         <a href={this.props.href}>
             <img
+                className={this.props.className}
                 id={this.props.id}
                 src={this.props.src}
                 alt={this.props.alt}>

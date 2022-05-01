@@ -9,5 +9,7 @@
 
 #text-welcome-teacher
 {
+    float: left;
+    padding-top: 10%;
     text-align: left;
 }

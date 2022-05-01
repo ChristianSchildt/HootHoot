@@ -4,6 +4,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Text from './Text.js';
+import Picture from './Picture';
 
 class CreateTile extends React.Component {
   
@@ -30,10 +31,12 @@ class CreateTile extends React.Component {
                             </Text>
                         </Col>
                         <Col>
-                            <Text
-                                // TODO: Values auslagern
-                                value="Plus EINFÜGEN">
-                            </Text>
+                        <Picture
+                                className="symbol-add"
+                                src="/images/add.png"
+                                alt="Plus">
+                            </Picture>
+
                         </Col>
                     </Row>
                 </div>
@@ -47,10 +50,11 @@ class CreateTile extends React.Component {
                             </Text>
                         </Col>
                         <Col>
-                            <Text
-                                // TODO: Values auslagern
-                                value="Plus EINFÜGEN">
-                            </Text>
+                        <Picture
+                                className="symbol-add"
+                                src="/images/add.png"
+                                alt="Plus">
+                            </Picture>
                         </Col>
                     </Row>
                 </div>
