@@ -113,10 +113,10 @@ class t_HomeMenuPage extends React.Component {
                                     <CourseTile key={course.id.toString()} classNameCoursetext="coursetext" valuetext={course.name} /> 
                                 ))}
                             </Field>
-                        </Col>
-                        <CreateTile
+                            <CreateTile
                                 className="createTile">
                             </CreateTile>
+                        </Col>
                     </Row>
                 </Container>
             </div>
