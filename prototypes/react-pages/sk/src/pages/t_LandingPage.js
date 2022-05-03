@@ -19,6 +19,7 @@ function t_LandingPage() {
                 </Row>
                 <Row>
                     <Col>
+                    
                         {/* TODO: Eule einbinden */}
                         <Button
                             className="button"

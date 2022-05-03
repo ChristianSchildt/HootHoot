@@ -5,6 +5,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import HeaderRole from '../components/HeaderRole';
 import Button from '../components/Button';
+import Picture from '../components/Picture';
 
 function WelcomePage() {
     return (
@@ -28,6 +29,13 @@ function WelcomePage() {
                             value="Ich bin Lehrkraft"
                             href="/teacher">
                         </Button>
+                    </Col>
+                    <Col>
+                        <Picture
+                                id="owl"
+                                src="/images/profil.png"
+                                alt="Platzhalter Profilbild">
+                        </Picture>
                     </Col>
                     <Col>
                         <Button

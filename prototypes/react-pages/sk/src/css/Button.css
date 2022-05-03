@@ -11,7 +11,7 @@
 }
 .tile:hover
 {
-    border: 2px solid #ffffff;
+    border: 3px solid #ffffff;
 }
 
 
@@ -34,7 +34,7 @@
 }
 #button-registration-tlandingpage:hover
 {
-    border: 2px solid #ffffff;
+    border: 3px solid #ffffff;
 }
 
 #button-login-tlandingpage
@@ -43,7 +43,7 @@
 }
 #button-login-tlandingpage:hover
 {
-    border: 2px solid #ffffff;
+    border: 3px solid #ffffff;
 }
 
 #button-registration-registrationpage
@@ -52,7 +52,7 @@
 }
 #button-registration-registrationpage:hover
 {
-    border: 2px solid #ffffff;
+    border: 3px solid #ffffff;
 }
 
 #button-login-loginpage
@@ -61,5 +61,5 @@
 }
 #button-login-loginpage:hover
 {
-    border: 2px solid #ffffff;
+    border: 3px solid #ffffff;
 }
