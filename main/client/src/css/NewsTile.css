@@ -1,0 +1,24 @@
+.newstile
+{
+    border: 1px solid #476D7C;
+    border-radius: 0.8em;
+    /* font-family: 'Calibri';
+    font-size: 1.3em; */
+    color: #476D7C;
+    margin-left: 5vw;
+    margin-right: 5vw;
+    margin-bottom: 1em;
+}
+.newstile:hover
+{
+    /* border: 0.5px solid white; */
+    color: white;
+    transition: .3s;
+}
+
+.newstext
+{
+    font-family: Calibri;
+    font-size: 1.3em;
+    padding-top: 0.5em;
+}

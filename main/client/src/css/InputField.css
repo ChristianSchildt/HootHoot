@@ -1,0 +1,15 @@
+.inputField
+{
+    margin-top: 0.4em;
+    border-radius: 0.5em;
+    background-color: #476D7C;
+    font-family: 'Calibri';
+    text-align: center;
+    color: white;
+    width: 20em;
+    height: 2.2em;
+    border-color: #476D7C;
+}
+::placeholder{
+    color: white;
+}

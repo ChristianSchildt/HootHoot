@@ -1,0 +1,15 @@
+.projectname-left
+{
+    text-align: left;
+    font-family: 'Calibri';
+    font-size: 1.8em;
+    font-weight: bold;
+    padding-top: 0.5em;
+}
+
+#text-welcome-teacher
+{
+    float: left;
+    padding-top: 10%;
+    text-align: left;
+}

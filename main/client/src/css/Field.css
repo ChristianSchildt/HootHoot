@@ -1,0 +1,34 @@
+.field
+{
+    height: 35em;
+    border: 0.5px solid #476D7C;
+    border-radius: 1em;
+    color: white;
+    margin-bottom: 10px;
+    overflow-y: scroll;
+}
+
+.field:hover
+{
+    /* border: 2px solid #476D7C; */
+    /* border: 0.5px solid white; */
+    border-radius: 1em;
+    color: white;
+    margin-bottom: 10px;
+}
+
+.field-title
+{
+    font-family: 'Calibri';
+    font-size: 1.6em;
+    margin-top: 0.5em;
+}
+::-webkit-scrollbar{
+   overflow: hidden;
+  }
+  
+  ::-webkit-scrollbar-thumb{
+    padding-top: 20px;
+    background-color: #334d57;
+    border-radius: 10px;
+  }

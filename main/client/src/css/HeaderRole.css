@@ -1,0 +1,21 @@
+/* texts */
+.headerrole
+{
+    margin-top: 5em;
+    margin-bottom: 10em;
+}
+
+.headertext
+{
+    font-family: 'Calibri';
+    font-size: 3em;
+    font-weight: bold;
+    margin-bottom: 0em;
+}
+
+.roletext
+{
+    font-family: 'Calibri';
+    font-size: 1.5em;
+    margin-top: 0em;
+}

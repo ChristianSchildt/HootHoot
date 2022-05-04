@@ -1,0 +1,65 @@
+.tile
+{
+    border: 1px solid #ffffff;
+    border-radius: 1em;
+    font-family: 'Calibri';
+    font-size: 1.3em;
+    background-color: #040E23;
+    color: #ffffff;
+    width: 10em;
+    height: 15em;
+}
+.tile:hover
+{
+    border: 3px solid #ffffff;
+}
+
+
+.button
+{
+    border: 1px solid #ffffff;
+    border-radius: 0.5em;
+    font-family: 'Calibri';
+    font-size: 1.5em;
+    font-weight: bold;
+    background-color: #040E23;
+    color: white;
+    width: 8em;
+    height: 2em;
+}
+
+#button-registration-tlandingpage
+{
+    margin-top: 3em;
+}
+#button-registration-tlandingpage:hover
+{
+    border: 3px solid #ffffff;
+}
+
+#button-login-tlandingpage
+{
+    margin-top: 3em;
+}
+#button-login-tlandingpage:hover
+{
+    border: 3px solid #ffffff;
+}
+
+#button-registration-registrationpage
+{
+    margin-top: 3em;
+}
+#button-registration-registrationpage:hover
+{
+    border: 3px solid #ffffff;
+}
+
+#button-login-loginpage
+{
+    margin-top: 3em;
+}
+#button-login-loginpage:hover
+{
+    border: 3px solid #ffffff;
+}

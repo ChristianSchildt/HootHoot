@@ -1,0 +1,18 @@
+#profilepicture
+{
+    margin-top: 3%;
+    border-radius: 3em;
+    height: 60px;
+}
+
+#logomenue{
+    float: left;
+    height: 70px;
+}
+
+.symbol-add{
+    height: 50px;
+}
+#owl{
+    height: 400px;
+}
