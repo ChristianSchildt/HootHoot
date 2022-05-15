@@ -11,7 +11,8 @@ class Field extends React.Component {
 
     render() {
     return (
-        <div className={this.props.classNameField}>
+        <div className={this.props.classNameField}
+          id={this.props.idField}>
             <Text 
               className={this.props.classNameTitle}
               value={this.props.valueTitle}>

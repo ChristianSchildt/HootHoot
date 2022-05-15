@@ -22,6 +22,7 @@ function t_RegistrationPage() {
                 <Row>
                     <Col>
                         <InputField
+                            className="inputField"
                             placeholder="Nachnamen eingeben...">
                         </InputField>
                     </Col>
@@ -29,6 +30,7 @@ function t_RegistrationPage() {
                 <Row>
                     <Col>
                         <InputField
+                            className="inputField"
                             type="password"
                             placeholder="Passwort eingeben...">
                         </InputField>
@@ -37,6 +39,7 @@ function t_RegistrationPage() {
                 <Row>
                     <Col>
                         <InputField
+                            className="inputField"
                             type="password"
                             placeholder="Passwort erneut eingeben...">
                         </InputField>

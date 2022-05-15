@@ -9,6 +9,10 @@ import CreateTile from '../components/CreateTile';
 import Field from '../components/Field';
 import CourseTile from '../components/CourseTile';
 import NewsTile from '../components/NewsTile';
+import Popup from '../components/Popup';
+import InputField from '../components/InputField';
+import Button from '../components/Button';
+import Imagebutton from '../components/Imagebutton';
 
 class t_HomeMenuPage extends React.Component {
     
@@ -62,7 +66,23 @@ class t_HomeMenuPage extends React.Component {
                 }
             ]
         };
-    }  
+    }
+    
+    openPopup(idPopup) {
+        document.getElementsByClassName("body-overlay")[0].classList.add("sichtbar");
+        document.getElementById(idPopup).classList.add("sichtbar");
+    }
+
+    closePopup(idPopup) {
+        document.getElementsByClassName("body-overlay")[0].classList.remove("sichtbar");
+        document.getElementById(idPopup).classList.remove("sichtbar");
+    }
+
+    profilAenderungenSpeichern() {
+        alert('Aenderungen würden an dieser Stelle gespeichert werden!')
+        this.closePopup("popup-profile")
+    }
+    
 
     render(){
         return(
@@ -80,20 +100,23 @@ class t_HomeMenuPage extends React.Component {
                                 value="HootHoot">
                             </Text>
                         </Col>
-
                         <Col md={7}>
-                            <MenuNavigation className="menu-navigation"/>
+                            <MenuNavigation 
+                                className="menu-navigation"
+                                id1="mark-home">
+                            </MenuNavigation>
                         </Col>
                         <Col md={{ span: 2, offset: 1}}>
                             <Text
                                 id="text-welcome-teacher"
                                 value="Guten Tag, Herr Köhn">
                             </Text>
-                            <Picture
+                            <Imagebutton
                                 id="profilepicture"
                                 src="/images/profilbild.jpg"
-                                alt="Platzhalter Profilbild">
-                            </Picture>
+                                alt="Platzhalter Profilbild"
+                                onClick={() => this.openPopup("popup-profile")}>
+                            </Imagebutton>
                         </Col>
                     </Row>
                     <Row>
@@ -118,6 +141,50 @@ class t_HomeMenuPage extends React.Component {
                             </CreateTile>
                         </Col>
                     </Row>
+                    <Field classNameField="body-overlay"/>
+                    <Popup classNamePopup="popup"
+                        idPopup="popup-profile"
+                        altImage="button-close Platzhalter"
+                        onClickImage={() => this.closePopup("popup-profile")}
+                        srcImage="/images/button_close.png"
+                        valueTitle="Profil bearbeiten">
+                            {/*TODO: alle benötigten Daten?*/}
+                        <Row>
+                            <Col>
+                                <InputField 
+                                    className="inputField-popup"
+                                    defaultValue="Köhn">
+                                </InputField>    
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col>
+                                <InputField 
+                                    className="inputField-popup"
+                                    type="password"
+                                    placeholder="neues Passwort eingeben">
+                                </InputField>    
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col>
+                                <InputField 
+                                    className="inputField-popup"
+                                    type="password"
+                                    placeholder="Passwort bestätigen">
+                                </InputField>    
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col>
+                                <Button
+                                    className="button-popup"
+                                    value="Änderungen bestätigen"
+                                    onClick={() => this.profilAenderungenSpeichern()}>
+                                </Button>    
+                            </Col>
+                        </Row>
+                    </Popup>
                 </Container>
             </div>
        );

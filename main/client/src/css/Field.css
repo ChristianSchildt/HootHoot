@@ -8,15 +8,6 @@
     overflow-y: scroll;
 }
 
-.field:hover
-{
-    /* border: 2px solid #476D7C; */
-    /* border: 0.5px solid white; */
-    border-radius: 1em;
-    color: white;
-    margin-bottom: 10px;
-}
-
 .field-title
 {
     font-family: 'Calibri';
@@ -32,3 +23,21 @@
     background-color: #334d57;
     border-radius: 10px;
   }
+
+.body-overlay
+{
+    position:fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.65);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.body-overlay.sichtbar
+{
+    opacity: 1;
+    pointer-events: auto;
+}

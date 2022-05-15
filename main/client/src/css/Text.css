@@ -13,3 +13,10 @@
     padding-top: 10%;
     text-align: left;
 }
+
+.popup-title
+{
+    text-align: center;
+    font-size: 1.3em;
+    margin-bottom: 2em;
+}

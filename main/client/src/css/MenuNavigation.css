@@ -18,3 +18,13 @@ nav ul li a:hover
     color: white;
     transition: .4s;
 }
+
+#mark-home
+{
+    color: white;
+}
+
+#mark-library
+{
+    color: white;
+}

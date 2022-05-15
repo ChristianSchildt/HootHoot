@@ -59,7 +59,10 @@ class t_LibraryMenuPage extends React.Component {
                         </Col>
 
                         <Col md={7}>
-                            <MenuNavigation className="menu-navigation"/>
+                            <MenuNavigation 
+                                className="menu-navigation"
+                                id2="mark-library"
+                            />
                         </Col>
                         <Col md={{ span: 2, offset: 1}}>
                             <Text

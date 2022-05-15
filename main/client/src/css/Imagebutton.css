@@ -1,0 +1,14 @@
+#profilepicture
+{
+    margin-top: 3%;
+    border-radius: 3em;
+    height: 60px;
+}
+
+.popup-close
+{
+    float: right;
+    margin-top: 0.7em;
+    height: 20px;
+    width: 20px;
+}

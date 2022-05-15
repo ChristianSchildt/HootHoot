@@ -63,3 +63,17 @@
 {
     border: 3px solid #ffffff;
 }
+
+.button-popup
+{
+    margin-top: 4em;
+    border: 1px solid #ffffff;
+    border-radius: 0.5em;
+    font-family: 'Calibri';
+    font-size: 1.4em;
+    font-weight: bold;
+    background-color: #040E23;
+    color: white;
+    width: 11em;
+    height: 2em;
+}

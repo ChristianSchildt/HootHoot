@@ -1,0 +1,23 @@
+.popup
+{
+    position: fixed;
+    left: 50vw;
+    top: 50vh;
+    transform: translate(-50%, -50%);
+    background-color: #040E23;
+    color: white;
+    border: 0.5px solid white;
+    border-radius: 1em;
+    min-width: 22em;
+    max-width: 22em;
+    min-height: 27em;
+    max-height: 27em;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.popup.sichtbar
+{
+    opacity: 1;
+    pointer-events: auto;
+}
