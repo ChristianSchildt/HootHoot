@@ -10,6 +10,8 @@ const authorize = require("../middleware/authorize");
 router.post("/register", validInfo, async (req, res) => {
   const { email, name, password } = req.body;
 
+  console.log("/register called")
+
   try {
     const user = await pool.query("SELECT * FROM users WHERE user_email = $1", [
       email
@@ -56,6 +58,7 @@ router.post("/login", validInfo, async (req, res) => {
     if (!validPassword) {
       return res.status(401).json("Invalid Credential");
     }
+    console.log(user.rows[0].user_id)
     const jwtToken = jwtGenerator(user.rows[0].user_id);
     return res.json({ jwtToken });
   } catch (err) {
