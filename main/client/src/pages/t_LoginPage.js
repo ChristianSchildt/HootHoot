@@ -1,12 +1,51 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import HeaderRole from '../components/HeaderRole.js';
 import InputField from '../components/InputField.js';
 import Button from '../components/Button.js';
+import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
-function t_LoginPage(){
+const t_LoginPage = ({ setAuth }) =>  {
+    
+    const inputEmail = useRef(null);
+    const inputPassword = useRef(null);
+
+    const login = async e => {
+        // TODO: validate input
+
+        e.preventDefault();
+        try {
+          const body = { email: inputEmail.current.state.value, password: inputPassword.current.state.value };
+          const response = await fetch(
+            "http://localhost:5000/authentication/login",
+            {
+              method: "POST",
+              headers: {
+                "Content-type": "application/json"
+              },
+              body: JSON.stringify(body)
+            }
+          );
+    
+          const parseRes = await response.json();
+    
+          if (parseRes.jwtToken) {
+            localStorage.setItem("token", parseRes.jwtToken);
+            //setAuth(true);
+            toast.success("Logged in Successfully");
+            window.location.href = "/teacher/homeMenu";
+          } else {
+            //setAuth(false);
+            toast.error(parseRes);
+          }
+        } catch (err) {
+          console.error(err.message);
+        }
+      };
+
     return(
         <div className="tLoginPage">
             <Container fluid>
@@ -22,26 +61,19 @@ function t_LoginPage(){
             <Row>
                 <Col>
                     <InputField
+                        ref={inputEmail}
                         className="inputField"
-                        placeholder="Nachnamen eingeben...">
+                        placeholder="E-Mail eingeben...">
                     </InputField>
                 </Col>
             </Row>
             <Row>
                 <Col>
                     <InputField
+                        ref={inputPassword}
                         className="inputField"
                         type="password"
                         placeholder="Passwort eingeben...">
-                    </InputField>
-                </Col>
-            </Row>
-            <Row>
-                <Col>
-                    <InputField
-                        className="inputField"
-                        type="password"
-                        placeholder="Passwort erneut eingeben...">
                     </InputField>
                 </Col>
             </Row>
@@ -51,7 +83,7 @@ function t_LoginPage(){
                         className="button"
                         id="button-login-loginpage"
                         value="Anmelden"
-                        href="/teacher/homeMenu">
+                        onClick={login}>
                     </Button>
                 </Col>
             </Row>
