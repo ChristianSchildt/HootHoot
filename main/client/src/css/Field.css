@@ -41,3 +41,49 @@
     opacity: 1;
     pointer-events: auto;
 }
+
+#question-overview
+{
+    border: 0.5px solid #476D7C;
+    border-radius: 1em;
+    width: 15vw;
+    min-width: 15em;
+    height: 87vh;
+    min-height: 49.4em;
+}
+
+#media-input
+{
+    border: 0.5px solid #476D7C;
+    border-radius: 1em;
+    width: 65vw;
+    min-width: 20em;
+    height: 60vh;
+    min-height: 34.5em;
+}
+
+#question-options
+{
+    border: 0.5px solid #476D7C;
+    border-radius: 1em;
+    width: 15vw;
+    min-width: 15em;
+    height: 87vh;
+    min-height: 49.4em;
+}
+
+#join-info
+{
+    border: 3px solid white;
+    border-radius: 1em;
+    width: 50vw;
+    /* min-width: ; */
+    height: 14em;
+}
+
+/* 2 Spalten innerhalb des Divs erzeugen */
+.column
+{
+    float: left;
+    width: 50%;
+}

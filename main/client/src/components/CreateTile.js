@@ -32,10 +32,11 @@ class CreateTile extends React.Component {
                         </Col>
                         <Col>
                         <Picture
-                                className="symbol-add"
-                                src="/images/add.png"
-                                alt="Plus">
-                            </Picture>
+                            className="symbol-add"
+                            src="/images/add.png"
+                            alt="Plus"
+                            href="">
+                        </Picture>
 
                         </Col>
                     </Row>
@@ -50,10 +51,11 @@ class CreateTile extends React.Component {
                             </Text>
                         </Col>
                         <Col>
-                        <Picture
+                            <Picture
                                 className="symbol-add"
                                 src="/images/add.png"
-                                alt="Plus">
+                                alt="Plus"
+                                href="/teacher/createHootHoot">
                             </Picture>
                         </Col>
                     </Row>

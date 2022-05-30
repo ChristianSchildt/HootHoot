@@ -77,3 +77,30 @@
     width: 11em;
     height: 2em;
 }
+
+#button-back-letStudentsjoinPage
+{
+    width: 6em;    
+    height: 1.75em;
+    margin-top: .75em;
+    margin-right: .25em;
+    float: right;
+}
+#button-back-letStudentsjoinPage:hover
+{
+    border: 2px solid #ffffff;
+}
+
+#button-HootHoot
+{
+    color: #476D7C;
+    font-size: 2.5em;
+    width: 6em;
+    height: 1.5em;
+    border-radius: .4em;
+    padding-top: 0em;
+}
+#button-HootHoot:hover
+{
+    border: 2px solid #ffffff;
+}

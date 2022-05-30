@@ -1,0 +1,32 @@
+.question-overview-text
+{
+    margin-left: 1em;
+    font-family: 'Calibri';
+    font-size: 1.3em;
+    padding-top: .4em;
+    color: white;
+}
+
+#question-view-hr
+{
+    color:white;
+    height: 2px;
+    width: 10vw;
+    min-width: 10em;
+    margin-left: 1.8vw;
+}
+
+.question-view-duplicate
+{
+    width: 2em;
+    height: 1.5em;
+    margin-top: .8em;
+    margin-bottom: 1.5em;
+}
+
+.question-view-delete
+{
+    width: 2em;
+    height: 2em;
+    margin-bottom: 2em;
+}

@@ -1,12 +1,10 @@
 .createTile
 {
-    border: 1px solid #040E23;
+    /* border: 1px solid #040E23; */
     border-radius: 1em;
     font-family: 'Calibri';
     color: #476D7C;
-    /* width: 15em;
-    height: 9.5em; */
-    /* margin-top: 29.5em; */
+    margin-top: 4em;
     margin-left:0.5vw;
 }
 

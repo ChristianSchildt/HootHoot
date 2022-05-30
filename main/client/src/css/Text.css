@@ -20,3 +20,58 @@
     font-size: 1.3em;
     margin-bottom: 2em;
 }
+
+#joinUnder
+{
+    color: white;
+    font-family: 'Calibri';
+    font-size: 1.4em;
+    padding-top: 2.3em;
+    margin-bottom: 0em;
+}
+
+#webAdress
+{
+    font-family: 'Calibri';
+    font-size: 1.4em;
+}
+
+#text-gamePIN
+{
+    color: white;
+    font-family: 'Calibri';
+    font-size: 1.4em;
+    padding-top: 1.3em;
+    margin-bottom: 0em;
+    text-align: center;
+}
+
+#number-gamePIN
+{
+    font-family: 'Calibri';
+    font-size: 4em;
+}
+
+#text-lets
+{
+    color: white;
+    font-family: 'Calibri';
+    font-size: 2.5em;
+    margin-top: .5em;
+    margin-bottom: 0em;
+}
+
+.playernames
+{
+    border: 1px solid white;
+    border-radius: 1em;
+    height: 2.5em;
+    width: 10em;
+    color: white;
+    padding-top: .35em;
+    margin-top: 5em;
+    font-family: 'Calibri';
+    font-size: 1.1em;
+    /* Präsentationsabstand */
+    margin-left: 20vw;
+}
