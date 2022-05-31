@@ -63,3 +63,35 @@
 {
     border: 3px solid #ffffff;
 }
+#button_switchansicht{
+    float: right;
+    width: auto;
+    margin-top: 1%;
+}
+
+#button-answerad{
+    background-color: #646464;
+    height: 25vh;
+    width: 25vw;
+    margin: 5px 5px 5px 5px;
+}
+#button-answerbc{
+    height: 25vh;
+    width: 25vw;
+    margin: 5px 5px 5px 5px;
+}
+#button-detail-answerad{
+    background-color: #646464;
+    height: 10vh;
+    width: 30vw;
+    margin: 5px 5px 5px 5px;
+}
+#button-detail-answerbc{
+    height: 10vh;
+    width: 30vw;
+    margin: 5px 5px 5px 5px;
+}
+
+#button_answermin{
+    margin: 1% 1% 1% 1%;
+}
