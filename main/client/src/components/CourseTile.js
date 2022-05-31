@@ -4,6 +4,8 @@ import '../css/CourseTile.css';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Imagebutton from './Imagebutton.js';
+import Picture from './Picture.js';
 
 class CourseTile extends React.Component {
 
@@ -17,20 +19,26 @@ class CourseTile extends React.Component {
             <Container fluid>
                 <Row>
                     <Col>
-                        {/* TODO: <img>
-                            id={this.props.imgId}
-                            src={this.props.imgSrc}
-                            alt={this.props.imgAlt}
-                        </img> */}
+                        <Picture
+                            classname="picture-course"
+                            src={this.props.srcPicture}
+                            alt="Kursbild">
+                        </Picture>
                     </Col>
                     <Col>
                         <Text
-                            className={this.props.classNameCoursetext}
+                            className="coursetext"
                             value={this.props.valuetext}>
                         </Text>
                     </Col>
                     <Col>
-                        {/* TODO: Playbutton */}
+                        <Imagebutton
+                            className="button-coursePlay"
+                            /*TODO: Besseres Bild*/
+                            src="/images/play.jpg"  
+                            alt="Play Symbol"
+                            href="/teacher/letStudentsJoin">
+                        </Imagebutton>
                     </Col>
                 </Row>
             </Container>

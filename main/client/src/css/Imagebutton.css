@@ -12,3 +12,31 @@
     height: 20px;
     width: 20px;
 }
+
+.button-coursePlay
+{
+    height: 45px;
+    margin-top: 0.4em;
+}
+
+.add-new-question
+{
+    width: 3em;
+    height: 3em;
+    border-radius: 2em;
+}
+
+#button-save
+{
+    margin-top: .5em;
+    width: 40px;
+    height: 40px;
+    margin-right: 4em;
+}
+
+#button-exit
+{
+    margin-top: .5em;
+    width: 40px;
+    height: 40px;
+}

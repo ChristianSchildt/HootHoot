@@ -9,3 +9,9 @@
 #owl{
     height: 400px;
 }
+
+#question-picture-preview
+{
+    width: 25em;
+    height: 25em;
+}

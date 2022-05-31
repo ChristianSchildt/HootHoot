@@ -27,3 +27,23 @@
     height: 2.2em;
     border-color: #476D7C;
 }
+
+#inputField-coursename
+{
+    width: 30vw;
+    min-width: 30em;
+    height: 2.5em;
+    margin-top: 1.5em;
+    margin-left: 9.25em;
+    font-size: 1em;
+}
+
+#inputField-question
+{
+    width: 50vw;
+    min-width: 30em;
+    height: 2em;
+    margin-top: .3em;
+    margin-bottom: 1em;
+    font-size: 1.2em;
+}
