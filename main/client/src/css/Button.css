@@ -77,3 +77,119 @@
     width: 11em;
     height: 2em;
 }
+
+#button-back-letStudentsjoinPage
+{
+    width: 6em;    
+    height: 1.75em;
+    margin-top: .75em;
+    margin-right: .25em;
+    float: right;
+}
+#button-back-letStudentsjoinPage:hover
+{
+    border: 2px solid #ffffff;
+}
+
+#button-HootHoot
+{
+    color: #476D7C;
+    font-size: 2.5em;
+    width: 6em;
+    height: 1.5em;
+    border-radius: .4em;
+    padding-top: 0em;
+}
+#button-HootHoot:hover
+{
+    border: 2px solid #ffffff;
+}
+
+#button-skip-playHootHootPage
+{
+    height: 1.75em;
+    margin-top: .75em;
+    float: right;
+    margin-right: .25em;
+}
+#button-skip-playHootHootPage:hover
+{
+    border: 2px solid #ffffff;
+}
+
+#button-goOn-answerEvaluationPage
+{
+    height: 1.75em;
+    margin-top: .75em;
+    float: right;
+    margin-right: .25em;
+}
+#button-goOn-answerEvaluationPage:hover
+{
+    border: 2px solid #ffffff;
+}
+
+#button-goOn-winnerAnimationPage
+{
+    height: 1.75em;
+    margin-top: .75em;
+    float: right;
+    margin-right: .25em;
+}
+#button-goOn-winnerAnimationPage:hover
+{
+    border: 2px solid #ffffff;
+}
+
+#button-repeat-HootHootEndcard
+{
+    width: 10em;
+    height: 1.75em;
+    margin-top: .25em;
+}
+#button-repeat-HootHootEndcard:hover
+{
+    border: 2px solid #ffffff;
+}
+
+#button-feedback-hoothootEndcard
+{
+    width: 9em;
+    margin-top: 2.48em;
+}
+#button-feedback-hoothootEndcard:hover
+{
+    border: 2px solid #ffffff;
+}
+
+#button-exit-hoothootEndcard
+{
+    width: 9em;
+    margin-top: 0em;
+}
+#button-exit-hoothootEndcard:hover
+{
+    border: 2px solid #ffffff;
+}
+
+#button-newGame-hoothootEndcard
+{
+    margin-top: .5em;
+    width: 9em;
+}
+#button-newGame-hoothootEndcard:hover
+{
+    border: 2px solid #ffffff;
+}
+
+#backToWinneranimation
+{
+    border: 1px solid white;
+    border-radius: 1em;
+    width: 15em;
+    height: 15em;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1.5em;
+    padding-top: 5em;
+}

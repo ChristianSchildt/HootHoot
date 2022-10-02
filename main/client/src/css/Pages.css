@@ -5,8 +5,11 @@ body
 
 /* sites centering */
 .welcomePage, .tLandingPage, .tRegistrationPage,
-.tLoginPage, .tHomeMenuPage, .tLibraryMenuPage
+.tLoginPage, .tHomeMenuPage, .tLibraryMenuPage,
+.tCreateHootHootPage, .tLetStudentsJoinPage, .tPlayHootHootPage,
+.tAnswerEvaluationPage, .tWinnerAnimationPage, .tHootHootEndcardPage
 {
     color: #476D7C;
+    font-family: 'Calibri';
     text-align: center;
 }

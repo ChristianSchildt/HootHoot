@@ -133,7 +133,12 @@ class t_HomeMenuPage extends React.Component {
                                 classNameTitle="field-title"
                                 valueTitle="Meine Kurse">
                                 {this.state.courses.map((course) => (  
-                                    <CourseTile key={course.id.toString()} classNameCoursetext="coursetext" valuetext={course.name} /> 
+                                    <CourseTile 
+                                        key={course.id.toString()} 
+                                        //TODO: Kursbild aus DB einfügen
+                                        srcPicture=""
+                                        valuetext={course.name}>
+                                    </CourseTile>
                                 ))}
                             </Field>
                             <CreateTile

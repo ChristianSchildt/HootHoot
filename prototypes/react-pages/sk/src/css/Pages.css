@@ -5,7 +5,8 @@ body
 
 /* sites centering */
 .welcomePage, .tLandingPage, .tRegistrationPage,
-.tLoginPage, .tHomeMenuPage, .tLibraryMenuPage
+.tLoginPage, .tHomeMenuPage, .tLibraryMenuPage,
+.s_LandingPage, .s_Answermin
 {
     color: #476D7C;
     text-align: center;

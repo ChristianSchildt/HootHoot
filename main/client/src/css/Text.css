@@ -20,3 +20,294 @@
     font-size: 1.3em;
     margin-bottom: 2em;
 }
+
+#joinUnder
+{
+    color: white;
+    font-family: 'Calibri';
+    font-size: 1.4em;
+    padding-top: 2.3em;
+    margin-bottom: 0em;
+}
+
+#webAdress
+{
+    font-family: 'Calibri';
+    font-size: 1.4em;
+}
+
+#text-gamePIN
+{
+    color: white;
+    font-family: 'Calibri';
+    font-size: 1.4em;
+    padding-top: 1.3em;
+    margin-bottom: 0em;
+    text-align: center;
+}
+
+#number-gamePIN
+{
+    font-family: 'Calibri';
+    font-size: 4em;
+}
+
+#text-lets
+{
+    color: white;
+    font-family: 'Calibri';
+    font-size: 2.5em;
+    margin-top: .5em;
+    margin-bottom: 0em;
+}
+
+.playernames
+{
+    border: 1px solid #476D7C;
+    border-radius: 1em;
+    height: 2.5em;
+    width: 10em;
+    color: white;
+    padding-top: .35em;
+    margin-top: 5em;
+    font-family: 'Calibri';
+    font-size: 1.1em;
+    /* Präsentationsabstand */
+    margin-left: 20vw;
+}
+
+#div-HootHoot-question
+{
+    border: 1px solid #476D7C;
+    border-radius: 1em;
+    height: 3.5em;
+    margin-top: 1.5em;
+}
+
+#HootHoot-question
+{
+    color: white;
+    font-size: 1.4em;
+    padding-top: .4em;
+}
+
+#div-countdown
+{
+    border: 1px solid #476D7C;
+    border-radius: 2em;
+    width: 4em;
+    height: 4em;
+    margin-top: 13em;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#countdown
+{
+    padding-top: .3em;
+    color: white;
+    font-size: 1.7em;
+}
+
+#media
+{
+    padding-top: 2.8em;
+    font-size: 3em;
+}
+
+#counter-answers
+{
+    color: white;
+    padding-top: 5.7em;
+    margin-bottom: 0em;
+    font-size: 2em;    
+}
+
+#text-answers
+{
+    font-size: 1.3em;
+}
+
+/* Antwort-div in 10%- und 90%-Spalten teilen */
+.column1-HootHoot-answers
+{
+    float: left;
+    width: 10%;
+}
+.column2-HootHoot-answers
+{
+    float: left;
+    width: 90%;
+}
+
+#div-answerA
+{
+    border: 2px solid white;
+    border-radius: 1em;
+    min-width: 30em;
+    height: 4.5em;
+    margin-top: 2em;
+    background-color: #476D7C;
+    color: white;
+}
+
+#div-answerB
+{
+    border: 2px solid white;
+    border-radius: 1em;
+    min-width: 30em;
+    height: 4.5em;
+    margin-top: 2em;
+    color: white;
+}
+
+#div-answerC
+{
+    border: 2px solid white;
+    border-radius: 1em;
+    min-width: 30em;
+    height: 4.5em;
+    margin-top: 1em;
+    color: white;
+}
+
+#div-answerD
+{
+    border: 2px solid white;
+    border-radius: 1em;
+    min-width: 30em;
+    height: 4.5em;
+    margin-top: 1em;
+    background-color: #476D7C;
+    color: white;
+}
+
+.answer-letter
+{
+    font-size: 2em;
+    padding-top: .25em;
+    font-weight: bold;
+}
+
+.answer-text
+{
+    font-size: 1.8em;
+    padding-top: .3em;
+}
+
+#answerNumber-now-overall
+{
+    font-size: 2em;
+}
+
+#gamePIN-text
+{
+    font-size: 1.8em;
+    color: white;
+    margin-top: .3em;
+    text-align: right;
+}
+
+#gamePIN-number
+{
+    font-size: 2.5em;
+    text-align: left;
+}
+
+#evaluation-number
+{
+    color: white;
+    font-size: 2.3em;
+}
+
+#evaluation-letter
+{
+    color: white;
+    font-size: 1.2em;
+}
+
+#evaluation-letter-D
+{
+    color: white;
+    font-size: 1.2em;
+    padding-top: 5em;
+}
+
+#div-answerA-evaluation
+{
+    border: 2px solid white;
+    border-radius: 1em;
+    min-width: 30em;
+    height: 4.5em;
+    margin-top: 2em;
+    background-color: #476D7C;
+    color: white;
+    opacity: .5;
+}
+
+#div-answerB-evaluation
+{
+    border: 2px solid white;
+    border-radius: 1em;
+    min-width: 30em;
+    height: 4.5em;
+    margin-top: 2em;
+    color: white;
+    opacity: .5;
+}
+
+#div-answerC-evaluation
+{
+    border: 2px solid white;
+    border-radius: 1em;
+    min-width: 30em;
+    height: 4.5em;
+    margin-top: 1em;
+    color: white;
+    opacity: .5;
+}
+
+#div-answerD-evaluation
+{
+    border: 2px solid white;
+    border-radius: 1em;
+    min-width: 30em;
+    height: 4.5em;
+    margin-top: 1em;
+    background-color: #476D7C;
+    color: white;
+}
+
+#div-repeat-HootHootEndcard
+{
+    border: 1px solid #476D7C;
+    border-radius: 1em;
+    width: 23em;
+    height: 7em;
+    margin-top: .6em;
+}
+
+#header-repeat-HootHootEndcard
+{
+    font-size: 1.4em;
+    padding-top: .5em;
+    margin-bottom: 0em;
+}
+
+.div-difficult-question
+{
+    border: 1px solid #476D7C;
+    border-radius: 1em;
+    width: 65vw;
+    height: 5em;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 1em;
+}
+
+.difficult-question
+{
+    color: white;
+    padding-top: .7em;
+    font-size: 1.4em;
+}

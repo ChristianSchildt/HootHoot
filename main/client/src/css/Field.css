@@ -41,3 +41,134 @@
     opacity: 1;
     pointer-events: auto;
 }
+
+#question-overview
+{
+    border: 0.5px solid #476D7C;
+    border-radius: 1em;
+    width: 15vw;
+    min-width: 15em;
+    height: 87vh;
+    min-height: 49.4em;
+}
+
+#media-input
+{
+    border: 0.5px solid #476D7C;
+    border-radius: 1em;
+    width: 65vw;
+    min-width: 20em;
+    height: 60vh;
+    min-height: 34.5em;
+}
+
+#question-options
+{
+    border: 0.5px solid #476D7C;
+    border-radius: 1em;
+    width: 15vw;
+    min-width: 15em;
+    height: 87vh;
+    min-height: 49.4em;
+}
+
+#join-info
+{
+    border: 3px solid white;
+    border-radius: 1em;
+    width: 50vw;
+    /* min-width: ; */
+    height: 14em;
+}
+
+/* 2 Spalten innerhalb des Divs erzeugen */
+.column
+{
+    float: left;
+    width: 50%;
+}
+
+#div-media
+{
+    border: 1px solid #476D7C;
+    border-radius: 1em;
+    min-width: 60vw;
+    height: 29em;
+    margin-top: 1.5em;
+}
+
+#evaluation
+{
+    border: 0px solid white;
+    border-radius: 1em;
+    width: 60em;
+    height: 25em;
+    margin-top: 6.4em;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.evaluation-diagramm
+{
+    float: left;
+    border: 1px solid white;
+    border-radius: 1em;
+    width: 7em;
+    margin-top: 15em;
+    margin-right: 2em;
+}
+
+#evaluation-diagramm-A
+{
+    background-color: #476D7C;
+    color: white;
+    opacity: .5;
+    font-size: 1.2em;
+}
+
+#evaluation-diagramm-B
+{
+    color: white;
+    opacity: .5;
+    font-size: 1.2em;
+}
+
+#evaluation-diagramm-C
+{
+    color: white;
+    opacity: .5;
+    font-size: 1.2em;
+}
+
+#evaluation-diagramm-D
+{
+    background-color: #476D7C;
+    font-size: 1.2em;
+    height: 13em;
+    margin-top: 5.6em;
+}
+
+#winneranimation
+{
+    border: 1px solid #476D7C;
+    border-radius: 1em;
+    width: 75vw;
+    height: 40em;
+    padding-top: 14em;
+    margin-top: 1.5em;
+    margin-bottom: 2em;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#difficult-questions
+{
+    border: 1px solid #476D7C;
+    border-radius: 1em;
+    width: 74vw;
+    height: 40em;
+    margin-top: 1.5em;
+    margin-bottom: 2em;
+    margin-left: auto;
+    margin-right: auto;
+}
