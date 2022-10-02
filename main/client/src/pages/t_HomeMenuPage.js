@@ -19,6 +19,7 @@ class t_HomeMenuPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            userdata : {},
             courses: [
                 {   
                     "id": 1,
@@ -68,6 +69,10 @@ class t_HomeMenuPage extends React.Component {
         };
     }
     
+    componentDidMount() {
+        this.fetchUserData.bind(this)();
+    }
+
     openPopup(idPopup) {
         document.getElementsByClassName("body-overlay")[0].classList.add("sichtbar");
         document.getElementById(idPopup).classList.add("sichtbar");
@@ -83,8 +88,27 @@ class t_HomeMenuPage extends React.Component {
         this.closePopup("popup-profile")
     }
     
+    async fetchUserData() {
+        try {
+          const res = await fetch("http://localhost:5000/dashboard/userdata/", {
+            method: "GET",
+            headers: { jwt_token: localStorage.token },
+          });  
+
+          const parseData = await res.json()
+          console.log(parseData)
+          
+          this.setState({userdata: parseData[0]})
+          console.log(this.state.userdata.user_name)
+
+          return parseData;
+        } catch (err) {
+          console.error(err.message);
+        }
+      };
 
     render(){
+
         return(
             <div className = "tHomeMenuPage">
                 <Container fluid>
@@ -109,7 +133,7 @@ class t_HomeMenuPage extends React.Component {
                         <Col md={{ span: 2, offset: 1}}>
                             <Text
                                 id="text-welcome-teacher"
-                                value="Guten Tag, Herr Köhn">
+                                value={"Guten Tag, Herr " + this.state.userdata.user_name}>
                             </Text>
                             <Imagebutton
                                 id="profilepicture"

@@ -2,6 +2,23 @@ const router = require("express").Router();
 const authorize = require("../middleware/authorize");
 const pool = require("../db");
 
+
+router.get("/userdata", authorize, async (req, res) => {
+  console.log("userdata requested")
+  try {
+    // TODO: remove password before returning
+    const user = await pool.query(
+      "SELECT * FROM users WHERE user_id = $1",
+      [req.user.id]
+    );
+
+    res.json(user.rows);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+});
+
 //all todos and name
 router.get("/", authorize, async (req, res) => {
   try {
@@ -73,5 +90,6 @@ router.delete("/todos/:id", authorize, async (req, res) => {
     console.error(err.message);
   }
 });
+
 
 module.exports = router;
