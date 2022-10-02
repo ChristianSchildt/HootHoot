@@ -7,13 +7,13 @@ const jwtGenerator = require("../utils/jwtGenerator");
 const authorize = require("../middleware/authorize");
 
 //authorization
-router.post("/register", async (req, res) => {
+router.post("/register", validInfo, async (req, res) => {
   const { email, name, password } = req.body;
 
   console.log("/register called")
 
   try {
-    const user = await pool.query('SELECT * FROM users WHERE user_email = $1', [
+    const user = await pool.query("SELECT * FROM users WHERE user_email = $1", [
       email
     ]);
 
@@ -29,7 +29,6 @@ router.post("/register", async (req, res) => {
       [name, email, bcryptPassword]
     );
 
-    
     const jwtToken = jwtGenerator(newUser.rows[0].user_id);
 
     return res.json({ jwtToken });
@@ -76,15 +75,5 @@ router.post("/verify", authorize, (req, res) => {
     res.status(500).send("Server error");
   }
 });
-
-router.get("/is-verify", authorize, (req, res) => {
-  try {
-    res.json(true);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send("Server error");
-  }
-});
-
 
 module.exports = router;
