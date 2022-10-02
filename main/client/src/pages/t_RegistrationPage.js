@@ -40,7 +40,7 @@ const t_RegistrationPage = ({ setAuth }) => {
                 window.location.href = "/teacher";          
             } else {
                 //setAuth(false);
-                toast.error('parseRes error: ', parseRes);
+                toast.error(parseRes);
             }
         } catch (err) {
             console.error('onSubmit form error: ', err.message);

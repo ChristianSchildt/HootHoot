@@ -20,11 +20,14 @@ import SLandingPage from './pages/s_LandingPage.js';
 import SAnswerSelectionMinimalistPage from './pages/s_AnswerSelectionPage_Minimalist.js';
 import SAnswerSelectionDetailedPage from './pages/s_AnswerSelectionPage_Detailed.js';
 import SWinnerAnimationPage from './pages/s_WinnerAnimationPage.js';
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, toast } from "react-toastify";
 
 
 function App() {
   return (
     <div className="App">
+      <ToastContainer/>
       <BrowserRouter>
         <Routes>
           <Route exact path="/" element={<WelcomePage/>} />
