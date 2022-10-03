@@ -17,87 +17,200 @@ class t_CreateHootHootPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            checkboxImageA: "/images/checkbox_unpressed.jpg",
-            checkboxImageB: "/images/checkbox_unpressed.jpg",
-            checkboxImageC: "/images/checkbox_unpressed.jpg",
-            checkboxImageD: "/images/checkbox_unpressed.jpg",
             image: 0,
             imageData: 0,
-
-            questions : [
-                {   
-                    "id": 1,
-                    "name": "Wie alt ist die Erde?"
-                },
-                {   
-                    "id": 2,
-                    "name": "Wie lange bestand das Römische Reich?"
-                },
-                {   
-                    "id": 3,
-                    "name": "Wann entstand die Informatik?"
-                }
-            ],
-
-            
+            selectTyp: "quiz",
+            selectTimelimit: 10,
+            selectPoints: null,
+            selectAnswerOptions: "einzelauswahl",
+            courses : {
+                "couseId": 0,
+                "courseName": "Beispielkurs",
+                "questions": [ 
+                    {"id" : 0,
+                    "topic": null, //gebraucht?
+                    "name": "Beispielfrage1",
+                    "url": null,
+                    "typ": "Quiz",
+                    "timelimit": 10,
+                    "points": null},
+                    {"id": 1,
+                    "topic": null, //gebraucht?
+                    "name": "Beispielfrage2",
+                    "url": null,
+                    "typ": "Wahr oder Falsch",
+                    "timelimit": 20,
+                    "points": null}
+                ],
+                "answers": [
+                    {id: 0,
+                    "answerOptions": "Einzelauswahl", //Hier richtig oder zu questions?
+                    "answersArray": ["Antwort11", "Antwort12", "Antwort13", "Antwort14"],
+                    "isCorrectA": "/images/checkbox_unpressed.jpg",
+                    "isCorrectB": "/images/checkbox_unpressed.jpg",
+                    "isCorrectC": "/images/checkbox_unpressed.jpg",
+                    "isCorrectD": "/images/checkbox_unpressed.jpg"
+                    },
+                    {id: 1,
+                    "answerOptions": "Mehrfachauswahl", //Hier richtig oder zu questions?
+                    "answersArray": ["Antwort21", "Antwort22", "Antwort23", "Antwort24"],
+                    "isCorrectA": "/images/checkbox_unpressed.jpg",
+                    "isCorrectB": "/images/checkbox_unpressed.jpg",
+                    "isCorrectC": "/images/checkbox_unpressed.jpg",
+                    "isCorrectD": "/images/checkbox_unpressed.jpg"
+                    }
+                ]
+            },
+            // courses: {},
+            selectedQuestionIndex: 0
         };
+
+        this.inputCoursename = React.createRef(null);
+        //bisheriger Kurs
+        this.inputQuestionname = React.createRef(null);
+        this.inputAnswernameA = React.createRef(null);
+        this.inputAnswernameB = React.createRef(null);
+        this.inputAnswernameC = React.createRef(null);
+        this.inputAnswernameD = React.createRef(null);
+        //Acorrect
+        //Bcorrect
+        //Ccorrect
+        //Dcorrect
+
+        this.handleChangeTyp = this.handleChangeTyp.bind(this);
+        this.handleChangeTimelimit = this.handleChangeTimelimit.bind(this);
+        this.handleChangePoints = this.handleChangePoints.bind(this);
+        this.handleChangeAnswerOptions = this.handleChangeAnswerOptions.bind(this);
     }
     
+    // TODO: Funktioniert nicht --> innerhalb von setState
     pressOrUnpressAnswerCheckbox(idImagebuttonCheckbox) {
         if (idImagebuttonCheckbox === 'answer-checkbox-A') {
-            if (this.state.checkboxImageA === "/images/checkbox_unpressed.jpg") 
+            if (this.state.courses.answers[0].isCorrectA === "/images/checkbox_unpressed.jpg") 
             {
-                this.setState({checkboxImageA: "/images/checkbox_pressed.jpg"})
+                alert("Hey")
+                this.setState({isCorrectA: "/images/checkbox_pressed.jpg"})
             }
             else 
             {
-                this.setState({checkboxImageA: "/images/checkbox_unpressed.jpg"})
+                this.setState({isCorrectA: "/images/checkbox_unpressed.jpg"})
             }
         }
         
         if (idImagebuttonCheckbox === 'answer-checkbox-B') {
-            if (this.state.checkboxImageB === "/images/checkbox_unpressed.jpg") 
+            if (this.state.courses.answers[0].isCorrectB === "/images/checkbox_unpressed.jpg") 
             {
-                this.setState({checkboxImageB: "/images/checkbox_pressed.jpg"})
+                this.setState({isCorrectB: "/images/checkbox_pressed.jpg"})
             }
             else 
             {
-                this.setState({checkboxImageB: "/images/checkbox_unpressed.jpg"})
+                this.setState({isCorrectB: "/images/checkbox_unpressed.jpg"})
             }
         }
         
         if (idImagebuttonCheckbox === 'answer-checkbox-C') {
-            if (this.state.checkboxImageC === "/images/checkbox_unpressed.jpg") 
+            if (this.state.courses.answers[0].isCorrectC === "/images/checkbox_unpressed.jpg") 
             {
-                this.setState({checkboxImageC: "/images/checkbox_pressed.jpg"})
+                this.setState({isCorrectC: "/images/checkbox_pressed.jpg"})
             }
             else 
             {
-                this.setState({checkboxImageC: "/images/checkbox_unpressed.jpg"})
+                this.setState({isCorrectC: "/images/checkbox_unpressed.jpg"})
             }
         }
         
         if (idImagebuttonCheckbox === 'answer-checkbox-D') {
-            if (this.state.checkboxImageD === "/images/checkbox_unpressed.jpg") 
+            if (this.state.courses.answers[0].isCorrectD === "/images/checkbox_unpressed.jpg") 
             {
-                this.setState({checkboxImageD: "/images/checkbox_pressed.jpg"})
+                this.setState({isCorrectD: "/images/checkbox_pressed.jpg"})
             }
             else 
             {
-                this.setState({checkboxImageD: "/images/checkbox_unpressed.jpg"})
+                this.setState({isCorrectD: "/images/checkbox_unpressed.jpg"})
             }
         }
     }
+    
     //TODO: 
     //Funktioniert noch nicht
-    // addNewQuestion() {
-    //     this.setState({ questions.push(
-    //     {   
-    //         "id": this.state.questions.length+1,
-    //         "name": ""
-    //     })})
-    // }
+    addNewQuestion() {
+    //     this.setState(prevState => ({
+    //         questions:{
+    //             ...prevState.questions,
+    //             'id': this.state.questions.length+1,
+    //             'name': ""
+    //         }})
+    // )  
+    }
 
+    //TODO:
+    //Funktioniert noch nicht
+    duplicateQuestion(questionId) {
+        this.setState({
+
+    })}
+
+    // TODO:
+    //Funktioniert noch nicht
+    deleteQuestion(questionId) {
+        this.setState({
+
+    })}
+
+    // TODO:
+    //Funktioniert noch nicht
+    selectQuestion(questionId) {
+        this.setState({selectedQuestionIndex: questionId})
+    }
+
+    // TODO:
+    //Funktioniert noch nicht
+    saveQuestion() {
+        let course = {
+            courseId: null, //TODO: KursId einfügen
+            courseName: this.inputCoursename.current.getValue(),
+            questions: [
+                {id: this.state.selectedQuestionIndex,
+                topic: null,
+                name: this.inputQuestionname.current.getValue(),
+                url: this.state.imageData || this.state.courses.questions[this.state.selectedQuestionIndex].url,
+                typ: this.state.selectTyp,
+                timelimit: this.state.selectTimelimit,
+                points: this.state.selectPoints}
+            ],
+            "answers": [
+                {id: this.state.selectedQuestionIndex,
+                "answerOptions": this.state.selectAnswerOptions, //Hier richtig oder zu questions?
+                "answersArray": [this.inputAnswernameA.current.getValue(),
+                                this.inputAnswernameB.current.getValue(), 
+                                this.inputAnswernameC.current.getValue(), 
+                                this.inputAnswernameD.current.getValue()],
+                "isCorrectA": this.state.courses.answers[this.state.selectedQuestionIndex].isCorrectA,
+                "isCorrectB": this.state.courses.answers[this.state.selectedQuestionIndex].isCorrectB,
+                "isCorrectC": this.state.courses.answers[this.state.selectedQuestionIndex].isCorrectC,
+                "isCorrectD": this.state.courses.answers[this.state.selectedQuestionIndex].isCorrectD}
+            ]
+        }
+        console.log(course)
+    }
+
+    handleChangeTyp(event) {
+        this.setState({selectTyp: event.target.value})
+    }
+
+    handleChangeTimelimit(event) {
+        this.setState({selectTimelimit: event.target.value})
+    }
+
+    handleChangePoints(event) {
+        this.setState({selectPoints: event.target.value})
+    }
+    
+    handleChangeAnswerOptions(event) {
+        this.setState({selectAnswerOptions: event.target.value})
+    }
+
+    //TODO: Richtige Variable image bzw. imageData?
     fileSelectedHandler(event) {
         if(event.target.files[0])
         {
@@ -130,7 +243,9 @@ class t_CreateHootHootPage extends React.Component {
                             <InputField
                                 className="inputField"
                                 id="inputField-coursename"
-                                placeholder="Kursnamen eingeben...">
+                                placeholder="Kursnamen eingeben..."
+                                defaultValue={this.state.courses.courseName}
+                                ref={this.inputCoursename}>
                             </InputField>
                         </Col>
                         <Col md={4}>
@@ -145,7 +260,7 @@ class t_CreateHootHootPage extends React.Component {
                                 id="button-save"
                                 src="/images/save.jpg"
                                 alt="save-Symbol"
-                                onClick={() => alert('TODO: Hier würde gespeichert werden')}>
+                                onClick={() => this.saveQuestion(this.state.selectedQuestionIndex)}>
                             </Imagebutton>
                             <Imagebutton
                                 id="button-exit"
@@ -158,7 +273,7 @@ class t_CreateHootHootPage extends React.Component {
                     <Row>
                         <Col md={2}>
                             <Field idField="question-overview">
-                                {this.state.questions.map((question) => (  
+                                {this.state.courses.questions.map((question) => (  
                                     <QuestionView 
                                         key={question.id.toString()}
                                         classNameImagebuttonDuplicate="question-view-duplicate"
@@ -170,7 +285,9 @@ class t_CreateHootHootPage extends React.Component {
                                         altImagebuttonDelete="deleteButton"
                                         onClickImagebuttonDelete={() => alert('Frage soll gelöscht werden')}
                                         classNameText="question-overview-text" 
-                                        valueText={question.name}>
+                                        valueText={question.name}
+                                        classNameQuestionSelectionButton="question-selection-button"
+                                        onClickQuestionSelectionButton={() => this.selectQuestion(question.id)}>
                                         {/* TODO: Duplicate- und Delete-Button, 
                                         können auch außerhalb der Optik geklickt werden?! -> ändern */}
                                     </QuestionView>
@@ -179,9 +296,7 @@ class t_CreateHootHootPage extends React.Component {
                                     className="add-new-question"
                                     src="/images/addNewQuestion.jpg"
                                     alt="neueFrageErstellen-Button"
-                                    onClick={() => alert('TODO: Hier würde sich eine neue Fragenfolie öffnen')
-                                    // this.addNewQuestion()
-                                    }>
+                                    onClick={() => this.addNewQuestion()}>
                                 </Imagebutton>
                             </Field>
                         </Col>
@@ -189,12 +304,14 @@ class t_CreateHootHootPage extends React.Component {
                             <InputField
                                 className="inputField"
                                 id="inputField-question"
-                                placeholder="Frage eingeben...">
+                                placeholder="Frage eingeben..."
+                                defaultValue={this.state.courses.questions[this.state.selectedQuestionIndex].name}
+                                ref={this.inputQuestionname}>
                             </InputField>
                             <Field idField="media-input">
                                 <Picture
                                     id="question-picture-preview"
-                                    src={this.state.imageData}
+                                    src={this.state.imageData || this.state.courses.questions[this.state.selectedQuestionIndex].url}
                                     alt="Bild-Preview">
                                 </Picture>
                                 <FileInput
@@ -212,9 +329,11 @@ class t_CreateHootHootPage extends React.Component {
                                         placeholderInputField="Antwort eintippen ..."
                                         classNameTextarea="create-answer-textarea"
                                         placeholderTextarea="Antwort eintippen ..."
+                                        valueTextarea={this.state.courses.answers[this.state.selectedQuestionIndex].answersArray[0]}
+                                        // ref={this.inputAnswernameA}
                                         classNameImagebuttonCheckbox="create-answer-checkbox"
                                         idImagebuttonCheckbox="answer-checkbox-A"
-                                        srcImagebuttonCheckbox= {this.state.checkboxImageA}
+                                        srcImagebuttonCheckbox= {this.state.courses.answers[this.state.selectedQuestionIndex].isCorrectA}
                                         altImagebuttonCheckbox="ImageCheckbox"
                                         onClickImagebuttonCheckbox={() => this.pressOrUnpressAnswerCheckbox("answer-checkbox-A")}
                                         classNameImagebuttonPicture="create-answer-picture"
@@ -231,9 +350,11 @@ class t_CreateHootHootPage extends React.Component {
                                         placeholderInputField="Antwort eintippen ..."
                                         classNameTextarea="create-answer-textarea"
                                         placeholderTextarea="Antwort eintippen ..."
+                                        valueTextarea={this.state.courses.answers[this.state.selectedQuestionIndex].answersArray[1]}
+                                        // ref={this.inputAnswernameB}
                                         classNameImagebuttonCheckbox="create-answer-checkbox"
                                         idImagebuttonCheckbox="answer-checkbox-B"
-                                        srcImagebuttonCheckbox= {this.state.checkboxImageB}
+                                        srcImagebuttonCheckbox= {this.state.courses.answers[this.state.selectedQuestionIndex].isCorrectB}
                                         altImagebuttonCheckbox="ImageCheckbox"
                                         onClickImagebuttonCheckbox={() => this.pressOrUnpressAnswerCheckbox("answer-checkbox-B")}
                                         classNameImagebuttonPicture="create-answer-picture"
@@ -252,9 +373,11 @@ class t_CreateHootHootPage extends React.Component {
                                         placeholderInputField="Antwort eintippen ..."
                                         classNameTextarea="create-answer-textarea"
                                         placeholderTextarea="Antwort eintippen ..."
+                                        valueTextarea={this.state.courses.answers[this.state.selectedQuestionIndex].answersArray[2]}
+                                        // ref={this.inputAnswernameC}
                                         classNameImagebuttonCheckbox="create-answer-checkbox"
                                         idImagebuttonCheckbox="answer-checkbox-C"
-                                        srcImagebuttonCheckbox= {this.state.checkboxImageC}
+                                        srcImagebuttonCheckbox= {this.state.courses.answers[this.state.selectedQuestionIndex].isCorrectC}
                                         altImagebuttonCheckbox="ImageCheckbox"
                                         onClickImagebuttonCheckbox={() => this.pressOrUnpressAnswerCheckbox("answer-checkbox-C")}
                                         classNameImagebuttonPicture="create-answer-picture"
@@ -271,9 +394,12 @@ class t_CreateHootHootPage extends React.Component {
                                         placeholderInputField="Antwort eintippen ..."
                                         classNameTextarea="create-answer-textarea"
                                         placeholderTextarea="Antwort eintippen ..."
+                                        valueTextarea={this.state.courses.answers[this.state.selectedQuestionIndex].answersArray[3]}
+                                        // ref={this.inputAnswernameD}
+                                        onChangeTextarea={this.handleTextareaChange}
                                         classNameImagebuttonCheckbox="create-answer-checkbox"
                                         idImagebuttonCheckbox="answer-checkbox-D"
-                                        srcImagebuttonCheckbox= {this.state.checkboxImageD}
+                                        srcImagebuttonCheckbox= {this.state.courses.answers[this.state.selectedQuestionIndex].isCorrectD}
                                         altImagebuttonCheckbox="ImageCheckbox"
                                         onClickImagebuttonCheckbox={() => this.pressOrUnpressAnswerCheckbox("answer-checkbox-D")}
                                         classNameImagebuttonPicture="create-answer-picture"
@@ -290,37 +416,41 @@ class t_CreateHootHootPage extends React.Component {
                                 <QuestionOption
                                     classNameText="question-option-text"
                                     valueText="Fragentyp">
-                                    <select name="" id="dropdown-menu">
+                                    <select name="" id="dropdown-menu" 
+                                            value={this.state.value} onChange={this.handleChangeTyp}>
                                     {/* TODO: einbeziehen */}
-                                        <option value="" selected="selected">Quiz</option>
-                                        <option value="" selected="">Wahr oder Falsch</option>
+                                        <option value="quiz">Quiz</option>
+                                        <option value="wahrOderFalsch">Wahr oder Falsch</option>
                                     </select>
                                 </QuestionOption>
                                 <QuestionOption
                                     classNameText="question-option-text"
                                     valueText="Zeitlimit">
-                                    <select name="" id="dropdown-menu">
+                                    <select name="" id="dropdown-menu"
+                                            value={this.state.value} onChange={this.handleChangeTimelimit}>
                                     {/* TODO: einbeziehen */}
-                                        <option value="" selected="">10 Sekunden</option>
-                                        <option value="" selected="selected">20 Sekunden</option>
-                                        <option value="" selected="">30 Sekunden</option>
+                                        <option value="10">10 Sekunden</option>
+                                        <option value="20">20 Sekunden</option>
+                                        <option value="30">30 Sekunden</option>
                                     </select>
                                 </QuestionOption>
                                 <QuestionOption
                                     classNameText="question-option-text"
                                     valueText="Punkte">
-                                    <select name="" id="dropdown-menu">
+                                    <select name="" id="dropdown-menu"
+                                            value={this.state.value} onChange={this.handleChangePoints}>
                                         {/* TODO: einbeziehen */}
-                                        <option value="" selected="selected">Standard</option>
+                                        <option value="standard">Standard</option>
                                     </select>
                                 </QuestionOption>
                                 <QuestionOption
                                     classNameText="question-option-text"
                                     valueText="Antwortmöglichkeiten">
-                                    <select name="" id="dropdown-menu">
+                                    <select name="" id="dropdown-menu"
+                                            value={this.state.value} onChange={this.handleChangeAnswerOptions}>
                                         {/* TODO: einbeziehen */}
-                                        <option value="" selected="selected">Einzelauswahl</option>
-                                        <option value="" selected="">Mehrfachauswahl</option>
+                                        <option value="einzelauswahl">Einzelauswahl</option>
+                                        <option value="mehrfachauswahl">Mehrfachauswahl</option>
                                     </select>
                                 </QuestionOption>
                             </Field>

@@ -30,13 +30,22 @@ class t_WinnerAnimationPage extends React.Component {
                                 value="HootHoot">
                             </Text>
                         </Col>
-                        <Col md={{span: 2, offset: 8}}>
+
+                        <Col md={{span: 2, offset: 6}}>
+                            <Button
+                                className="button"
+                                id="button-goBack-winnerAnimationPage"
+                                value="Zurück"
+                                href="/teacher/answerEvaluation">
+                            </Button>
+                        </Col>
+
+                        <Col md={2}>
                             <Button
                                 className="button"
                                 id="button-goOn-winnerAnimationPage"
                                 value="Weiter"
-                                // href=""
-                                >
+                                href="/teacher/hootHootEndcard">
                             </Button>
                         </Col>
                     </Row>

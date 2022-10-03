@@ -30,3 +30,9 @@
     height: 2em;
     margin-bottom: 2em;
 }
+
+.question-selection-button
+{
+    background-color:#040E23;
+    border: 0px;
+}

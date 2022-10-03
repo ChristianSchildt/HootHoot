@@ -34,10 +34,13 @@ class QuestionView extends React.Component{
                         </Row>
                         </Col>
                         <Col md={10}>
-                            <Text
-                                className={this.props.classNameText}
-                                value={this.props.valueText}>
-                            </Text>
+                            <button className={this.props.classNameQuestionSelectionButton}
+                                    onClick={this.props.onClickQuestionSelectionButton}>
+                                <Text
+                                    className={this.props.classNameText}
+                                    value={this.props.valueText}>
+                                </Text>
+                            </button>
                         </Col>
                         <hr id="question-view-hr"/>
                     </Row>

@@ -5,7 +5,8 @@ class Button extends React.Component {
   
   render() {
     return (
-        <a href={this.props.href}>
+        <a  id={this.props.aId}
+            href={this.props.href}>
           <button 
             className={this.props.className} /*Darf nicht "class" heißen*/
             id={this.props.id}

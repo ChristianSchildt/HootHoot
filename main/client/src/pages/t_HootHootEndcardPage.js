@@ -63,12 +63,11 @@ class t_HootHootEndcardPage extends React.Component {
                                     className="button"
                                     id="button-repeat-HootHootEndcard"
                                     value="Nochmal HootHooten"
-                                    // href=""
-                                    >
+                                    href="/teacher/letStudentsJoin">
                                 </Button>
                             </div>
                         </Col>
-                        <Col>
+                        <Col md={3}>
                             <Button
                                 className="button"
                                 id="button-feedback-hoothootEndcard"
@@ -77,13 +76,14 @@ class t_HootHootEndcardPage extends React.Component {
                                 >
                             </Button>
                         </Col>
-                        <Col>
+                        <Col md={3}>
                             <Row>
                                 <Button
+                                    aId="link-button-exit-hoothootEndcard"
                                     className="button"
                                     id="button-exit-hoothootEndcard"
                                     value="Beenden"
-                                    // href=""
+                                    // href="/teacher/homeMenu"
                                     >
                                 </Button>
                             </Row>
@@ -101,22 +101,25 @@ class t_HootHootEndcardPage extends React.Component {
                     <Row>
                         <Col>
                             {/* TODO: Richtiger Imagebutton */}
+                            {/* Provisorischer Link */}
+                            <a href="/teacher/winnerAnimation">
                             <div id="backToWinneranimation">
                                 <p>Platzhalter <br/> Button Siegeranimation</p>
                             </div>
+                            </a>
                         </Col>
                         <Col>
                             <Field idField="difficult-questions"
                                 classNameTitle="field-title"
                                 valueTitle="Schwierige Fragen">
                                 {this.state.difficultQuestions.map((dQuestion) => (  
-                                <div className="div-difficult-question">
-                                    <Text
-                                        key={dQuestion.id.toString()} 
-                                        className="difficult-question"
-                                        value={dQuestion.name}>
-                                    </Text>
-                                </div>   
+                                    <div className="div-difficult-question">
+                                        <Text
+                                            key={dQuestion.id.toString()} 
+                                            className="difficult-question"
+                                            value={dQuestion.name}>
+                                        </Text>
+                                    </div>   
                                 ))}
                                 
                             </Field>

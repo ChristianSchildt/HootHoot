@@ -50,12 +50,15 @@ class t_PlayHootHootPage extends React.Component {
                         </Col>
                     <Row>
                         <Col>
+                            {/* provisorischer Link für Countdown abgelaufen*/}
+                            <a href="/teacher/answerEvaluation">
                             <div id="div-countdown">
                                 <Text
                                     id="countdown"
                                     value="20">
                                 </Text>
                             </div>
+                            </a>
                         </Col>
                         <Col>
                             <Field idField="div-media">

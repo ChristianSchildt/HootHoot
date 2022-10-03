@@ -6,12 +6,53 @@ import Picture from '../components/Picture';
 import Text from '../components/Text';
 import Button from '../components/Button';
 import Field from '../components/Field';
+import {Chart as ChartJS, CategoryScale,LinearScale,BarElement,Title,Tooltip,Legend,} from 'chart.js';
+import { Bar } from 'react-chartjs-2';
+import '../css/BarChart.css';
+
+ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    BarElement,
+    Title,
+    Tooltip,
+    Legend
+);
+
+const options = {
+    responsive: true,
+    plugins: {
+        legend: {
+            position: 'top',
+        },
+        // title: {
+        //     display: true,
+        //     text: 'Spieler Scores',
+        // },
+    },
+};
+
+const players = {'Antwort A': 1, 
+                 'Antwort B': 1, 
+                 'Antwort C': 0, 
+                 'Antwort D': 3};
+
+
+const data = {
+    players,
+    datasets: [
+      {
+        label: 'Dataset 1',
+        data: players,
+        backgroundColor: '#476D7C',
+      },
+    ]
+};
 
 class t_AnswerEvaluationPage extends React.Component {
     
     constructor(props) {
         super(props);
-
     }
     
     render() {
@@ -35,8 +76,7 @@ class t_AnswerEvaluationPage extends React.Component {
                                 className="button"
                                 id="button-goOn-answerEvaluationPage"
                                 value="Weiter"
-                                // href=""
-                                >
+                                href="/teacher/winnerAnimation">
                             </Button>
                         </Col>
                     </Row>
@@ -50,9 +90,9 @@ class t_AnswerEvaluationPage extends React.Component {
                         </Col>
                     <Row>
                         <Col md={{span: 8, offset: 3}}>
-                            <Field idField="evaluation">
+                            {/* <Field idField="evaluation"> */}
                                 {/* Hier */}
-                                <div className="evaluation-diagramm"
+                                {/* <div className="evaluation-diagramm"
                                     id="evaluation-diagramm-A">
                                     <Text
                                         id="evaluation-number"
@@ -62,8 +102,8 @@ class t_AnswerEvaluationPage extends React.Component {
                                         id="evaluation-letter"
                                         value="A">
                                     </Text>
-                                </div>
-                                <div className="evaluation-diagramm"
+                                </div> */}
+                                {/* <div className="evaluation-diagramm"
                                     id="evaluation-diagramm-B">
                                     <Text
                                         id="evaluation-number"
@@ -73,8 +113,8 @@ class t_AnswerEvaluationPage extends React.Component {
                                         id="evaluation-letter"
                                         value="B">
                                     </Text>
-                                </div>
-                                <div className="evaluation-diagramm"
+                                </div> */}
+                                {/* <div className="evaluation-diagramm"
                                     id="evaluation-diagramm-C">
                                     <Text
                                         id="evaluation-number"
@@ -84,8 +124,8 @@ class t_AnswerEvaluationPage extends React.Component {
                                         id="evaluation-letter"
                                         value="C">
                                     </Text>
-                                </div>
-                                <div className="evaluation-diagramm"
+                                </div> */}
+                                {/* <div className="evaluation-diagramm"
                                     id="evaluation-diagramm-D">
                                     <Text
                                         id="evaluation-number"
@@ -95,8 +135,13 @@ class t_AnswerEvaluationPage extends React.Component {
                                         id="evaluation-letter-D"
                                         value="D">
                                     </Text>
-                                </div>
-                            </Field>
+                                </div> */}
+                            {/* </Field> */}
+                            <Bar
+                                id="barchart"
+                                options={options}
+                                data={data}>
+                            </Bar>
                         </Col>
                     </Row>
                     <Row>

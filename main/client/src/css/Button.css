@@ -129,6 +129,18 @@
     border: 2px solid #ffffff;
 }
 
+#button-goBack-winnerAnimationPage
+{
+    height: 1.75em;
+    margin-top: .75em;
+    float: right;
+    margin-right: .25em;
+}
+#button-goBack-winnerAnimationPage:hover
+{
+    border: 2px solid #ffffff;
+}
+
 #button-goOn-winnerAnimationPage
 {
     height: 1.75em;
@@ -162,10 +174,14 @@
     border: 2px solid #ffffff;
 }
 
-#button-exit-hoothootEndcard
+#link-button-exit-hoothootEndcard /*Position berichtigen*/
+{
+    padding-left: 8.4em;
+    width: 9em;
+}
+#button-exit-hoothootEndcard /*Position berichtigen*/
 {
     width: 9em;
-    margin-top: 0em;
 }
 #button-exit-hoothootEndcard:hover
 {
