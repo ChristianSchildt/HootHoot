@@ -90,7 +90,7 @@ class t_HomeMenuPage extends React.Component {
     
     async fetchUserData() {
         try {
-          const res = await fetch("http://localhost:5000/dashboard/userdata/", {
+          const res = await fetch("http://localhost:5000/userdata/", {
             method: "GET",
             headers: { jwt_token: localStorage.token },
           });  
