@@ -73,7 +73,6 @@ const t_RegistrationPage = ({ setAuth }) => {
                         <InputField
                             ref={inputEmail}
                             className="inputField"
-                            type="password"
                             placeholder="E-Mail Adresse eingeben...">
                         </InputField>
                     </Col>
