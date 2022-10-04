@@ -4,7 +4,6 @@ const pool = require("../db");
 
 
 router.get("/userdata", authorize, async (req, res) => {
-  console.log("userdata requested")
   try {
     // TODO: remove password before returning
     const user = await pool.query(

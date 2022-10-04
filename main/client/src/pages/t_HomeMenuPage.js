@@ -70,7 +70,7 @@ class t_HomeMenuPage extends React.Component {
     }
     
     componentDidMount() {
-        this.fetchUserData.bind(this)();
+        this.fetchUserData();
     }
 
     openPopup(idPopup) {
@@ -96,10 +96,7 @@ class t_HomeMenuPage extends React.Component {
           });  
 
           const parseData = await res.json()
-          console.log(parseData)
-          
           this.setState({userdata: parseData[0]})
-          console.log(this.state.userdata.user_name)
 
           return parseData;
         } catch (err) {
