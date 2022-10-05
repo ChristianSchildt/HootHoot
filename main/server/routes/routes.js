@@ -18,6 +18,22 @@ router.get("/userdata", authorize, async (req, res) => {
   }
 });
 
+router.put("/userdata", authorize, async (req, res) => {
+  try {
+    const data = req.body;
+
+    if (data.user_name) {
+      await pool.query(
+        "UPDATE users SET user_name = $1 WHERE user_id = $2",
+        [data.user_name, req.user.id]
+      )
+    }
+  } catch (err) {
+    console.error(err.message);
+  }
+});
+
+
 //all todos and name
 router.get("/", authorize, async (req, res) => {
   try {

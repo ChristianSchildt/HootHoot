@@ -67,6 +67,7 @@ class t_HomeMenuPage extends React.Component {
                 }
             ]
         };
+        this.inputFieldEditUserName = React.createRef();
     }
     
     componentDidMount() {
@@ -84,7 +85,11 @@ class t_HomeMenuPage extends React.Component {
     }
 
     profilAenderungenSpeichern() {
-        alert('Aenderungen würden an dieser Stelle gespeichert werden!')
+        const valuesToApply = {
+            user_name: this.inputFieldEditUserName.current.getValue()
+        }
+        this.setState({userdata: valuesToApply})
+        this.updateUserData(valuesToApply)
         this.closePopup("popup-profile")
     }
     
@@ -99,6 +104,22 @@ class t_HomeMenuPage extends React.Component {
           this.setState({userdata: parseData[0]})
 
           return parseData;
+        } catch (err) {
+          console.error(err.message);
+        }
+      };
+
+    async updateUserData(data) {
+        try {
+          const myHeaders = new Headers();
+          myHeaders.append("Content-Type", "application/json");
+          myHeaders.append("jwt_token", localStorage.token);
+    
+          await fetch(`http://localhost:5000/userdata/`, {
+            method: "PUT",
+            headers: myHeaders, 
+            body: JSON.stringify(data),
+          });
         } catch (err) {
           console.error(err.message);
         }
@@ -178,8 +199,9 @@ class t_HomeMenuPage extends React.Component {
                         <Row>
                             <Col>
                                 <InputField 
+                                    ref={this.inputFieldEditUserName}
                                     className="inputField-popup"
-                                    defaultValue="Köhn">
+                                    defaultValue={this.state.userdata.user_name}>
                                 </InputField>    
                             </Col>
                         </Row>
