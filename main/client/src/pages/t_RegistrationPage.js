@@ -35,11 +35,9 @@ const t_RegistrationPage = ({ setAuth }) => {
             const parseRes = await response.json();
             if (parseRes.jwtToken) {
                 localStorage.setItem("token", parseRes.jwtToken);
-                //setAuth(true);
                 toast.success("Registered Successfully");
                 window.location.href = "/teacher";          
             } else {
-                //setAuth(false);
                 toast.error(parseRes);
             }
         } catch (err) {

@@ -5,9 +5,8 @@ const pool = require("../db");
 
 router.get("/userdata", authorize, async (req, res) => {
   try {
-    // TODO: remove password before returning
     const user = await pool.query(
-      "SELECT * FROM users WHERE user_id = $1",
+      "SELECT user_name, user_email FROM users WHERE user_id = $1",
       [req.user.id]
     );
 
@@ -25,6 +24,12 @@ router.put("/userdata", authorize, async (req, res) => {
     if (data.user_name) {
       await pool.query(
         "UPDATE users SET user_name = $1 WHERE user_id = $2",
+        [data.user_name, req.user.id]
+      )
+    }
+    if (data.user_email) {
+      await pool.query(
+        "UPDATE users SET user_email = $1 WHERE user_id = $2",
         [data.user_name, req.user.id]
       )
     }

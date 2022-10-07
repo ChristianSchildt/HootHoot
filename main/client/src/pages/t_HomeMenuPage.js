@@ -107,7 +107,7 @@ class t_HomeMenuPage extends React.Component {
         } catch (err) {
           console.error(err.message);
         }
-      };
+    };
 
     async updateUserData(data) {
         try {
@@ -123,7 +123,7 @@ class t_HomeMenuPage extends React.Component {
         } catch (err) {
           console.error(err.message);
         }
-      };
+    };
 
     render(){
 
