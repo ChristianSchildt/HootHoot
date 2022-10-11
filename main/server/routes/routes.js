@@ -33,6 +33,14 @@ router.put("/userdata", authorize, async (req, res) => {
         [data.user_name, req.user.id]
       )
     }
+    if (data.user_password) { 
+      const salt = await bcrypt.genSalt(10);
+      const bcryptPassword = await bcrypt.hash(password, salt);
+      await pool.query(
+        "UPDATE users SET user_password = $1 WHERE user_id = $2",
+        [bcryptPassword, req.user.id]
+      )
+    }
   } catch (err) {
     console.error(err.message);
   }

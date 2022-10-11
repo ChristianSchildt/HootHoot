@@ -13,6 +13,7 @@ import Popup from '../components/Popup';
 import InputField from '../components/InputField';
 import Button from '../components/Button';
 import Imagebutton from '../components/Imagebutton';
+import { toast } from 'react-toastify';
 
 class t_HomeMenuPage extends React.Component {
     
@@ -68,6 +69,8 @@ class t_HomeMenuPage extends React.Component {
             ]
         };
         this.inputFieldEditUserName = React.createRef();
+        this.inputFieldPasswor1 = React.createRef();
+        this.inputFieldPasswor2 = React.createRef();
     }
     
     componentDidMount() {
@@ -88,6 +91,16 @@ class t_HomeMenuPage extends React.Component {
         const valuesToApply = {
             user_name: this.inputFieldEditUserName.current.getValue()
         }
+
+        const password = this.inputFieldPasswor1.current.getValue()
+        if (password) {
+            if (pw === this.inputFieldPasswor2.current.getValue()) {
+                valuesToApply.user_password = password;
+            } else {
+                toast.error("Die Passwörter stimmen nicht überein")
+            }
+        }
+        
         this.setState({userdata: valuesToApply})
         this.updateUserData(valuesToApply)
         this.closePopup("popup-profile")
@@ -208,6 +221,7 @@ class t_HomeMenuPage extends React.Component {
                         <Row>
                             <Col>
                                 <InputField 
+                                    ref={this.inputFieldPasswor1}
                                     className="inputField-popup"
                                     type="password"
                                     placeholder="neues Passwort eingeben">
@@ -217,6 +231,7 @@ class t_HomeMenuPage extends React.Component {
                         <Row>
                             <Col>
                                 <InputField 
+                                    ref={this.inputFieldPasswor2}
                                     className="inputField-popup"
                                     type="password"
                                     placeholder="Passwort bestätigen">
