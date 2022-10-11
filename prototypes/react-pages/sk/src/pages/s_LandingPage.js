@@ -25,7 +25,7 @@ function s_LandingPage(){
             <Row>
                 <Col>
                     <InputField
-                        placeholder="Spiel-Pin eintippen ...">
+                        placeholder="Spiel-Pin eintippen...">
                     </InputField>
                 </Col>
             </Row>

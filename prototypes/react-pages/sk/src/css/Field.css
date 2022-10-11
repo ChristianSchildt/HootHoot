@@ -6,6 +6,7 @@
     color: white;
     margin-bottom: 10px;
     overflow-y: scroll;
+
 }
 
 .field:hover
@@ -27,7 +28,7 @@
    overflow: hidden;
   }
   
-  ::-webkit-scrollbar-thumb{
+::-webkit-scrollbar-thumb{
     padding-top: 20px;
     background-color: #334d57;
     border-radius: 10px;

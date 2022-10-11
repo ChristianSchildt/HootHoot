@@ -1,0 +1,9 @@
+.Question{
+    border: 0.5px solid #476D7C;
+    border-radius: 10px;
+    width: 65vw;
+    margin: auto;
+    margin-bottom: 1%;
+    margin-top: 1%;
+    color: white;
+}
