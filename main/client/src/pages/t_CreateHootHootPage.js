@@ -19,9 +19,13 @@ class t_CreateHootHootPage extends React.Component {
         this.state = {
             image: 0,
             imageData: 0,
+            textareaA: null,
+            textareaB: null,
+            textareaC: null,
+            textareaD: null,
             selectTyp: "quiz",
             selectTimelimit: 10,
-            selectPoints: null,
+            selectPoints: "standard",
             selectAnswerOptions: "einzelauswahl",
             courses : {
                 "couseId": 0,
@@ -68,10 +72,11 @@ class t_CreateHootHootPage extends React.Component {
         this.inputCoursename = React.createRef(null);
         //bisheriger Kurs
         this.inputQuestionname = React.createRef(null);
-        this.inputAnswernameA = React.createRef(null);
-        this.inputAnswernameB = React.createRef(null);
-        this.inputAnswernameC = React.createRef(null);
-        this.inputAnswernameD = React.createRef(null);
+        
+        this.handleTextareaAChange = this.handleTextareaAChange.bind(this);
+        this.handleTextareaBChange = this.handleTextareaBChange.bind(this);
+        this.handleTextareaCChange = this.handleTextareaCChange.bind(this);
+        this.handleTextareaDChange = this.handleTextareaDChange.bind(this);
         //Acorrect
         //Bcorrect
         //Ccorrect
@@ -157,8 +162,6 @@ class t_CreateHootHootPage extends React.Component {
 
     })}
 
-    // TODO:
-    //Funktioniert noch nicht
     selectQuestion(questionId) {
         this.setState({selectedQuestionIndex: questionId})
     }
@@ -181,10 +184,10 @@ class t_CreateHootHootPage extends React.Component {
             "answers": [
                 {id: this.state.selectedQuestionIndex,
                 "answerOptions": this.state.selectAnswerOptions, //Hier richtig oder zu questions?
-                "answersArray": [this.inputAnswernameA.current.getValue(),
-                                this.inputAnswernameB.current.getValue(), 
-                                this.inputAnswernameC.current.getValue(), 
-                                this.inputAnswernameD.current.getValue()],
+                "answersArray": [this.state.textareaA || this.state.courses.answers[this.state.selectedQuestionIndex].answersArray[0],
+                                this.state.textareaB || this.state.courses.answers[this.state.selectedQuestionIndex].answersArray[1], 
+                                this.state.textareaC || this.state.courses.answers[this.state.selectedQuestionIndex].answersArray[2], 
+                                this.state.textareaD || this.state.courses.answers[this.state.selectedQuestionIndex].answersArray[3]],
                 "isCorrectA": this.state.courses.answers[this.state.selectedQuestionIndex].isCorrectA,
                 "isCorrectB": this.state.courses.answers[this.state.selectedQuestionIndex].isCorrectB,
                 "isCorrectC": this.state.courses.answers[this.state.selectedQuestionIndex].isCorrectC,
@@ -192,6 +195,22 @@ class t_CreateHootHootPage extends React.Component {
             ]
         }
         console.log(course)
+    }
+
+    handleTextareaAChange(changeText) {
+        this.setState({textareaA: changeText})
+    }
+
+    handleTextareaBChange(changeText) {
+        this.setState({textareaB: changeText})
+    }
+
+    handleTextareaCChange(changeText) {
+        this.setState({textareaC: changeText})
+    }
+
+    handleTextareaDChange(changeText) {
+        this.setState({textareaD: changeText})
     }
 
     handleChangeTyp(event) {
@@ -329,8 +348,8 @@ class t_CreateHootHootPage extends React.Component {
                                         placeholderInputField="Antwort eintippen ..."
                                         classNameTextarea="create-answer-textarea"
                                         placeholderTextarea="Antwort eintippen ..."
-                                        valueTextarea={this.state.courses.answers[this.state.selectedQuestionIndex].answersArray[0]}
-                                        // ref={this.inputAnswernameA}
+                                        valueTextarea={this.state.textareaA || this.state.courses.answers[this.state.selectedQuestionIndex].answersArray[0]}
+                                        onTextareaChange={this.handleTextareaAChange}
                                         classNameImagebuttonCheckbox="create-answer-checkbox"
                                         idImagebuttonCheckbox="answer-checkbox-A"
                                         srcImagebuttonCheckbox= {this.state.courses.answers[this.state.selectedQuestionIndex].isCorrectA}
@@ -350,8 +369,8 @@ class t_CreateHootHootPage extends React.Component {
                                         placeholderInputField="Antwort eintippen ..."
                                         classNameTextarea="create-answer-textarea"
                                         placeholderTextarea="Antwort eintippen ..."
-                                        valueTextarea={this.state.courses.answers[this.state.selectedQuestionIndex].answersArray[1]}
-                                        // ref={this.inputAnswernameB}
+                                        valueTextarea={this.state.textareaB || this.state.courses.answers[this.state.selectedQuestionIndex].answersArray[1]}
+                                        onTextareaChange={this.handleTextareaBChange}
                                         classNameImagebuttonCheckbox="create-answer-checkbox"
                                         idImagebuttonCheckbox="answer-checkbox-B"
                                         srcImagebuttonCheckbox= {this.state.courses.answers[this.state.selectedQuestionIndex].isCorrectB}
@@ -373,8 +392,8 @@ class t_CreateHootHootPage extends React.Component {
                                         placeholderInputField="Antwort eintippen ..."
                                         classNameTextarea="create-answer-textarea"
                                         placeholderTextarea="Antwort eintippen ..."
-                                        valueTextarea={this.state.courses.answers[this.state.selectedQuestionIndex].answersArray[2]}
-                                        // ref={this.inputAnswernameC}
+                                        valueTextarea={this.state.textareaC || this.state.courses.answers[this.state.selectedQuestionIndex].answersArray[2]}
+                                        onTextareaChange={this.handleTextareaCChange}
                                         classNameImagebuttonCheckbox="create-answer-checkbox"
                                         idImagebuttonCheckbox="answer-checkbox-C"
                                         srcImagebuttonCheckbox= {this.state.courses.answers[this.state.selectedQuestionIndex].isCorrectC}
@@ -394,9 +413,8 @@ class t_CreateHootHootPage extends React.Component {
                                         placeholderInputField="Antwort eintippen ..."
                                         classNameTextarea="create-answer-textarea"
                                         placeholderTextarea="Antwort eintippen ..."
-                                        valueTextarea={this.state.courses.answers[this.state.selectedQuestionIndex].answersArray[3]}
-                                        // ref={this.inputAnswernameD}
-                                        onChangeTextarea={this.handleTextareaChange}
+                                        valueTextarea={this.state.textareaD || this.state.courses.answers[this.state.selectedQuestionIndex].answersArray[3]}
+                                        onTextareaChange={this.handleTextareaDChange}
                                         classNameImagebuttonCheckbox="create-answer-checkbox"
                                         idImagebuttonCheckbox="answer-checkbox-D"
                                         srcImagebuttonCheckbox= {this.state.courses.answers[this.state.selectedQuestionIndex].isCorrectD}
