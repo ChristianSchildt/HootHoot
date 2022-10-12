@@ -5,9 +5,9 @@ import Col from 'react-bootstrap/Col';
 import Text from '../components/Text';
 import Picture from '../components/Picture';
 import MenuNavigation from '../components/MenuNavigation';
-import CreateTile from '../components/CreateTile';
 import Field from '../components/Field';
-import CourseTile from '../components/CourseTile';
+import LibraryTile from '../components/LibraryTile';
+import InputField from '../components/InputField';
 
 
 class t_LibraryMenuPage extends React.Component {
@@ -37,6 +37,28 @@ class t_LibraryMenuPage extends React.Component {
                     "kalenderwoche": ['kw1']
                 }
                 
+            ],
+            hoothoots: [
+                {   
+                    "id": 1,
+                    "name": "Wie gefällt ihnen die Präsentation?",
+                    "kalenderwoche": ['kw1', 'kw2']
+                },
+                {
+                    "id": 2,
+                    "name": 'Dummy2?',
+                    "kalenderwoche": ['kw1', 'kw2']
+                },
+                {
+                    "id": 3,
+                    "name": 'Dummy3?',
+                    "kalenderwoche": ['kw1']
+                },
+                {
+                    "id": 4,
+                    "name": 'Dummy4?',
+                    "kalenderwoche": ['kw1']
+                }               
             ]
         };
     }  
@@ -59,10 +81,7 @@ class t_LibraryMenuPage extends React.Component {
                         </Col>
 
                         <Col md={7}>
-                            <MenuNavigation 
-                                className="menu-navigation"
-                                id2="mark-library"
-                            />
+                            <MenuNavigation className="menu-navigation"/>
                         </Col>
                         <Col md={{ span: 2, offset: 1}}>
                             <Text
@@ -80,21 +99,27 @@ class t_LibraryMenuPage extends React.Component {
                         <Col>
                             <Field classNameField="field"
                                 classNameTitle="field-title"
-                                valueTitle="Neuigkeiten">
+                                valueTitle="Kurse">
+                                <InputField
+                                className="inputField"
+                                placeholder="Suche Kurs..."/>                               
+
                                 {this.state.courses.map((course) => (  
-                                    <CourseTile key={course.id.toString()} classNameCoursetext="coursetext" valuetext={course.name} /> 
+                                    <LibraryTile key={course.id.toString()} classNameLibrarytext="librarytext" valuetext={course.name} /> 
                                 ))}
                             </Field>
                         </Col>
                         <Col>
                             <Field classNameField="field"
                                 classNameTitle="field-title"
-                                valueTitle="Kurs erstellen">
-                                
+                                valueTitle="HootHoots">
+                                <InputField
+                                className="inputField"
+                                placeholder="Suche HootHoot..."/>
+                                {this.state.hoothoots.map((hoothoot) => (  
+                                    <LibraryTile key={hoothoot.id.toString()} classNameLibrarytext="librarytext" valuetext={hoothoot.name} /> 
+                                ))}
                             </Field>
-                            <CreateTile
-                                className="createTile">
-                            </CreateTile>
                         </Col>
                     </Row>
                 </Container>

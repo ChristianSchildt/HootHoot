@@ -209,3 +209,42 @@
     margin-top: 1.5em;
     padding-top: 5em;
 }
+
+#button_switchansicht{
+    float: right;
+    width: auto;
+    margin-top: 1%;
+}
+
+#button-answerad{
+    background-color: #476D7C;
+    height: 25vh;
+    width: 25vw;
+    margin: 5px 5px 5px 5px;
+}
+#button-answerbc{
+    height: 25vh;
+    width: 25vw;
+    margin: 5px 5px 5px 5px;
+}
+#button-detail-answerad{
+    background-color: #476D7C;
+    height: 10vh;
+    width: 40vw;
+    margin: 5px 5px 5px 5px;
+}
+#button-detail-answerbc{
+    height: 10vh;
+    width: 40vw;
+    margin: 5px 5px 5px 5px;
+}
+
+#button_answermin{
+    margin: 1% 1% 1% 1%;
+}
+
+#winnerButton{
+    margin-left: 42vw; 
+    width: auto;
+    margin-top: 5vh;
+}
