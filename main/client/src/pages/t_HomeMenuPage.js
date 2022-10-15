@@ -94,7 +94,7 @@ class t_HomeMenuPage extends React.Component {
 
         const password = this.inputFieldPasswor1.current.getValue()
         if (password) {
-            if (pw === this.inputFieldPasswor2.current.getValue()) {
+            if (password === this.inputFieldPasswor2.current.getValue()) {
                 valuesToApply.user_password = password;
             } else {
                 toast.error("Die Passwörter stimmen nicht überein")
