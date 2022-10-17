@@ -159,6 +159,7 @@ class t_CreateHootHootPage extends React.Component {
             isCorrectD: "/images/checkbox_unpressed.jpg"}
         this.state.courses.answers.push(answer)
 
+        this.setState({courses:  this.state.courses})        
         alert("Fragenanzahl: "+this.state.courses.questions.length+"\nAntwortenanzahl: "+this.state.courses.answers.length)
         console.log(this.state.courses)
         this.loadQuestionView(this.state.courses.questions)
