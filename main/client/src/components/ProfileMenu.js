@@ -8,6 +8,7 @@ import Imagebutton from '../components/Imagebutton';
 import Text from '../components/Text';
 import Field from '../components/Field';
 import { toast } from 'react-toastify';
+import FileInput from './FileInput';
 
 class ProfileMenu extends React.Component {
   
@@ -35,9 +36,21 @@ class ProfileMenu extends React.Component {
         document.getElementById(idPopup).classList.remove("sichtbar");
     }
 
+    fileSelectedHandler(event) {
+        if(event.target.files[0])
+        {
+          const reader = new FileReader();
+          reader.addEventListener("load", () => {
+            this.setState({userdata: {user_image: reader.result}})
+          });
+          reader.readAsDataURL(event.target.files[0]);
+        }
+      }
+
     profilAenderungenSpeichern() {
         const valuesToApply = {
-            user_name: this.inputFieldEditUserName.current.getValue()
+            user_name: this.inputFieldEditUserName.current.getValue(),
+            user_image: this.state.userdata.user_image
         }
 
         const password = this.inputFieldPasswor1.current.getValue()
@@ -63,7 +76,6 @@ class ProfileMenu extends React.Component {
 
           const parseData = await res.json()
           this.setState({userdata: parseData[0]})
-
           return parseData;
         } catch (err) {
           console.error(err.message);
@@ -95,7 +107,7 @@ class ProfileMenu extends React.Component {
                 </Text>
                 <Imagebutton
                     id="profilepicture"
-                    src="/images/profilbild.jpg"
+                    src={this.state.userdata.user_image || "/images/profilbild.jpg"}
                     alt="Platzhalter Profilbild"
                     onClick={() => this.openPopup("popup-profile")}>
                 </Imagebutton>
@@ -135,6 +147,13 @@ class ProfileMenu extends React.Component {
                                     placeholder="Passwort bestätigen">
                                 </InputField>    
                             </Col>
+                        </Row>
+                        <Row>
+                            <FileInput
+                                inputId="fileInputProfilbildInsert"
+                                labelValue="Profilbild auswählen"
+                                inputOnChange={(event) => this.fileSelectedHandler(event)}>  
+                            </FileInput>
                         </Row>
                         <Row>
                             <Col>

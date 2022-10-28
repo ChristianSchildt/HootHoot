@@ -19,6 +19,7 @@ CREATE TABLE users
 	user_name text NOT NULL,
 	user_password text NOT NULL,
 	user_email text NOT NULL UNIQUE 
+	user_image MEDIUMTEXT DEFAULT NULL,
 ); 
 
 CREATE TABLE role 
