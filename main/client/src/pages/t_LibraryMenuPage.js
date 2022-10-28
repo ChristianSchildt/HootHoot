@@ -8,7 +8,7 @@ import MenuNavigation from '../components/MenuNavigation';
 import Field from '../components/Field';
 import LibraryTile from '../components/LibraryTile';
 import InputField from '../components/InputField';
-
+import ProfileMenu from '../components/ProfileMenu';
 
 class t_LibraryMenuPage extends React.Component {
     
@@ -84,15 +84,7 @@ class t_LibraryMenuPage extends React.Component {
                             <MenuNavigation className="menu-navigation"/>
                         </Col>
                         <Col md={{ span: 2, offset: 1}}>
-                            <Text
-                                id="text-welcome-teacher"
-                                value="Guten Tag, Herr Köhn">
-                            </Text>
-                            <Picture
-                                id="profilepicture"
-                                src="/images/profilbild.jpg"
-                                alt="Platzhalter Profilbild">
-                            </Picture>
+                            <ProfileMenu/>
                         </Col>
                     </Row>
                     <Row>
