@@ -12,17 +12,18 @@ import io from 'socket.io-client';
 
 class s_AnswerSelectionPage_Minimalist extends React.Component {
     socket = io('localhost:5000')
-
     constructor(props) {
-        super(props);
-
-
+        super(props)
     }
 
     componentDidMount() {
         this.socket.on('connect', () => {
             console.log("connected")
         });
+    }
+
+    sendAnswer(answer) {
+        this.socket.emit("answer", answer)
     }
 
     render() {
@@ -56,13 +57,13 @@ class s_AnswerSelectionPage_Minimalist extends React.Component {
                             className="button"
                             id="button-answerad"
                             value="A"
-                            href="">
+                            onClick={() => this.sendAnswer('A')}>
                         </Button>
                         <Button
                             className="button"
                             id="button-answerbc"
                             value="B"
-                            href="">
+                            onClick={() => this.sendAnswer('B')}>
                         </Button>
                     </Col>
                 </Row>
@@ -72,13 +73,13 @@ class s_AnswerSelectionPage_Minimalist extends React.Component {
                             className="button"
                             id="button-answerbc"
                             value="C"
-                            href="">
+                            onClick={() => this.sendAnswer('C')}>
                         </Button>
                         <Button
                             className="button"
                             id="button-answerad"
                             value="D"
-                            href="">
+                            onClick={() => this.sendAnswer('D')}>
                         </Button>
                     </Col>
                 </Row>

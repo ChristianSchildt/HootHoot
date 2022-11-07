@@ -25,11 +25,17 @@ app.use("/authentication", require("./routes/jwtAuth"));
 app.use("/", require("./routes/routes"));
 
 io.on('connection', (socket) => {
-  console.log('a user connected');
+  console.log("user " + socket.id + " connected");
+
   socket.on('disconnect', () => {
-    console.log('user disconnected');
+    console.log("user " + socket.id + " disconnected");
+  });
+
+  socket.on('answer', (answer) => {
+    console.log("user " + socket.id + " selected answer " + answer);
   });
 });
+
 
 httpServer.listen(5000, () => {
   console.log(`Server is starting on port 5000`);
