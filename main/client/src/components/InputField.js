@@ -6,8 +6,15 @@ class InputField extends React.Component{
     
     constructor(props) {
         super(props);
-        this.state = {value: ''};
+        this.state = {value: ""}
         this.inputRef = React.createRef();
+        this.handleInputfieldChange = this.handleInputfieldChange.bind(this)
+    }
+
+    handleInputfieldChange(e) {
+        if(this.props.onChange) {
+            this.props.onChange(e.target.value)
+        }
     }
 
     render(){
@@ -19,7 +26,7 @@ class InputField extends React.Component{
                 className={this.props.className}
                 defaultValue={this.props.defaultValue}
                 placeholder={this.props.placeholder}
-                onChange={(event) => this.setState({value: event.target.value})}
+                onChange={this.handleInputfieldChange}
                 onKeyDown={this.props.onKeyDown}
                 readOnly={this.props.readOnly}
             />
