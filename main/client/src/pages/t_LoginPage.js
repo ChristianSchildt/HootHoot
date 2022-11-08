@@ -18,7 +18,7 @@ const t_LoginPage = ({ setAuth }) =>  {
 
         e.preventDefault();
         try {
-          const body = { email: inputEmail.current.state.value, password: inputPassword.current.state.value };
+          const body = { email: inputEmail.current.getValue(), password: inputPassword.current.getValue() };
           const response = await fetch(
             "http://localhost:5000/authentication/login",
             {

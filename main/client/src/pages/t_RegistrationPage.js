@@ -20,9 +20,9 @@ const t_RegistrationPage = ({ setAuth }) => {
         e.preventDefault();
         try {
             let body = {
-                email: inputEmail.current.state.value,
-                password: inputPassword1.current.state.value,
-                name: inputName.current.state.value
+                email: inputEmail.current.getValue(),
+                password: inputPassword1.current.getValue(),
+                name: inputName.current.getValue()
             };
             const response = await fetch("http://localhost:5000/authentication/register",
             {
