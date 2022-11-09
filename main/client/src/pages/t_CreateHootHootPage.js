@@ -11,6 +11,7 @@ import CreateAnswer from '../components/CreateAnswer';
 import QuestionView from '../components/QuestionView';
 import QuestionOption from '../components/QuestionOption';
 import FileInput from '../components/FileInput';
+import cloneDeep from 'lodash/cloneDeep';
 
 class t_CreateHootHootPage extends React.Component {
     
@@ -214,18 +215,32 @@ class t_CreateHootHootPage extends React.Component {
         console.log(this.state.courses)
     }
 
-    //TODO:
-    //Funktioniert noch nicht
     duplicateQuestion(questionId) {
-        
-        this.setState({})
+        let questionCopyDeep = cloneDeep(this.state.courses[this.state.selectedCourseIndex].questions[questionId])
+        let answersCopyDeep = cloneDeep(this.state.courses[this.state.selectedCourseIndex].answers[questionId])
+        this.state.courses[this.state.selectedCourseIndex].questions.splice(questionId+1, 0, questionCopyDeep)
+        this.state.courses[this.state.selectedCourseIndex].answers.splice(questionId+1, 0, answersCopyDeep)
+
+        for (let i = 0; i < this.state.courses[this.state.selectedCourseIndex].questions.length; i++) {
+            this.state.courses[this.state.selectedCourseIndex].questions[i].id = i
+            this.state.courses[this.state.selectedCourseIndex].answers[i].id = i
+        }
+
+        this.setState({courses: this.state.courses})
     }
 
     // TODO:
     //Funktioniert noch nicht
     deleteQuestion(questionId) {
-        //bestimmte Question in Datenbank löschen und Daten ziehen
-        this.setState({})
+        this.state.courses[this.state.selectedCourseIndex].questions.splice(questionId, 1)
+        this.state.courses[this.state.selectedCourseIndex].answers.splice(questionId, 1)
+
+        for (let i = 0; i < this.state.courses[this.state.selectedCourseIndex].questions.length; i++) {
+            this.state.courses[this.state.selectedCourseIndex].questions[i].id = i
+            this.state.courses[this.state.selectedCourseIndex].answers[i].id = i
+        }
+        
+        this.setState({courses: this.state.courses})
     }
 
     selectQuestion(questionId) {
@@ -512,11 +527,11 @@ class t_CreateHootHootPage extends React.Component {
                         classNameImagebuttonDuplicate="question-view-duplicate"
                         srcImagebuttonDuplicate="/images/duplicate.jpg"
                         altImagebuttonDuplicate="duplicateButton"
-                        onClickImagebuttonDuplicate={() => alert('Frage soll dupliziert werden')}
+                        onClickImagebuttonDuplicate={() => this.duplicateQuestion(question.id)}
                         classNameImagebuttonDelete="question-view-delete"
                         srcImagebuttonDelete="/images/delete.jpg"
                         altImagebuttonDelete="deleteButton"
-                        onClickImagebuttonDelete={() => alert('Frage soll gelöscht werden')}
+                        onClickImagebuttonDelete={() => this.deleteQuestion(question.id)}
                         classNameText="question-overview-text" 
                         valueText={question.name}
                         classNameQuestionSelectionButton="question-selection-button"

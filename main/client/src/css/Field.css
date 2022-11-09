@@ -50,6 +50,18 @@
     min-width: 15em;
     height: 87vh;
     min-height: 49.4em;
+    overflow-y: scroll;
+}
+::-webkit-scrollbar
+{
+    overflow: hidden;
+    width: 14px;
+}
+::-webkit-scrollbar-thumb
+{
+    padding-top: 20px;
+    background-color: #334d57;
+    border-radius: 10px;
 }
 
 #media-input
