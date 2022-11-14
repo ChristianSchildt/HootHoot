@@ -24,6 +24,26 @@ app.use(express.urlencoded({limit: '1mb'}));
 app.use("/authentication", require("./routes/jwtAuth"));
 app.use("/", require("./routes/routes"));
 
+httpServer.listen(5000, () => {
+  console.log(`Server is starting on port 5000`);
+});
+
+
+
+let gameSessions = {
+  "12456": {
+    playersNames: {
+      "HwXUT_CNQM12vlclAAAB": "Dummy Player"
+    },
+    answers: {
+      "HwXUT_CNQM12vlclAAAB": "D"
+    }
+  }
+};
+let playerGameSessionMap = {
+  "HwXUT_CNQM12vlclAAAB": "12456"
+};
+
 io.on('connection', (socket) => {
   console.log("user " + socket.id + " connected");
 
@@ -31,12 +51,19 @@ io.on('connection', (socket) => {
     console.log("user " + socket.id + " disconnected");
   });
 
+  socket.on('player-join', args => {
+    var gameSession = gameSessions[args.gamepin]
+    if (!gameSession) {
+      console.log("invalid game pin")
+      return;
+    }
+    playerGameSessionMap[[socket.id]] = args.pin
+    gameSession.playerNames[socket.id] = args.name
+    console.log("player " + args.name + " joined");
+  })
+
   socket.on('answer', (answer) => {
+    gameSession.playerNames[socket.id] = args.name
     console.log("user " + socket.id + " selected answer " + answer);
   });
-});
-
-
-httpServer.listen(5000, () => {
-  console.log(`Server is starting on port 5000`);
 });
