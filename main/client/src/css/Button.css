@@ -248,3 +248,12 @@
     width: auto;
     margin-top: 5vh;
 }
+
+#button-create-course
+{
+    margin-top: 3em;
+}
+#button-create-course:hover
+{
+    border: 3px solid #ffffff;
+}

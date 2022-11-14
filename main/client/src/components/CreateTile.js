@@ -35,7 +35,7 @@ class CreateTile extends React.Component {
                             className="symbol-add"
                             src="/images/add.png"
                             alt="Plus"
-                            href="">
+                            href="/teacher/createCourse">
                         </Picture>
 
                         </Col>

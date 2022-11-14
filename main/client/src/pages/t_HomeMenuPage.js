@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -12,118 +12,114 @@ import NewsTile from '../components/NewsTile';
 import ProfileMenu from '../components/ProfileMenu';
 
 
-class t_HomeMenuPage extends React.Component {
+function t_HomeMenuPage(){
     
-    constructor(props) {
-        super(props);
-        this.state = {
-            courses: [
-                {   
-                    "id": 1,
-                    "name": "Webtechnologien I",
-                    "kalenderwoche": ['kw1', 'kw2']
-                },
-                {
-                    "id": 2,
-                    "name": 'Webtechnologien II',
-                    "kalenderwoche": ['kw1', 'kw2']
-                },
-                {
-                    "id": 3,
-                    "name": 'IT-Sicherheit',
-                    "kalenderwoche": ['kw1']
-                },
-                {
-                    "id": 4,
-                    "name": 'Betriebssysteme',
-                    "kalenderwoche": ['kw1']
-                }
-                ,
-                {
-                    "id": 5,
-                    "name": 'Betriebssysteme',
-                    "kalenderwoche": ['kw1']
-                }
-                ,
-                {
-                    "id": 6,
-                    "name": 'Betriebssysteme',
-                    "kalenderwoche": ['kw1']
-                }
-                ,
-                {
-                    "id": 7,
-                    "name": 'Betriebssysteme',
-                    "kalenderwoche": ['kw1']
-                }
-                ,
-                {
-                    "id": 8,
-                    "name": 'Betriebssysteme',
-                    "kalenderwoche": ['kw1']
-                }
-            ]
-        };
+    const [courses, setCourses] = useState([]);
+
+    async function deleteCourse(id) {
+        try{
+            await fetch(`http://localhost:5000/api/courses/${id}`, {
+                method: "DELETE",
+               });
+            getCourses();
+        }catch(e){
+            console.log(e);
+        }
     }
 
-    render(){
+ /*    const deleteCourse = async () =>{
+        try{
+            await fetch(`http://localhost:5000/api/courses/${id}`, {
+                method: "DELETE",
+               });
+              
+        }catch(e){
+            console.log(e);
+        }
+    }
+ */
+    const getCourses = async () => {
+        try{
+            const response = await fetch('http://localhost:5000/api/courses');
+            const data = await response.json();
+            setCourses(data);
+            console.log(courses);
+        }catch(e){
+            console.log(e);
+        }
+    }
 
-        return(
-            <div className = "tHomeMenuPage">
-                <Container fluid>
-                    <Row>
-                        <Col md={2}>
-                             <Picture
-                                id="logomenue"
-                                src="/images/profil.png"
-                                alt="Platzhalter Profilbild">
-                            </Picture>
-                            <Text
-                                className="projectname-left"
-                                value="HootHoot">
-                            </Text>
-                        </Col>
-                        <Col md={7}>
-                            <MenuNavigation 
-                                className="menu-navigation"
-                                id1="mark-home">
-                            </MenuNavigation>
-                        </Col>
-                        <Col md={{ span: 2, offset: 1}}>
-                            <ProfileMenu/>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col>
-                            <Field classNameField="field"
-                                classNameTitle="field-title"
-                                valueTitle="Neuigkeiten">
-                                <NewsTile classNameNewstext="newstext" valuetext="Willkommen bei HootHoot:)"/>
-                                <NewsTile classNameNewstext="newstext" valuetext="Du hast ein neues HootHoot erstellt!"/>
-                            </Field>
-                        </Col>
-                        <Col>
-                            <Field classNameField="field"
-                                classNameTitle="field-title"
-                                valueTitle="Meine Kurse">
-                                {this.state.courses.map((course) => (  
+    
+    useEffect(() => {
+        getCourses();
+    },[])
+    
+    
+    
+    return(
+        
+        <div className = "tHomeMenuPage">
+            <Container fluid>
+                <Row>
+                    <Col md={2}>
+                            <Picture
+                            id="logomenue"
+                            src="/images/profil.png"
+                            alt="Platzhalter Profilbild">
+                        </Picture>
+                        <Text
+                            className="projectname-left"
+                            value="HootHoot">
+                        </Text>
+                    </Col>
+                    <Col md={7}>
+                        <MenuNavigation 
+                            className="menu-navigation"
+                            id1="mark-home">
+                        </MenuNavigation>
+                    </Col>
+                    <Col md={{ span: 2, offset: 1}}>
+                        <ProfileMenu/>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <Field classNameField="field"
+                            classNameTitle="field-title"
+                            valueTitle="Neuigkeiten">
+                            <NewsTile classNameNewstext="newstext" valuetext="Willkommen bei HootHoot:)"/>
+                            <NewsTile classNameNewstext="newstext" valuetext="Du hast ein neues HootHoot erstellt!"/>
+                        </Field>
+                    </Col>
+                    <Col>
+                        <Field classNameField="field"
+                            classNameTitle="field-title"
+                            valueTitle="Meine Kurse">
+
+                            {courses.map((course) => {
+                                return (
+                                    <div>
+                                         <span onClick={() => deleteCourse(course.id)} style={{marginLeft:"10px", color:"red", cursor:"pointer"}}>x</span>
                                     <CourseTile 
-                                        key={course.id.toString()} 
+                                        
+                                        key={course.id} 
                                         //TODO: Kursbild aus DB einfügen
                                         srcPicture=""
                                         valuetext={course.name}>
                                     </CourseTile>
-                                ))}
-                            </Field>
-                            <CreateTile
-                                className="createTile">
-                            </CreateTile>
-                        </Col>
-                    </Row>
-                </Container>
-            </div>
-       );
-    }
+                                    </div>
+                                );
+                            })}
+                        </Field>
+                        <CreateTile
+                            className="createTile">
+                        </CreateTile>
+                    </Col>
+                </Row>
+            </Container>
+        </div>
+    );
 }
+
 
 export default t_HomeMenuPage;

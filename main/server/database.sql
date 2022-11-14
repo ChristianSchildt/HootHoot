@@ -18,8 +18,8 @@ CREATE TABLE users
 	user_id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
 	user_name text NOT NULL,
 	user_password text NOT NULL,
-	user_email text NOT NULL UNIQUE 
-	user_image text DEFAULT NULL,
+	user_email text NOT NULL UNIQUE, 
+	user_image text DEFAULT NULL
 ); 
 
 CREATE TABLE role 
@@ -48,7 +48,7 @@ CREATE TABLE answer
 
 CREATE TABLE course 
 ( 
-	id integer NOT NULL UNIQUE,
+	id serial UNIQUE,
 	name text
 ); 
 
