@@ -10,7 +10,10 @@ import Field from '../components/Field';
 import CourseTile from '../components/CourseTile';
 import NewsTile from '../components/NewsTile';
 import ProfileMenu from '../components/ProfileMenu';
-
+import Popup from '../components/Popup';
+import Button from '../components/Button';
+import { confirmAlert } from 'react-confirm-alert'; 
+import 'react-confirm-alert/src/react-confirm-alert.css'; 
 
 function t_HomeMenuPage(){
     
@@ -27,17 +30,6 @@ function t_HomeMenuPage(){
         }
     }
 
- /*    const deleteCourse = async () =>{
-        try{
-            await fetch(`http://localhost:5000/api/courses/${id}`, {
-                method: "DELETE",
-               });
-              
-        }catch(e){
-            console.log(e);
-        }
-    }
- */
     const getCourses = async () => {
         try{
             const response = await fetch('http://localhost:5000/api/courses');
@@ -48,14 +40,29 @@ function t_HomeMenuPage(){
             console.log(e);
         }
     }
-
     
     useEffect(() => {
         getCourses();
     },[])
     
-    
-    
+    function submit(id){
+        confirmAlert({
+          title: 'Kurs Löschen',
+          message: 'Soll der Kurs wirklich gelöscht werden?',
+          buttons: [
+            {
+              label: 'Ja',
+              onClick: () => deleteCourse(id)
+            },
+            {
+              label: 'Nein',
+              onClick: () => getCourses()
+            }
+          ]
+        });
+      };
+
+
     return(
         
         <div className = "tHomeMenuPage">
@@ -99,7 +106,7 @@ function t_HomeMenuPage(){
                             {courses.map((course) => {
                                 return (
                                     <div>
-                                         <span onClick={() => deleteCourse(course.id)} style={{marginLeft:"10px", color:"red", cursor:"pointer"}}>x</span>
+                                         <span onClick={() => submit(course.id)} style={{marginLeft:"10px", color:"red", cursor:"pointer"}}>x</span>
                                     <CourseTile 
                                         
                                         key={course.id} 
@@ -107,6 +114,7 @@ function t_HomeMenuPage(){
                                         srcPicture=""
                                         valuetext={course.name}>
                                     </CourseTile>
+                                    
                                     </div>
                                 );
                             })}
