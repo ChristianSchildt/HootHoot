@@ -9,7 +9,6 @@ import THomeMenuPage from './pages/t_HomeMenuPage.js';
 import TLibraryMenuPage from './pages/t_LibraryMenuPage.js';
 import TAnalysesMenuPage from './pages/t_AnalysesMenuPage.js';
 import TGroupsMenuPage from './pages/t_GroupsMenuPage';
-import TCreateCoursePage from './pages/t_CreateCoursePage.js';
 import TCreateHootHootPage from './pages/t_CreateHootHootPage.js';
 import TLetStudentsJoinPage from './pages/t_LetStudentsJoinPage.js';
 import TPlayHootHootPage from './pages/t_PlayHootHootPage.js';
@@ -38,7 +37,6 @@ function App() {
           <Route path="/teacher/libraryMenu" element={<TLibraryMenuPage/>} />
           <Route path="/teacher/analysesMenu" element={<TAnalysesMenuPage/>} />
           <Route path="/teacher/groupsMenu" element={<TGroupsMenuPage/>} />
-          <Route path="/teacher/createCourse" element={<TCreateCoursePage/>} />
           <Route path="/teacher/createHootHoot" element={<TCreateHootHootPage/>} />
           <Route path="/teacher/letStudentsJoin" element={<TLetStudentsJoinPage/>} />
           <Route path="/teacher/playHootHoot" element={<TPlayHootHootPage/>} />

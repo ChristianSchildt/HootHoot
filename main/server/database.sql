@@ -49,7 +49,8 @@ CREATE TABLE answer
 CREATE TABLE course 
 ( 
 	id serial UNIQUE,
-	name text
+	name text,
+	user_id uuid
 ); 
 
 CREATE TABLE media 
@@ -119,5 +120,7 @@ ALTER TABLE user_quiz ADD CONSTRAINT user_quiz_userid_fkey FOREIGN KEY (user_id)
 ALTER TABLE quiz_question ADD CONSTRAINT quiz_question_quizid_fkey FOREIGN KEY (quizid) REFERENCES quiz(id);
 ALTER TABLE quiz_question ADD CONSTRAINT quiz_question_id_fkey FOREIGN KEY (id) REFERENCES question(id);
 ALTER TABLE question_media ADD CONSTRAINT transformation_FK_unique UNIQUE (id,mediaid);
+ALTER TABLE course ADD CONSTRAINT course_user_fkey FOREIGN KEY (user_id) REFERENCES users(user_id); 
+
 
 --INSERT INTO users (user_name, user_password, user_email, name) VALUES ('hoothoot', 'hoothoot', 'hoothoot@hootmail.de', 'HSBO', 1);

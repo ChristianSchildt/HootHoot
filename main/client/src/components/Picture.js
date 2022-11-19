@@ -11,7 +11,9 @@ class Picture extends React.Component {
                 className={this.props.className}
                 id={this.props.id}
                 src={this.props.src}
-                alt={this.props.alt}>
+                alt={this.props.alt}
+                onClick={this.props.onClick}
+                variant={this.props.variant}>
             </img>
         </a>
       </div>

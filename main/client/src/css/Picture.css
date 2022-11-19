@@ -15,3 +15,9 @@
     width: 25em;
     height: 25em;
 }
+.symbol-add:hover
+{
+    /* border: 2px solid white; */
+    color: blue;
+    transition: 0.3s;
+}

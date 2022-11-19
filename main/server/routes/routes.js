@@ -53,9 +53,10 @@ router.put("/userdata", authorize, async (req, res) => {
 });
 
 //Get all courses
-router.get("/api/courses", async(req, res) =>{
+router.get("/api/courses", authorize, async(req, res) =>{
   try{
-    const results = await pool.query("SELECT * FROM course");
+    console.log(req.user.id);
+    const results = await pool.query("SELECT * FROM course WHERE user_id = $1", [req.user.id]);
     console.log("Get all Courses");
     console.log(results);
     res.json(results.rows);
@@ -73,7 +74,7 @@ router.get("/api/courses", async(req, res) =>{
 
 
 //Get a course
-router.get("/api/courses/:id", async(req, res) =>{
+router.get("/api/courses/:id", authorize, async(req, res) =>{
   try{
     const results = await pool.query("SELECT * FROM course WHERE id=$1", [req.params.id]);
     console.log("Get a course");
@@ -92,11 +93,12 @@ router.get("/api/courses/:id", async(req, res) =>{
 
 
 //create a course
-router.post("/api/courses", async(req,res) =>{
+router.post("/api/courses", authorize, async(req,res) =>{
   try{
     const name = req.body.name;
+    const user_id = req.user.id;
     console.log(req.body.name);
-    const results = await pool.query("INSERT INTO course (name) VALUES ($1) returning *", [name]);
+    const results = await pool.query("INSERT INTO course (name, user_id) VALUES ($1, $2) returning *", [name, user_id]);
     console.log("Created a course");
     console.log(results);
     res.status(201).json({
@@ -105,13 +107,14 @@ router.post("/api/courses", async(req,res) =>{
         course: results.rows
       }
     });
+
   }catch(e){
     console.log(e);
   }
 });
 
 //delete course
-router.delete("/api/courses/:id", async(req,res) => {
+router.delete("/api/courses/:id", authorize, async(req,res) => {
   try{
     const results = await pool.query("DELETE FROM course WHERE id = $1", [req.params.id]);
     console.log("DELETE GREAT SUCCESS")
