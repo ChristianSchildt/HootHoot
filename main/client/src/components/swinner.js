@@ -1,22 +1,43 @@
 import React from 'react';
-import '../css/Text.css';
+import '../css/Swinner.css';
+import Container from 'react-bootstrap/Container';
+import Text from './Text';
 
-class swinner extends React.Component{
+
+class Swinner extends React.Component{
     constructor(props){
         super(props);
     }
 
     render(){
         return(
-            <p 
-                id={this.props.id} 
-                className={this.props.className}>
-                {this.props.value}
-            </p>
+            <div className='swinner'>
+            <Container fluid>
+                        <Text
+                            className="winnerfirst"
+                            value={this.props.valuefirst}>
+                        </Text>
+                        <Text
+                        className="winnerfirst-under"
+                         value="1.st"/>
+                        <Text
+                            className="winnersecond"
+                            value={this.props.valuesecond}>
+                        </Text>
+                        <Text
+                        className="winnersecond-under"
+                        value="2.st"/>
+                        <Text
+                            className="winnerthird"
+                            value={this.props.valuethird}>
+                        </Text>
+                        <Text
+                        className="winnerthird-under"
+                        value="3.st"/>
+            </Container>
+            </div>
         )
     }
-
-
 }
 
-export default Text;
+export default Swinner;

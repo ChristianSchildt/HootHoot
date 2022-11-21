@@ -1,0 +1,81 @@
+.swinner{
+    font-size: 30px;
+    font-weight: 400;
+    height: 100px;
+    position: relative;
+    animation-name: first;
+    animation-duration: 4s;
+}
+
+.winnerfirst{
+    color: gold;
+    margin: auto;
+    width: 33%;
+    height: 20;
+    animation-name: shake;
+    animation-duration: 0.5s;
+    animation-delay: 4s;
+    animation-iteration-count: infinite;
+}
+
+.winnersecond{
+    width: 33%;
+    color: silver;
+    margin-left: 10%;
+    animation-name: shake;
+    animation-duration: 0.5s;
+    animation-delay: 4.5s;
+    animation-iteration-count: infinite;
+}
+
+.winnerthird{
+    width: 33%;
+    color: brown;
+    margin-left: 60%;
+    animation-name: shake;
+    animation-duration: 0.5s;
+    animation-delay: 5s;
+    animation-iteration-count: infinite;
+}
+
+.winnerfirst-under{
+    color: gold;
+    margin: auto;
+    width: 33%;
+    height: 20;
+}
+
+.winnersecond-under{
+    width: 33%;
+    color: silver;
+    margin-left: 10%;
+}
+
+.winnerthird-under{
+    width: 33%;
+    color: brown;
+    margin-left: 60%;
+}
+
+@keyframes first {
+    100%   {top:0px;}
+    0%  {top:500px;}
+  }
+  @keyframes second {
+    100%   {color:silver; top:0px;}
+    50%  {color:white;}
+    0%  {color:white; top:500px;}
+  }
+  @keyframes third {
+    100%   {color:brown; top:0px;}
+    50%  {color:white;}
+    0%  {color:white; top:500px;}
+  }
+
+  @keyframes shake {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    25% { transform: translate(5px, 5px) rotate(5deg); }
+    50% { transform: translate(0, 0) rotate(0eg); }
+    75% { transform: translate(-5px, 5px) rotate(-5deg); }
+    100% { transform: translate(0, 0) rotate(0deg); }
+}
