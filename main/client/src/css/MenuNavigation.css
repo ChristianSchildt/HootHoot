@@ -22,12 +22,7 @@ nav ul li a:hover
     transition: .4s;
 }
 
-#mark-home
-{
-    color: white;
-}
-
-#mark-library
+#mark
 {
     color: white;
 }

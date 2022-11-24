@@ -2,8 +2,8 @@ import React from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Picture from '../components/Picture';
 import Text from '../components/Text';
+import Picture from '../components/Picture';
 import MenuNavigation from '../components/MenuNavigation';
 import Field from '../components/Field';
 import LibraryTile from '../components/LibraryTile';
@@ -98,7 +98,8 @@ class t_AnalysesMenuPage extends React.Component{
                         </Col>
 
                         <Col md={7}>
-                            <MenuNavigation className="menu-navigation"/>
+                            <MenuNavigation className="menu-navigation"
+                            id3="mark"/>
                         </Col>
                         <Col md={{ span: 2, offset: 1}}>
                             <ProfileMenu/>

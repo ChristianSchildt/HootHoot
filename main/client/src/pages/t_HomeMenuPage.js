@@ -121,7 +121,7 @@ function t_HomeMenuPage(){
                     <Col md={7}>
                         <MenuNavigation 
                             className="menu-navigation"
-                            id1="mark-home">
+                            id1="mark">
                         </MenuNavigation>
                     </Col>
                     <Col md={{ span: 2, offset: 1}}>
