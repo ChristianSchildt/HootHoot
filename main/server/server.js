@@ -1,3 +1,5 @@
+import GameSession from 'game-session'
+
 require('dotenv').config();
 
 const express = require("express");
@@ -28,42 +30,16 @@ httpServer.listen(5000, () => {
   console.log(`Server is starting on port 5000`);
 });
 
-
-
 let gameSessions = {
-  "12456": {
-    playersNames: {
-      "HwXUT_CNQM12vlclAAAB": "Dummy Player"
-    },
-    answers: {
-      "HwXUT_CNQM12vlclAAAB": "D"
-    }
-  }
+  "12456": new GameSession(null, "12456", 20, "Frage", ["Antwort1", "Antwort2", "Antwort3", "Antwort4"])
 };
-let playerGameSessionMap = {
-  "HwXUT_CNQM12vlclAAAB": "12456"
-};
-
 io.on('connection', (socket) => {
-  console.log("user " + socket.id + " connected");
-
-  socket.on('disconnect', () => {
-    console.log("user " + socket.id + " disconnected");
-  });
-
   socket.on('player-join', args => {
     var gameSession = gameSessions[args.gamepin]
     if (!gameSession) {
       console.log("invalid game pin")
       return;
     }
-    playerGameSessionMap[[socket.id]] = args.pin
-    gameSession.playerNames[socket.id] = args.name
-    console.log("player " + args.name + " joined");
+    gameSession.addPlayer(socket, args)
   })
-
-  socket.on('answer', (answer) => {
-    gameSession.playerNames[socket.id] = args.name
-    console.log("user " + socket.id + " selected answer " + answer);
-  });
 });
