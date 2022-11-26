@@ -19,6 +19,7 @@ class s_AnswerSelectionPage_Minimalist extends React.Component {
     componentDidMount() {
         this.socket.on('connect', () => {
             console.log("connected")
+            this.socket.emit('player-join', { gamepin: "123456", name: "HootHoot"})
         });
     }
 

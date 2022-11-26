@@ -31,9 +31,10 @@ httpServer.listen(5000, () => {
 });
 
 let gameSessions = {
-  "12456": new GameSession(null, "12456", 20, "Frage", ["Antwort1", "Antwort2", "Antwort3", "Antwort4"])
+  "123456": new GameSession(null, "12456", 20, "Frage", ["Antwort1", "Antwort2", "Antwort3", "Antwort4"])
 };
 io.on('connection', (socket) => {
+  console.log(socket.id + " connected")
   socket.on('player-join', args => {
     var gameSession = gameSessions[args.gamepin]
     if (!gameSession) {
