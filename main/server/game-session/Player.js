@@ -6,3 +6,5 @@ class Player {
 
     answer = undefined
 }
+
+module.exports = Player;

@@ -1,4 +1,4 @@
-import GameSession from 'game-session'
+const GameSession = require('./game-session/GameSession')
 
 require('dotenv').config();
 
