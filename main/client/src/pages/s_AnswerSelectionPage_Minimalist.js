@@ -6,25 +6,18 @@ import Col from 'react-bootstrap/Col';
 import Button from '../components/Button';
 import Picture from '../components/Picture';
 import Text from '../components/Text';
-import io from 'socket.io-client';
-
-
 
 class s_AnswerSelectionPage_Minimalist extends React.Component {
-    socket = io('localhost:5000')
     constructor(props) {
         super(props)
     }
 
     componentDidMount() {
-        this.socket.on('connect', () => {
-            console.log("connected")
-            this.socket.emit('player-join', { gamepin: "123456", name: "HootHoot"})
-        });
+
     }
 
     sendAnswer(answer) {
-        this.socket.emit("answer", answer)
+        window.connection.socket.emit("answer", answer)
     }
 
     render() {

@@ -11,12 +11,12 @@ class GameSession {
         this.players = new Map();
     }
 
-    addPlayer(socket, args) {
-        this.players.set(socket.id, new Player(socket, args.name));
+    addPlayer(socket, payload) {
+        this.players.set(socket.id, new Player(socket, payload.name));
 
         // set up hooks
         socket.on('answer', (answer) => { this.selectAnswer(socket, answer);});
-        socket.on('disconnect', this.removePlayer);
+        socket.on('disconnect', () => {this.removePlayer(socket);});
 
         // inform all other players
         let playerNames = this.getPlayerNames();
@@ -24,7 +24,7 @@ class GameSession {
             player.socket.emit('players-updated', playerNames);
         };
 
-        console.log("player " + args.name + " joined");
+        console.log("player " + payload.name + " joined");
     }
 
     removePlayer(socket) {

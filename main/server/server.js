@@ -35,12 +35,16 @@ let gameSessions = {
 };
 io.on('connection', (socket) => {
   console.log(socket.id + " connected")
-  socket.on('player-join', args => {
-    var gameSession = gameSessions[args.gamepin]
+  socket.on('player-join', (payload, callback) => {
+    callback = typeof callback == "function" ? callback : () => {}
+    let gameSession = gameSessions[payload.gamepin]
+    console.log(payload.gamepin)
     if (!gameSession) {
       console.log("invalid game pin")
+      callback({error:"invalid game pin"});
       return;
     }
-    gameSession.addPlayer(socket, args)
+    callback({status:'OK'});
+    gameSession.addPlayer(socket, payload)
   })
 });

@@ -23,7 +23,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 
 
-function App() {
+export default function App() {
   return (
     <div className="App">
       <ToastContainer/>
@@ -52,5 +52,3 @@ function App() {
     </div>
   );
 }
-
-export default App;
