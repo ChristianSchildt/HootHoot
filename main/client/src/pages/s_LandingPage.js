@@ -6,17 +6,19 @@ import Col from 'react-bootstrap/Col';
 import HeaderRole from '../components/HeaderRole';
 import InputField from '../components/InputField.js';
 import Button from '../components/Button';
+import { useNavigate } from "react-router-dom";
 
 function s_LandingPage(){
     const inputName = useRef(null);
     const inputPin = useRef(null);
+    const navigate = useNavigate();
 
     const enterSession = async e => {
         // TODO: better input validation and feedback for user
         window.connection.socket.emit('player-join', { gamepin: inputPin.current.getValue(), name: inputName.current.getValue() }, (response) => {
             console.log(response);
             if (response.status === "OK") {
-                window.location.href = "/student/answerselectionMinimalist";
+                navigate("/student/answerselectionMinimalist");
             }
         });
     };

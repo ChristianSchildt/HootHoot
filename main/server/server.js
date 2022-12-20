@@ -35,6 +35,7 @@ let gameSessions = {
 };
 io.on('connection', (socket) => {
   console.log(socket.id + " connected")
+
   socket.on('player-join', (payload, callback) => {
     callback = typeof callback == "function" ? callback : () => {}
     let gameSession = gameSessions[payload.gamepin]
@@ -47,4 +48,5 @@ io.on('connection', (socket) => {
     callback({status:'OK'});
     gameSession.addPlayer(socket, payload)
   })
+  
 });
