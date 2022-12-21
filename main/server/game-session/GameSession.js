@@ -1,13 +1,13 @@
 Player = require('./Player')
 
 class GameSession {
-    constructor(host, pin, time, question, answers, correctAnswer) {
+    constructor(host, pin, time, question, answers, correctAnswerIndex) {
         this.host = host;
         this.pin = pin;
         this.time = time;
         this.question = question;
         this.answers = answers;
-        this.correctAnswer = correctAnswer;
+        this.correctAnswerIndex = correctAnswerIndex;
         this.players = new Map();
     }
 
@@ -20,9 +20,10 @@ class GameSession {
 
         // inform all other players
         let playerNames = this.getPlayerNames();
-        for (const player of this.players.values()) {
+        this.host.emit('players-updated', playerNames);
+        /*for (const player of this.players.values()) {
             player.socket.emit('players-updated', playerNames);
-        };
+        };*/
 
         console.log("player " + payload.name + " joined");
     }
@@ -49,8 +50,9 @@ class GameSession {
     }
 
     startQuiz(socket) {
-        if (socket.id != this.host.id)
+        if (socket.id != this.host.id) {
             return
+        }
 
         for (const player of this.players.values()) {
             player.socket.emit('quiz-started', this.time);
@@ -60,7 +62,7 @@ class GameSession {
 
     stopQuiz() {
         for (const player of this.players.values()) {
-            player.socket.emit('quiz-ended', this.correctAnswer);
+            player.socket.emit('quiz-ended', this.correctAnswerIndex);
         };
     }
 

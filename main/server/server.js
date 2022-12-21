@@ -30,16 +30,59 @@ httpServer.listen(5000, () => {
   console.log(`Server is starting on port 5000`);
 });
 
+
 let gameSessions = {
-  "123456": new GameSession(null, "12456", 20, "Frage", ["Antwort1", "Antwort2", "Antwort3", "Antwort4"])
+  
 };
+function generatePin() {
+  let pin = Math.floor(100000 + Math.random() * 900000)
+  if (!gameSessions[pin]) {
+    return pin;
+  }
+  else {
+    return generatePin()
+  }
+}
+
 io.on('connection', (socket) => {
   console.log(socket.id + " connected")
 
+  socket.on('create-game', (payload, callback) => {
+    callback = typeof callback == "function" ? callback : () => {}
+    
+    let pin;
+    try {
+      pin = generatePin();
+      gameSessions[pin] = new GameSession(socket, pin, payload.question, payload.answers, payload.correctAnswerIndex);
+      callback({pin});
+    }
+    catch(err) {
+      console.log("host-game failed: " +  err);
+      delete gameSessions[pin];
+      callback({error: err});
+    }
+  });
+
+  socket.on('start-game', (payload, callback) => {
+    callback = typeof callback == "function" ? callback : () => {}
+    
+    try {
+      let gameSession = gameSessions[payload.gamepin]
+      gameSession.startQuiz()
+    }
+    catch(err) {
+      console.log("start-game failed: " +  err)
+      callback({error: err});
+    }
+
+    callback({status:'OK'});
+  });
+
   socket.on('player-join', (payload, callback) => {
     callback = typeof callback == "function" ? callback : () => {}
+
     let gameSession = gameSessions[payload.gamepin]
-    console.log(payload.gamepin)
+    //console.log(payload.gamepin)
     if (!gameSession) {
       console.log("invalid game pin")
       callback({error:"invalid game pin"});
@@ -50,3 +93,4 @@ io.on('connection', (socket) => {
   })
   
 });
+

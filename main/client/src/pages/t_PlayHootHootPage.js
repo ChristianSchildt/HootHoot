@@ -6,12 +6,35 @@ import Picture from '../components/Picture';
 import Text from '../components/Text';
 import Button from '../components/Button';
 import Field from '../components/Field';
+import withNavigate from '../utility/with-navigate';
 
 class t_PlayHootHootPage extends React.Component {
     
     constructor(props) {
         super(props);
+        
+        this.state = {
+            timer: 0
+        };
 
+        if (this.props.route) {
+            this.time = this.props.route.params.time;
+            this.question = this.props.route.params.question;
+            this.answerA = this.props.route.params.answers[0];
+            this.answerB = this.props.route.params.answers[1];
+            this.answerC = this.props.route.params.answers[2];
+            this.answerD = this.props.route.params.answers[3];
+            this.correctAnswerIndex = this.props.route.params.correctAnswerIndex;
+        }
+    }
+
+    componentDidMount() {
+        if (!window.connection.socket) {
+            // die Seite wurde nicht über vorherige Seite aufgerufen, deshalb gibt es kein Quiz zum starten
+            return;
+        }
+
+        window.connection.socket.emit('quiz-started')    
     }
     
     render() {
@@ -91,7 +114,7 @@ class t_PlayHootHootPage extends React.Component {
                                 <div className="column2-HootHoot-answers">
                                     <Text
                                         className="answer-text"
-                                        value="Antwort A">
+                                        value={this.answerA}>
                                     </Text>
                                 </div>
                             </div>
@@ -107,7 +130,7 @@ class t_PlayHootHootPage extends React.Component {
                                 <div className="column2-HootHoot-answers">
                                     <Text
                                         className="answer-text"
-                                        value="Antwort B">
+                                        value={this.answerB}>
                                     </Text>
                                 </div>
                             </div>
@@ -125,7 +148,7 @@ class t_PlayHootHootPage extends React.Component {
                                 <div className="column2-HootHoot-answers">
                                     <Text
                                         className="answer-text"
-                                        value="Antwort C">
+                                        value={this.answerC}>
                                     </Text>
                                 </div>
                             </div>
@@ -141,7 +164,7 @@ class t_PlayHootHootPage extends React.Component {
                                 <div className="column2-HootHoot-answers">
                                     <Text
                                         className="answer-text"
-                                        value="Antwort D">
+                                        value={this.answerD}>
                                     </Text>
                                 </div>
                             </div>
@@ -173,4 +196,4 @@ class t_PlayHootHootPage extends React.Component {
     }
 }
 
-export default t_PlayHootHootPage;
+export default withNavigate(t_PlayHootHootPage);
