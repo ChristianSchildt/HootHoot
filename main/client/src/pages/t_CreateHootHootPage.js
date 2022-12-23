@@ -65,16 +65,26 @@ class t_CreateHootHootPage extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        
+
         //Änderung an QuestionProperties stattgefunden?
         if(prevState.questions !== this.state.questions) {
-            this.showQuestionProperties()
+            this.showQuestions()
         }
 
         //Änderung an AnswersProperties stattgefunden?
-        if(prevState.answers !== this.state.answers) {
-            this.showAnswerProperties()
+        if((prevState.textareaA !== this.state.textareaA) || (prevState.textareaB !== this.state.textareaB) || 
+           (prevState.textareaC !== this.state.textareaC) || (prevState.textareaD !== this.state.textareaD)) {
+            console.log('Textarea A innerhalb: '+this.state.textareaA)
+            console.log('Textarea B innerhalb: '+this.state.textareaB)
+            this.showAnswers(this.state.selectType)
+            console.warn('update')
+            // console.log(this.answerCheckboxTranslatorBToS(true/*this.state.isCorrectA*/))
+            // console.log('isCorrectA: '+this.state.isCorrectA)
+            // console.log('isCorrectB: '+this.state.isCorrectB)
+            // console.log('isCorrectC: '+this.state.isCorrectC)
+            // console.log('isCorrectD: '+this.state.isCorrectD)
         }
+        
     }
 
     //GET-------------
@@ -277,9 +287,11 @@ class t_CreateHootHootPage extends React.Component {
     answerCheckboxTranslatorBToS(pressedUnpressed) {
         //Boolean to String
         if(pressedUnpressed === true) {
+            // console.log('String true returned')
             return "/images/checkbox_pressed.jpg"
         }
         else {
+            // console.log('String false returned')
             return "/images/checkbox_unpressed.jpg"
         }
     }
@@ -412,7 +424,7 @@ class t_CreateHootHootPage extends React.Component {
 
     }
 
-    showQuestionProperties(questionId) {
+    setQuestionProperties(questionId) {
         {this.state.questions.map((question) => {
             if(question.id === questionId) {
                 this.setState({questionname: question.name})
@@ -424,7 +436,7 @@ class t_CreateHootHootPage extends React.Component {
         })}
     }
 
-    showAnswerProperties() {
+    setAnswerProperties() {
         if(this.state.answers.length === 0) {
             this.setState({textareaA: ""})
             this.setState({isCorrectA: false})
@@ -443,31 +455,33 @@ class t_CreateHootHootPage extends React.Component {
                     if(answer.id === 1) {
                         this.setState({textareaA: answer.answer})
                         this.setState({isCorrectA: answer.isCorrect})
-                        console.log('isCorrectA')
                     }
+
                     if(answer.id === 2) {
                         this.setState({textareaB: answer.answer})
                         this.setState({isCorrectB: answer.isCorrect})
                     }
+
                     if(answer.id === 3) {
                         this.setState({textareaC: answer.answer})
                         this.setState({isCorrectC: answer.isCorrect})
                     }
+
                     if(answer.id === 4) {
                         this.setState({textareaD: answer.answer})
                         this.setState({isCorrectD: answer.isCorrect})
                     }
             })}
-
+            console.log('setAnswers finish')
         }
     }
 
-    selectQuestion(questionId) {
+    async selectQuestion(questionId) {
 
         this.setState({selectedQuestionIndex: questionId})
-        this.getAnswers(questionId)
-        this.showQuestionProperties(questionId)
-        this.showAnswerProperties()
+        await this.getAnswers(questionId)
+        this.setQuestionProperties(questionId)
+        this.setAnswerProperties()
 
         //this.setState({imageData: this.state.courses[this.state.selectedCourseIndex].questions[questionId].url})   
     }
@@ -622,7 +636,11 @@ class t_CreateHootHootPage extends React.Component {
         }
     }
 
-    setQuestionType(type) {
+    showAnswers(type) {
+        console.log('mittendrin')
+        console.log(this.state.textareaA)
+        console.log(this.state.textareaB)
+
         if(type === "quiz")
         {
             return (
@@ -772,7 +790,7 @@ class t_CreateHootHootPage extends React.Component {
         }
     }
 
-    loadQuestionView() {
+    showQuestions() {
         return (
             <div>
                 {this.state.questions.map((question) => (  
@@ -851,7 +869,7 @@ class t_CreateHootHootPage extends React.Component {
                     <Row>
                         <Col md={2}>
                             <Field idField="question-overview">
-                                {this.loadQuestionView()}
+                                {this.showQuestions()}
                                 <Imagebutton
                                     className="add-new-question"
                                     src="/images/addNewQuestion.jpg"
@@ -880,7 +898,7 @@ class t_CreateHootHootPage extends React.Component {
                                     inputOnChange={this.fileSelectedHandler.bind(this)}>  
                                 </FileInput>
                             </Field>
-                            {this.setQuestionType(this.state.selectType)}
+                            {this.showAnswers(this.state.selectType)}
                         </Col>
                         <Col md={2}>
                             <Field
