@@ -61,7 +61,7 @@ class ProfileMenu extends React.Component {
                 toast.error("Die Passwörter stimmen nicht überein")
             }
         }
-        
+        //Anmerkung: wird ausgeführt auch wenn Passwörter nicht übereinstimmen
         this.setState({userdata: valuesToApply})
         this.updateUserData(valuesToApply)
         this.closePopup("popup-profile")

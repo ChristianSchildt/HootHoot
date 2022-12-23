@@ -1,0 +1,29 @@
+#div-average-time
+{
+    border: 1px solid #476D7C;
+    border-radius: 2em;
+    width: 4em;
+    height: 4em;
+    margin: auto;
+}
+
+#div-average-vote
+{
+    border: 1px solid #476D7C;
+    border-radius: 2em;
+    width: 4em;
+    height: 4em;
+    margin: auto;
+}
+
+#div-average-time-count{
+    padding-top: .3em;
+    color: white;
+    font-size: 1.7em;
+}
+
+#div-average-vote-count{
+    padding-top: .3em;
+    color: white;
+    font-size: 1.7em;
+}

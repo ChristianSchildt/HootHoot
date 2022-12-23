@@ -3,13 +3,10 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Text from '../components/Text';
-import Picture from '../components/Picture';
-import MenuNavigation from '../components/MenuNavigation';
-import CreateTile from '../components/CreateTile';
-import Field from '../components/Field';
-import CourseTile from '../components/CourseTile';
-import ContentWinner from '../components/ContentWinner';
 import Button from '../components/Button';
+import Swinner from '../components/swinner';
+import Field from '../components/Field';
+
 
 class s_WinnerAnimationPage extends React.Component{
     constructor(props) {
@@ -18,21 +15,16 @@ class s_WinnerAnimationPage extends React.Component{
             player: [
                 {   
                     "id": 1,
-                    "name": "Roland"
+                    "name": "Unicorn"
                 },
                 {
                     "id": 2,
-                    "name": 'Christian',
+                    "name": 'Starbucks',
                 },
                 {
                     "id": 3,
-                    "name": 'Mustafa'
-                },
-                {
-                    "id": 4,
-                    "name": 'Maurice'
-                }
-                
+                    "name": 'Pfefferminz'
+                }             
             ]
         };
     }  
@@ -41,12 +33,19 @@ class s_WinnerAnimationPage extends React.Component{
             <div className = "sWinnerAnimationPage">
                 <Container fluid>
                     <Row>
-                        <ContentWinner
-                            contentwinner="Top 3!"
-                            first="Whoami"
-                            second="Moritz Fiege"
-                            third="I<3Köhn">
-                            </ContentWinner>
+                        <Col md={{span: 8, offset: 2}}>
+                            <div id="div-HootHoot-question">
+                                <Text
+                                    id="HootHoot-question"
+                                    value="Top 3 Player!">
+                                </Text>
+                            </div>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Field idField="winneranimation">
+                            <Swinner valuefirst="Leeroy Jenkins" valuesecond="Unicorn" valuethird="Moritz"></Swinner>
+                        </Field>
                     </Row>
                     <Row>
                         <Button

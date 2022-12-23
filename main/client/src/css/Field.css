@@ -162,15 +162,84 @@
 
 #winneranimation
 {
+    background-color: #040e23;
     border: 1px solid #476D7C;
     border-radius: 1em;
     width: 75vw;
     height: 40em;
-    padding-top: 14em;
+    padding-top: 8em;
     margin-top: 1.5em;
     margin-bottom: 2em;
     margin-left: auto;
     margin-right: auto;
+    overflow: hidden;
+}
+
+#difficult-questions
+{
+    border: 1px solid #476D7C;
+    border-radius: 1em;
+    width: 74vw;
+    height: 40em;
+    margin-top: 1.5em;
+    margin-bottom: 2em;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.analyse-field
+{
+    height: 45em;
+    width: 50vw;
+    border: 0.5px solid #476D7C;
+    border-radius: 1em;
+    color: white;
+    margin-bottom: 10px;
+    margin: auto;
+}
+.analyse-question-field
+{
+    height: 45em;
+    width: 30vw;
+    border: 0.5px solid #476D7C;
+    border-radius: 1em;
+    color: white;
+    margin: auto;
+    overflow-y: scroll;
+}
+
+.analyse-question-field-title
+{
+    text-align: center;
+    font-family: 'Calibri';
+    font-size: 1.6em;
+    margin-top: 0.5em;
+}
+.analyse-field-title
+{
+    
+    text-align: center;
+    font-family: 'Calibri';
+    font-size: 1.6em;
+    margin-top: 0.5em;
+}
+
+.average-time{
+    height: 13em;
+    width: 15vw;
+    margin: auto;
+    margin-left: 10vh;
+    margin-top: 4vh;
+    float: left;
+}
+
+.average-vote{
+    height: 13em;
+    width: 15vw;
+    margin: auto;
+    margin-right: 10vh;
+    margin-top: 4vh;
+    float: right;
 }
 
 #difficult-questions
