@@ -235,7 +235,8 @@ function t_HomeMenuPage(){
                                                     className="symbol-add"
                                                     src="/images/add.png"
                                                     alt="Plus"
-                                                    >
+                                                    variant="outlined"
+                                                    onClick={() => window.location.href = "/teacher/createHootHoot"}>
                                                 </Picture>
                                                 
                                             </Col>

@@ -90,7 +90,11 @@ class t_CreateHootHootPage extends React.Component {
     //GET-------------
     async getCourses() {
         try {
-            const response = await fetch('http://localhost:5000/api/courses');
+            const response = await fetch('http://localhost:5000/api/courses', {
+                method: 'GET',
+                headers: { 'jwt_token': localStorage.token }
+            });
+            
             const data = await response.json()
 
             this.setState({courses: data})
