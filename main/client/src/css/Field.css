@@ -170,26 +170,26 @@
     padding-top: 8em;
     margin-top: 1.5em;
     margin-bottom: 2em;
-    margin-left: auto;
-    margin-right: auto;
+    /* margin-left: auto;
+    margin-right: auto; */
     overflow: hidden;
     animation-name: winnerwidth;
     animation-duration: 10s;
 }
 #winnerattendess
 {
+    box-sizing: border-box;
     background-color: #040e23;
     border: 1px solid #476D7C;
     border-radius: 1em;
-    width: 37.5vw;
     height: 40em;
     margin-top: 1.5em;
     margin-bottom: 2em;
-    margin-left: auto;
-    margin-right: auto;
-    overflow-y: scroll;
+    padding: 0;
+    overflow-y: hidden;
     animation-name: attendesswidth;
     animation-duration: 10s;
+    animation-fill-mode: forwards;
 }
 
 #difficult-questions
@@ -259,6 +259,14 @@
     float: right;
 }
 
+.winner-row-animation {
+    gap: 0;
+    justify-content: center;
+    animation-name: winnerRowAnimation;
+    animation-duration: 10s;
+    animation-fill-mode: forwards;
+}
+
 #difficult-questions
 {
     border: 1px solid #476D7C;
@@ -279,5 +287,12 @@
   @keyframes attendesswidth{
     0%   {visibility: hidden;width: 0vw;}
     70%  {visibility: collapse;width: 0vw;}
-    100%  {width: 37.5vw;}
+    100%  {width: 37.5vw; overflow-y: auto;}
   }
+
+/* TODO: Rename */
+@keyframes winnerRowAnimation {
+    0% { gap: 0 }
+    70% { gap: 0 }
+    100% { gap: 4rem }
+}

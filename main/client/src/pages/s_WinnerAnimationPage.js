@@ -82,7 +82,7 @@ class s_WinnerAnimationPage extends React.Component{
                             </div>
                         </Col>
                     </Row>
-                    <Row>
+                    <Row className='winner-row-animation'>
                         <Field idField="winneranimation">
                             <Swinner valuefirst="Leeroy Jenkins" valuesecond="Unicorn" valuethird="Moritz"></Swinner>
                         </Field>
