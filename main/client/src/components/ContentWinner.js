@@ -6,7 +6,8 @@ class ContentWinner extends React.Component {
 
     render(){
         return(
-        <div className="ContentWinner">
+        <div className=''>
+            <div className="ContentWinner">
                 <h1 
                     id={this.props.headerid}
                         className="header">
@@ -34,6 +35,7 @@ class ContentWinner extends React.Component {
                 </h3>
                 <div className="third"></div>
                 </div>
+            </div>
         </div>
         )
     }

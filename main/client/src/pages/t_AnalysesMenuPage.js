@@ -6,7 +6,7 @@ import Text from '../components/Text';
 import Picture from '../components/Picture';
 import MenuNavigation from '../components/MenuNavigation';
 import Field from '../components/Field';
-import LibraryTile from '../components/LibraryTile';
+import AnalysesTile from '../components/AnalysesTile';
 import ProfileMenu from '../components/ProfileMenu';
 import {Chart as ChartJS, CategoryScale,LinearScale,BarElement,Title,Tooltip,Legend,} from 'chart.js';
 import { Bar } from 'react-chartjs-2';
@@ -35,7 +35,7 @@ const options = {
 };
 
 const average = {'Antwort A': 4, 
-                 'Antwort B': 10, 
+                 'Antwort B': 11, 
                  'Antwort C': 1, 
                  'Antwort D': 2};
 
@@ -58,22 +58,26 @@ class t_AnalysesMenuPage extends React.Component{
             hoothoots: [
                 {   
                     "id": 1,
-                    "name": "Wie gefällt ihnen die Präsentation?",
+                    "name": "Webtechnologien 1",
+                    "question":["Wann wurde der Erste PC entwickelt?","Wie ist das Wetter?"],
                     "kalenderwoche": ['kw1', 'kw2']
                 },
                 {
                     "id": 2,
-                    "name": 'Wie ist das Wetter?',
+                    "name": 'Webtechnologien 2',
+                    "question":["Wie gefällt ihnen die Präsentation?","Wie viel sind Google Aktien wert?"],
                     "kalenderwoche": ['kw1', 'kw2']
                 },
                 {
                     "id": 3,
-                    "name": 'Was ist der Sinn des Lebens?',
+                    "name": 'IT-Sicherheit',
+                    "question":["Wie sicher ist das Internet?","Welcher Browser ist am sichersten?"],
                     "kalenderwoche": ['kw1']
                 },
                 {
                     "id": 4,
-                    "name": 'Welche Fragen kann man noch stellen?',
+                    "name": 'Betriebssysteme',
+                    "question":["Wann wurde IOS entwickelt?","IOS > Android?"],
                     "kalenderwoche": ['kw1']
                 }               
             ]
@@ -111,7 +115,7 @@ class t_AnalysesMenuPage extends React.Component{
                                 classNameTitle="analyse-question-field-title"
                                 valueTitle="Fragen">
                                 {this.state.hoothoots.map((hoothoot) => (  
-                                    <LibraryTile key={hoothoot.id.toString()} classNameLibrarytext="librarytext" valuetext={hoothoot.name} /> 
+                                    <AnalysesTile key={hoothoot.id.toString()} classNameLibrarytext="librarytext" valuetext={hoothoot.name} questionone={hoothoot.question[0]} questiontwo={hoothoot.question[1]} /> 
                                 ))}
                             </Field>
                         </Col>
@@ -136,6 +140,9 @@ class t_AnalysesMenuPage extends React.Component{
                                 </div>
                                 </Field>
                                 </Col>
+
+
+
                                 <Col>
                                 <Field classNameField="average-vote"
                                 classNameTitle="analyse-field-title"
@@ -148,6 +155,7 @@ class t_AnalysesMenuPage extends React.Component{
                                     </div>
                                 </Field>
                                 </Col>
+                                
                             </Field>
                         </Col>
                     </Row>

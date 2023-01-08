@@ -165,7 +165,7 @@
     background-color: #040e23;
     border: 1px solid #476D7C;
     border-radius: 1em;
-    width: 75vw;
+    width: 37.5vw;
     height: 40em;
     padding-top: 8em;
     margin-top: 1.5em;
@@ -173,6 +173,23 @@
     margin-left: auto;
     margin-right: auto;
     overflow: hidden;
+    animation-name: winnerwidth;
+    animation-duration: 10s;
+}
+#winnerattendess
+{
+    background-color: #040e23;
+    border: 1px solid #476D7C;
+    border-radius: 1em;
+    width: 37.5vw;
+    height: 40em;
+    margin-top: 1.5em;
+    margin-bottom: 2em;
+    margin-left: auto;
+    margin-right: auto;
+    overflow-y: scroll;
+    animation-name: attendesswidth;
+    animation-duration: 10s;
 }
 
 #difficult-questions
@@ -253,3 +270,14 @@
     margin-left: auto;
     margin-right: auto;
 }
+
+@keyframes winnerwidth {
+    0%   {width: 75vw;}
+    70%  {width: 75vw;}
+    100%  {width: 37.5vw;}
+  }
+  @keyframes attendesswidth{
+    0%   {visibility: hidden;width: 0vw;}
+    70%  {visibility: collapse;width: 0vw;}
+    100%  {width: 37.5vw;}
+  }
