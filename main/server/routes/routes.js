@@ -125,8 +125,138 @@ router.delete("/api/courses/:id", authorize, async(req,res) => {
     console.log(e);
   }
 });
+//-------------------------------------------------------------------------------
 
+//get all questions for a selected course
+router.get('/api/courses/:courseid/questions', async(req, res) => {
+  try {
+    const results = await pool.query('SELECT * FROM question WHERE courseid = $1', [req.params.courseid]);
+    
+    console.log('select questions with specified courseid')
+    
+    res.json(results.rows)
+    res.status(200).json({
+      status: "success",
+      results: results.rows.length,
+      data:{
+        questions: results.rows
+      }
+    });
 
+  } catch (e) {
+    console.log(e)
+  }
+})
 
+//get answers for a selected question
+router.get('/api/answers/:questionid', async(req, res) => {
+  try {
+    const results = await pool.query('SELECT * FROM answer WHERE questionid = $1', [req.params.questionid]);
+    
+    console.log('select answers with specified questionid')
+    
+    res.json(results.rows)
+    res.status(200).json({
+      status: "success",
+      results: results.rows.length,
+      data:{
+        answers: results.rows
+      }
+    });
+    
+  } catch (e) {
+    console.log(e)
+  }
+})
+
+//create question
+router.post("/api/question", authorize, async(req, res) => {
+  try{                                                
+    const results = await pool.query('INSERT INTO question (id, name, type, timelimit, points, answer_options, courseid, user_id) '+ 
+                                     'VALUES ($1, $2, $3, $4 ,$5 ,$6 ,$7, $8) RETURNING *', 
+                                     [req.body.id, req.body.name, req.body.type, req.body.timelimit, req.body.points, req.body.answer_options, 
+                                      req.body.courseid, req.user.id]);
+    
+    console.log("CREATED a question");
+    console.log(results);
+
+    res.status(201).json({
+      status: "success",
+      data: {
+        questions: results.rows
+      }
+    });
+
+  } catch(e){
+    console.log(e);
+  }
+});
+
+//create answer
+router.post('/api/answer/', async(req, res) => {
+  try {
+    const results = await pool.query('INSERT INTO answer (id, questionid, answer, iscorrect) '+
+                                     'VALUES ($1, $2, $3, $4) RETURNING *',
+                                     [req.body.id, req.body.questionid, req.body.answer, req.body.iscorrect])
+    
+    console.log('CREATED an answer')
+    console.log(results)
+
+    res.status(201).json({
+      status: {
+        answers: results.rows
+      }
+    })
+
+  } catch (e) {
+    console.log(e)
+  }
+})
+
+//update question
+
+//update answer
+
+//duplicate question
+
+//duplicate answer
+
+//delete question
+router.delete('/api/questions/:id', async(req, res) => {
+  try {
+    
+    const results = await pool.query('DELETE FROM question '+
+                                     'WHERE id = $1', 
+                                     [req.params.id]);
+
+    console.log('DELETE question sucessfully')
+
+    res.status(204).json({
+      status: "success"
+    });
+
+  } catch (e) {
+    console.log(e)
+  }
+})
+
+//delete answer
+router.delete('/api/questions/:questionid/answers/:answerid', async(req, res) => {
+  try {
+    
+    const results = await pool.query('DELETE FROM answer '+
+                                     'WHERE id = $1 AND questionid = $2', 
+                                     [req.params.answerid, req.params.questionid]);
+
+    console.log('DELETE answer sucessfully')
+
+    res.status(204).json({
+      status: "success"
+    });
+
+  } catch (e) {
+    console.log(e)
+  }
+})
 
 module.exports = router;

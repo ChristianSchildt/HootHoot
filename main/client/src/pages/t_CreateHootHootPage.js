@@ -18,99 +18,15 @@ class t_CreateHootHootPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-
-            //Testdaten
-            courses : [
-                //Leere Daten
-                {"courseId": 0,
-                "courseName": "",
-                "questions": [ 
-                    {"id" : 0,
-                    "topic": null, //gebraucht?
-                    "name": "",
-                    "url": "",
-                    "type": "quiz",
-                    "timelimit": 10,
-                    "points": "standard"}],
-                "answers": [
-                    {id: 0,
-                    "answerOptions": "einzelauswahl", //Hier richtig oder zu questions?
-                    "answersArray": ["", "", "", ""],
-                    "isCorrectA": "/images/checkbox_unpressed.jpg",
-                    "isCorrectB": "/images/checkbox_unpressed.jpg",
-                    "isCorrectC": "/images/checkbox_unpressed.jpg",
-                    "isCorrectD": "/images/checkbox_unpressed.jpg"}]},
-                
-                //Testkurse
-                {"courseId": 1,
-                "courseName": "Beispielkurs1",
-                "questions": [ 
-                    {"id" : 0,
-                    "topic": null, //gebraucht?
-                    "name": "Beispielfrage11",
-                    "url": "",
-                    "type": "quiz",
-                    "timelimit": 10,
-                    "points": "standard"},
-                    {"id": 1,
-                    "topic": null, //gebraucht?
-                    "name": "Beispielfrage12",
-                    "url": null,
-                    "type": "wahrOderFalsch",
-                    "timelimit": 20,
-                    "points": "standard"}],
-                "answers": [
-                    {id: 0,
-                    "answerOptions": "mehrfachauswahl", //Hier richtig oder zu questions?
-                    "answersArray": ["Antwort111", "Antwort112", "Antwort113", "Antwort114"],
-                    "isCorrectA": "/images/checkbox_unpressed.jpg",
-                    "isCorrectB": "/images/checkbox_unpressed.jpg",
-                    "isCorrectC": "/images/checkbox_unpressed.jpg",
-                    "isCorrectD": "/images/checkbox_unpressed.jpg"},
-                    {id: 1,
-                    "answerOptions": "einzelauswahl", //Hier richtig oder zu questions?
-                    "answersArray": ["Antwort121", "Antwort122", "Antwort123", "Antwort124"],
-                    "isCorrectA": "/images/checkbox_unpressed.jpg",
-                    "isCorrectB": "/images/checkbox_unpressed.jpg",
-                    "isCorrectC": "/images/checkbox_unpressed.jpg",
-                    "isCorrectD": "/images/checkbox_unpressed.jpg"}]},
-                {"courseId": 2,
-                "courseName": "Beispielkurs2",
-                "questions": [ 
-                    {"id" : 0,
-                    "topic": null, //gebraucht?
-                    "name": "Beispielfrage21",
-                    "url": "",
-                    "type": "quiz",
-                    "timelimit": 10,
-                    "points": "standard"},
-                    {"id": 1,
-                    "topic": null, //gebraucht?
-                    "name": "Beispielfrage22",
-                    "url": null,
-                    "type": "wahrOderFalsch",
-                    "timelimit": 20,
-                    "points": "standard"}],
-                "answers": [
-                    {id: 0,
-                    "answerOptions": "mehrfachauswahl", //Hier richtig oder zu questions?
-                    "answersArray": ["Antwort211", "Antwort212", "Antwort213", "Antwort214"],
-                    "isCorrectA": "/images/checkbox_unpressed.jpg",
-                    "isCorrectB": "/images/checkbox_unpressed.jpg",
-                    "isCorrectC": "/images/checkbox_unpressed.jpg",
-                    "isCorrectD": "/images/checkbox_unpressed.jpg"
-                    },
-                    {id: 1,
-                    "answerOptions": "einzelauswahl", //Hier richtig oder zu questions?
-                    "answersArray": ["Antwort221", "Antwort222", "Antwort223", "Antwort224"],
-                    "isCorrectA": "/images/checkbox_unpressed.jpg",
-                    "isCorrectB": "/images/checkbox_unpressed.jpg",
-                    "isCorrectC": "/images/checkbox_unpressed.jpg",
-                    "isCorrectD": "/images/checkbox_unpressed.jpg"}]}],
-            // courses: {},
-
+            
+            courses: [{}],
+            questions: [{}],
+            answers: [{}],
+            
             //Standardwerte bzw. Werte-Zwischenspeicher
+            selectedCourseIndex: null,
             coursename: "",
+            selectedQuestionIndex: null,
             questionname: "",
             image: 0,
             imageData: 0,
@@ -118,16 +34,14 @@ class t_CreateHootHootPage extends React.Component {
             textareaB: "",
             textareaC: "",
             textareaD: "",
-            isCorrectA: "/images/checkbox_unpressed.jpg",
-            isCorrectB: "/images/checkbox_unpressed.jpg",
-            isCorrectC: "/images/checkbox_unpressed.jpg",
-            isCorrectD: "/images/checkbox_unpressed.jpg",
+            isCorrectA: false,
+            isCorrectB: false,
+            isCorrectC: false,
+            isCorrectD: false,
             selectType: "quiz",
             selectTimelimit: 10,
             selectPoints: "standard",
             selectAnswerOptions: "einzelauswahl",
-            selectedCourseIndex: 0,
-            selectedQuestionIndex: 0
         };
 
         this.handleChangeCourseName = this.handleChangeCourseName.bind(this)
@@ -142,77 +56,348 @@ class t_CreateHootHootPage extends React.Component {
         this.handleChangePoints = this.handleChangePoints.bind(this);
         this.handleChangeAnswerOptions = this.handleChangeAnswerOptions.bind(this);
     }
+
+    async componentDidMount() {
+
+        await this.getCourses()
+        this.handleChangeCourseIndex()
+
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+
+        //Änderung an QuestionProperties stattgefunden?
+        if(prevState.questions !== this.state.questions) {
+            this.showQuestions()
+        }
+
+        //Änderung an AnswersProperties stattgefunden?
+        if((prevState.textareaA !== this.state.textareaA) || (prevState.textareaB !== this.state.textareaB) || 
+           (prevState.textareaC !== this.state.textareaC) || (prevState.textareaD !== this.state.textareaD)) {
+            console.log('Textarea A innerhalb: '+this.state.textareaA)
+            console.log('Textarea B innerhalb: '+this.state.textareaB)
+            this.showAnswers(this.state.selectType)
+            console.warn('update')
+            // console.log(this.answerCheckboxTranslatorBToS(true/*this.state.isCorrectA*/))
+            // console.log('isCorrectA: '+this.state.isCorrectA)
+            // console.log('isCorrectB: '+this.state.isCorrectB)
+            // console.log('isCorrectC: '+this.state.isCorrectC)
+            // console.log('isCorrectD: '+this.state.isCorrectD)
+        }
+        
+    }
+
+    //GET-------------
+    async getCourses() {
+        try {
+            const response = await fetch('http://localhost:5000/api/courses', {
+                method: 'GET',
+                headers: { 'jwt_token': localStorage.token }
+            });
+            
+            const data = await response.json()
+
+            this.setState({courses: data})
+            
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+    async getQuestionsFromSelectedCourse(courseid) {
+        try {
+
+            if(typeof courseid === 'undefined')
+            {
+                courseid = this.state.selectedCourseIndex
+            }
+
+            const response = await fetch('http://localhost:5000/api/courses/'+courseid+'/questions');
+            const data = await response.json()
+            
+            this.setState({questions: data})
+            
+        } catch(e) {
+            console.log(e)
+        }
+    }
+
+    async getAnswers(questionid) {
+        try {
+            const response = await fetch('http://localhost:5000/api/answers/'+questionid);
+            const data = await response.json()
+
+            this.setState({answers: data})
+            
+        } catch(e) {
+            console.log(e)
+        }
+    }
+
+    //POST---------------
+    async createQuestion() {
+        try {
+
+            let body = {
+                id: this.state.questions[this.state.questions.length-1].id,
+                name: this.state.questionname,
+                type: this.state.selectType,
+                timelimit: this.state.selectTimelimit,
+                points: this.state.selectPoints,
+                answer_options: this.state.selectAnswerOptions,
+                courseid: this.state.selectedCourseIndex
+            }
+            
+            const myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+            myHeaders.append("jwt_token", localStorage.token);
+            
+            const response = await fetch('http://localhost:5000/api/question/', { 
+                method: 'POST', 
+                headers: myHeaders, 
+                body: JSON.stringify(body)
+            });
+
+            console.log(response)
+
+            this.getQuestionsFromSelectedCourse(this.state.selectedCourseIndex)
+
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+    async createAnswers() {
+        try {
+
+            //first answer
+            let body1 = {
+                    id: 1,
+                    questionid: this.state.selectedQuestionIndex,
+                    answer: this.state.textareaA,
+                    iscorrect: this.state.isCorrectA
+            }
+
+            const myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+            myHeaders.append("jwt_token", localStorage.token);
+    
+            const response1 = await fetch('http://localhost:5000/api/answer/', {
+                method: 'POST', 
+                headers: myHeaders, 
+                body: JSON.stringify(body1)
+            })
+
+            console.log(response1)
+            
+
+            //second answer
+            let body2 = {
+                    id: 2,
+                    questionid: this.state.selectedQuestionIndex,
+                    answer: this.state.textareaB,
+                    iscorrect: this.state.isCorrectB
+            }
+
+            const response2 = await fetch('http://localhost:5000/api/answer/', {
+                method: 'POST', 
+                headers: myHeaders, 
+                body: JSON.stringify(body2)
+            })
+
+            console.log(response2)
+            
+
+            //third answer
+            let body3 = {
+                    id: 3,
+                    questionid: this.state.selectedQuestionIndex,
+                    answer: this.state.textareaC,
+                    iscorrect: this.state.isCorrectC
+            }
+
+            const response3 = await fetch('http://localhost:5000/api/answer/', {
+                method: 'POST', 
+                headers: myHeaders, 
+                body: JSON.stringify(body3)
+            })
+
+            console.log(response3)
+            
+            
+            //fourth answer
+            let body4 = {
+                    id: 4,
+                    questionid: this.state.selectedQuestionIndex,
+                    answer: this.state.textareaD,
+                    iscorrect: this.state.isCorrectD
+                }
+
+            const response4 = await fetch('http://localhost:5000/api/answer/', {
+                method: 'POST', 
+                headers: myHeaders, 
+                body: JSON.stringify(body4)
+            })
+
+            console.log(response4)
+
+            
+            await this.getAnswers()
+
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+    //PUT
+    async updateQuestion() {
+
+    }
+
+    async updateAnswer() {
+
+    }
+
+
+    //DELETE---------------
+    async deleteQuestion(id) {
+
+        await fetch('http://localhost:5000/api/questions/'+id, {
+            method: 'DELETE'
+        })
+
+        this.getQuestionsFromSelectedCourse(this.state.selectedCourseIndex)
+
+    }
+
+    async deleteAnswer(questionid, answerid) {
+
+        await fetch('http://localhost:5000/api/questions/'+ questionid +'/answers/'+ answerid, {
+            method: 'DELETE'
+        })
+
+    }
+
+    //DUPLICATE
+    async duplicateQuestion() {
+
+    }
+
+    async duplicateAnswer() {
+
+    }
+
+
+    answerCheckboxTranslatorBToS(pressedUnpressed) {
+        //Boolean to String
+        if(pressedUnpressed === true) {
+            // console.log('String true returned')
+            return "/images/checkbox_pressed.jpg"
+        }
+        else {
+            // console.log('String false returned')
+            return "/images/checkbox_unpressed.jpg"
+        }
+    }
     
     pressOrUnpressAnswerCheckbox(idImagebuttonCheckbox) {
         if (idImagebuttonCheckbox === 'answer-checkbox-A') {
-            if (this.state.isCorrectA === "/images/checkbox_unpressed.jpg")
+            if (this.state.isCorrectA === false)
             {
-                this.setState({isCorrectA: "/images/checkbox_pressed.jpg"})
+                this.setState({isCorrectA: true})
             }
             else 
             {
-                this.setState({isCorrectA: "/images/checkbox_unpressed.jpg"})
+                this.setState({isCorrectA: false})
             }
         }
         
         if (idImagebuttonCheckbox === 'answer-checkbox-B') {
-            if (this.state.isCorrectB === "/images/checkbox_unpressed.jpg") 
+            if (this.state.isCorrectB === false) 
             {
-                this.setState({isCorrectB: "/images/checkbox_pressed.jpg"})
+                this.setState({isCorrectB: true})
             }
             else 
             {
-                this.setState({isCorrectB: "/images/checkbox_unpressed.jpg"})
+                this.setState({isCorrectB: false})
             }
         }
         
         if (idImagebuttonCheckbox === 'answer-checkbox-C') {
-            if (this.state.isCorrectC === "/images/checkbox_unpressed.jpg") 
+            if (this.state.isCorrectC === false) 
             {
-                this.setState({isCorrectC: "/images/checkbox_pressed.jpg"})
+                this.setState({isCorrectC: true})
             }
             else 
             {
-                this.setState({isCorrectC: "/images/checkbox_unpressed.jpg"})
+                this.setState({isCorrectC: false})
             }
         }
         
         if (idImagebuttonCheckbox === 'answer-checkbox-D') {
-            if (this.state.isCorrectD === "/images/checkbox_unpressed.jpg") 
+            if (this.state.isCorrectD === false) 
             {
-                this.setState({isCorrectD: "/images/checkbox_pressed.jpg"})
+                this.setState({isCorrectD: true})
             }
             else 
             {
-                this.setState({isCorrectD: "/images/checkbox_unpressed.jpg"})
+                this.setState({isCorrectD: false})
             }
         }
     }
     
     addNewQuestion() {  
-        let newId = this.state.courses[this.state.selectedCourseIndex].questions.length
-        let newquestion = {
-            id: newId,
+
+        //questions leer?
+        let questionID = 1
+        if(this.state.questions.length !== 0) {
+            questionID = this.state.questions[this.state.questions.length-1].id+1
+        }
+        
+        let newQuestion = {
+            id: questionID,
             topic: null, //gebraucht?
             name: "",
             url: "",
             type: "quiz",
             timelimit: 10,
-            points: "standard"}
-        this.state.courses[this.state.selectedCourseIndex].questions.push(newquestion)
+            points: "standard",
+            answerOptions: "mehrfachauswahl"}
 
-        let newanswers = {
-            id: newId,
-            answerOptions: "einzelauswahl", //Hier richtig oder zu questions?
-            answersArray: ["", "", "", ""],
-            isCorrectA: "/images/checkbox_unpressed.jpg",
-            isCorrectB: "/images/checkbox_unpressed.jpg",
-            isCorrectC: "/images/checkbox_unpressed.jpg",
-            isCorrectD: "/images/checkbox_unpressed.jpg"}
-        this.state.courses[this.state.selectedCourseIndex].answers.push(newanswers)
+        this.state.questions.push(newQuestion)
+        this.setState({questions: this.state.questions})
+        // console.log(this.state.questions)
 
-        this.setState({courses: this.state.courses})
-        console.log(this.state.courses)
+        let newAnswerA = {
+            answer: "",
+            id: 1,
+            isCorrect: false,
+            questionid: newQuestion.id}
+        
+        let newAnswerB = {
+            answer: "",
+            id: 2,
+            isCorrect: false,
+            questionid: newQuestion.id}
+
+        let newAnswerC = {
+            answer: "",
+            id: 3,
+            isCorrect: false,
+            questionid: newQuestion.id}
+
+        let newAnswerD = {
+            answer: "",
+            id: 4,
+            isCorrect: false,
+            questionid: newQuestion.id}
+
+        this.state.answers.push(newAnswerA)
+        this.state.answers.push(newAnswerB)
+        this.state.answers.push(newAnswerC)
+        this.state.answers.push(newAnswerD)
+        this.setState({answers: this.state.answers})
+        // console.log(this.state.answers)
     }
 
     duplicateQuestion(questionId) {
@@ -229,69 +414,131 @@ class t_CreateHootHootPage extends React.Component {
         this.setState({courses: this.state.courses})
     }
 
-    // TODO:
-    //Funktioniert noch nicht
-    deleteQuestion(questionId) {
-        this.state.courses[this.state.selectedCourseIndex].questions.splice(questionId, 1)
-        this.state.courses[this.state.selectedCourseIndex].answers.splice(questionId, 1)
+    async deleteQuestionAndAnswers(questionid) {
+        
+        await this.deleteAnswer(questionid, 1)
+        await this.deleteAnswer(questionid, 2)
+        
+        if(this.state.selectType === 'quiz') {
+            await this.deleteAnswer(questionid, 3)
+            await this.deleteAnswer(questionid, 4)
+        }
 
-        for (let i = 0; i < this.state.courses[this.state.selectedCourseIndex].questions.length; i++) {
-            this.state.courses[this.state.selectedCourseIndex].questions[i].id = i
-            this.state.courses[this.state.selectedCourseIndex].answers[i].id = i
+        await this.deleteQuestion(questionid)
+
+    }
+
+    setQuestionProperties(questionId) {
+        {this.state.questions.map((question) => {
+            if(question.id === questionId) {
+                this.setState({questionname: question.name})
+                this.setState({selectType: question.type})
+                this.setState({selectTimelimit: question.timelimit})
+                this.setState({selectPoints: question.points})
+                this.setState({selectAnswerOptions: question.answer_options})
+            }
+        })}
+    }
+
+    setAnswerProperties() {
+        if(this.state.answers.length === 0) {
+            this.setState({textareaA: ""})
+            this.setState({isCorrectA: false})
+
+            this.setState({textareaB: ""})
+            this.setState({isCorrectB: false})
+
+            this.setState({textareaC: ""})
+            this.setState({isCorrectC: false})
+
+            this.setState({textareaD: ""})
+            this.setState({isCorrectD: false})
+
+        } else {
+            {this.state.answers.map((answer) => {
+                    if(answer.id === 1) {
+                        this.setState({textareaA: answer.answer})
+                        this.setState({isCorrectA: answer.isCorrect})
+                    }
+
+                    if(answer.id === 2) {
+                        this.setState({textareaB: answer.answer})
+                        this.setState({isCorrectB: answer.isCorrect})
+                    }
+
+                    if(answer.id === 3) {
+                        this.setState({textareaC: answer.answer})
+                        this.setState({isCorrectC: answer.isCorrect})
+                    }
+
+                    if(answer.id === 4) {
+                        this.setState({textareaD: answer.answer})
+                        this.setState({isCorrectD: answer.isCorrect})
+                    }
+            })}
+            console.log('setAnswers finish')
+        }
+    }
+
+    async selectQuestion(questionId) {
+
+        this.setState({selectedQuestionIndex: questionId})
+        await this.getAnswers(questionId)
+        this.setQuestionProperties(questionId)
+        this.setAnswerProperties()
+
+        //this.setState({imageData: this.state.courses[this.state.selectedCourseIndex].questions[questionId].url})   
+    }
+
+    checkIsCorrect() {
+
+        var counter = 0
+        
+        if(this.state.isCorrectA === true) {
+            counter +=1
+        }
+        if(this.state.isCorrectB === true) {
+            counter +=1
+        }
+        if(this.state.isCorrectC === true) {
+            counter +=1
+        }
+        if(this.state.isCorrectD === true) {
+            counter +=1
         }
         
-        this.setState({courses: this.state.courses})
+        if(this.state.selectAnswerOptions === 'einzelauswahl') {
+            if(counter === 1) {
+                return true
+            }
+            else {
+                return false
+            }
+        }
+        
+        if(this.state.selectAnswerOptions === 'mehrfachauswahl') {
+            if(counter > 1) {
+                return true
+            }
+            else {
+                return false
+            }
+        }
     }
 
-    selectQuestion(questionId) {
-        this.setState({selectedQuestionIndex: questionId})
-        console.log("Kursindex:"+this.state.selectedCourseIndex+"\nQuestionIndex:"+questionId)
-        
-        this.setState({questionname: this.state.courses[this.state.selectedCourseIndex].questions[questionId].name})
-        this.setState({imageData: this.state.courses[this.state.selectedCourseIndex].questions[questionId].url})
-        this.setState({textareaA: this.state.courses[this.state.selectedCourseIndex].answers[questionId].answersArray[0]})
-        this.setState({textareaB: this.state.courses[this.state.selectedCourseIndex].answers[questionId].answersArray[1]})
-        this.setState({textareaC: this.state.courses[this.state.selectedCourseIndex].answers[questionId].answersArray[2]})
-        this.setState({textareaD: this.state.courses[this.state.selectedCourseIndex].answers[questionId].answersArray[3]})
-        this.setState({isCorrectA: this.state.courses[this.state.selectedCourseIndex].answers[questionId].isCorrectA})
-        this.setState({isCorrectB: this.state.courses[this.state.selectedCourseIndex].answers[questionId].isCorrectB})
-        this.setState({isCorrectC: this.state.courses[this.state.selectedCourseIndex].answers[questionId].isCorrectC})
-        this.setState({isCorrectD: this.state.courses[this.state.selectedCourseIndex].answers[questionId].isCorrectD})
-        this.setState({selectType: this.state.courses[this.state.selectedCourseIndex].questions[questionId].type})
-        this.setState({selectTimelimit: this.state.courses[this.state.selectedCourseIndex].questions[questionId].timelimit})
-        this.setState({selectPoints: this.state.courses[this.state.selectedCourseIndex].questions[questionId].points})
-        this.setState({selectAnswerOptions: this.state.courses[this.state.selectedCourseIndex].answers[questionId].answerOptions})
-    }
+    async saveQuestion() {
 
-    saveQuestion() {
+        if(this.checkIsCorrect()) {
+            
+            await this.createQuestion()
+            await this.createAnswers()
+            console.log('Alles abgespeichert') 
 
-        let question = {
-                id: this.state.selectedQuestionIndex,
-                topic: null,
-                name: this.state.questionname,
-                url: this.state.imageData,
-                type: this.state.selectType,
-                timelimit: this.state.selectTimelimit,
-                points: this.state.selectPoints}
-        
-        let answers = {
-                id: this.state.selectedQuestionIndex,
-                answerOptions: this.state.selectAnswerOptions, //Hier richtig oder zu questions?
-                answersArray: [this.state.textareaA,
-                                this.state.textareaB, 
-                                this.state.textareaC, 
-                                this.state.textareaD],
-                isCorrectA: this.state.isCorrectA,
-                isCorrectB: this.state.isCorrectB,
-                isCorrectC: this.state.isCorrectC,
-                isCorrectD: this.state.isCorrectD}
-        
-        this.state.courses[this.state.selectedCourseIndex].courseId = this.state.selectedCourseIndex
-        this.state.courses[this.state.selectedCourseIndex].courseName = this.state.coursename
-        this.state.courses[this.state.selectedCourseIndex].questions[this.state.selectedQuestionIndex] = question
-        this.state.courses[this.state.selectedCourseIndex].answers[this.state.selectedQuestionIndex] = answers
-
-        this.setState({courses: this.state.courses})   
+        }
+        else {
+            alert('isCorrect passt nicht zum Fragentypen')
+        }
+          
     }
 
     handleChangeCourseName(changeText) {
@@ -303,8 +550,24 @@ class t_CreateHootHootPage extends React.Component {
     }
 
     handleChangeCourseIndex(event) {
-        this.setState({selectedCourseIndex: event.target.value})
-        this.setState({coursename: this.state.courses[event.target.value].courseName})
+
+        let courseid = null
+
+        if(typeof event === 'undefined') {
+            courseid = this.state.courses[0].id
+        } else {
+            courseid = event.target.value
+        }
+
+        this.setState({selectedCourseIndex: courseid})
+
+        {this.state.courses.map((course) => {
+            if(course.id === courseid) {
+                this.setState({coursename: course.name})
+            }
+        })}
+        
+        this.getQuestionsFromSelectedCourse(courseid)
 
         //Question-Felder reset
         this.setState({questionname: ""})
@@ -313,10 +576,10 @@ class t_CreateHootHootPage extends React.Component {
         this.setState({textareaB: ""})
         this.setState({textareaC: ""})
         this.setState({textareaD: ""})
-        this.setState({isCorrectA: "/images/checkbox_unpressed.jpg"})
-        this.setState({isCorrectB: "/images/checkbox_unpressed.jpg"})
-        this.setState({isCorrectC: "/images/checkbox_unpressed.jpg"})
-        this.setState({isCorrectD: "/images/checkbox_unpressed.jpg"})
+        this.setState({isCorrectA: false})
+        this.setState({isCorrectB: false})
+        this.setState({isCorrectC: false})
+        this.setState({isCorrectD: false})
         this.setState({selectType: "quiz"})
         this.setState({selectTimelimit: 10})
         this.setState({selectPoints: "standard"})
@@ -341,6 +604,10 @@ class t_CreateHootHootPage extends React.Component {
 
     handleChangeType(event) {
         this.setState({selectType: event.target.value})
+        
+        if(event.target.value === "wahrOderFalsch") {
+            this.setState({selectAnswerOptions: "einzelauswahl"})
+        }
     }
 
     handleChangeTimelimit(event) {
@@ -352,7 +619,12 @@ class t_CreateHootHootPage extends React.Component {
     }
     
     handleChangeAnswerOptions(event) {
-        this.setState({selectAnswerOptions: event.target.value})
+        if(this.state.selectType === "wahrOderFalsch") {
+            this.setState({selectAnswerOptions: "einzelauswahl"})
+        }
+        else {
+            this.setState({selectAnswerOptions: event.target.value})
+        }
     }
 
     //TODO: Richtige Variable image bzw. imageData?
@@ -368,7 +640,11 @@ class t_CreateHootHootPage extends React.Component {
         }
     }
 
-    setQuestionType(type) {
+    showAnswers(type) {
+        console.log('mittendrin')
+        console.log(this.state.textareaA)
+        console.log(this.state.textareaB)
+
         if(type === "quiz")
         {
             return (
@@ -386,7 +662,7 @@ class t_CreateHootHootPage extends React.Component {
                                 onTextareaChange={this.handleTextareaAChange}
                                 classNameImagebuttonCheckbox="create-answer-checkbox"
                                 idImagebuttonCheckbox="answer-checkbox-A"
-                                srcImagebuttonCheckbox= {this.state.isCorrectA}
+                                srcImagebuttonCheckbox= {this.answerCheckboxTranslatorBToS(this.state.isCorrectA)}
                                 altImagebuttonCheckbox="ImageCheckbox"
                                 onClickImagebuttonCheckbox={() => this.pressOrUnpressAnswerCheckbox("answer-checkbox-A")}
                                 classNameImagebuttonPicture="create-answer-picture"
@@ -407,7 +683,7 @@ class t_CreateHootHootPage extends React.Component {
                                 onTextareaChange={this.handleTextareaBChange}
                                 classNameImagebuttonCheckbox="create-answer-checkbox"
                                 idImagebuttonCheckbox="answer-checkbox-B"
-                                srcImagebuttonCheckbox= {this.state.isCorrectB}
+                                srcImagebuttonCheckbox= {this.answerCheckboxTranslatorBToS(this.state.isCorrectB)}
                                 altImagebuttonCheckbox="ImageCheckbox"
                                 onClickImagebuttonCheckbox={() => this.pressOrUnpressAnswerCheckbox("answer-checkbox-B")}
                                 classNameImagebuttonPicture="create-answer-picture"
@@ -430,7 +706,7 @@ class t_CreateHootHootPage extends React.Component {
                                 onTextareaChange={this.handleTextareaCChange}
                                 classNameImagebuttonCheckbox="create-answer-checkbox"
                                 idImagebuttonCheckbox="answer-checkbox-C"
-                                srcImagebuttonCheckbox= {this.state.isCorrectC}
+                                srcImagebuttonCheckbox= {this.answerCheckboxTranslatorBToS(this.state.isCorrectC)}
                                 altImagebuttonCheckbox="ImageCheckbox"
                                 onClickImagebuttonCheckbox={() => this.pressOrUnpressAnswerCheckbox("answer-checkbox-C")}
                                 classNameImagebuttonPicture="create-answer-picture"
@@ -451,7 +727,7 @@ class t_CreateHootHootPage extends React.Component {
                                 onTextareaChange={this.handleTextareaDChange}
                                 classNameImagebuttonCheckbox="create-answer-checkbox"
                                 idImagebuttonCheckbox="answer-checkbox-D"
-                                srcImagebuttonCheckbox= {this.state.isCorrectD}
+                                srcImagebuttonCheckbox= {this.answerCheckboxTranslatorBToS(this.state.isCorrectD)}
                                 altImagebuttonCheckbox="ImageCheckbox"
                                 onClickImagebuttonCheckbox={() => this.pressOrUnpressAnswerCheckbox("answer-checkbox-D")}
                                 classNameImagebuttonPicture="create-answer-picture"
@@ -482,7 +758,7 @@ class t_CreateHootHootPage extends React.Component {
                                 onTextareaChange={this.handleTextareaAChange}
                                 classNameImagebuttonCheckbox="create-answer-checkbox"
                                 idImagebuttonCheckbox="answer-checkbox-A"
-                                srcImagebuttonCheckbox= {this.state.isCorrectA}
+                                srcImagebuttonCheckbox= {this.answerCheckboxTranslatorBToS(this.state.isCorrectA)}
                                 altImagebuttonCheckbox="ImageCheckbox"
                                 onClickImagebuttonCheckbox={() => this.pressOrUnpressAnswerCheckbox("answer-checkbox-A")}
                                 classNameImagebuttonPicture="create-answer-picture"
@@ -503,7 +779,7 @@ class t_CreateHootHootPage extends React.Component {
                                 onTextareaChange={this.handleTextareaBChange}
                                 classNameImagebuttonCheckbox="create-answer-checkbox"
                                 idImagebuttonCheckbox="answer-checkbox-B"
-                                srcImagebuttonCheckbox= {this.state.isCorrectB}
+                                srcImagebuttonCheckbox= {this.answerCheckboxTranslatorBToS(this.state.isCorrectB)}
                                 altImagebuttonCheckbox="ImageCheckbox"
                                 onClickImagebuttonCheckbox={() => this.pressOrUnpressAnswerCheckbox("answer-checkbox-B")}
                                 classNameImagebuttonPicture="create-answer-picture"
@@ -518,12 +794,12 @@ class t_CreateHootHootPage extends React.Component {
         }
     }
 
-    loadQuestionView() {
+    showQuestions() {
         return (
             <div>
-                {this.state.courses[this.state.selectedCourseIndex].questions.map((question) => (  
+                {this.state.questions.map((question) => (  
                     <QuestionView
-                        key={question.id.toString()}
+                        key={question.id}
                         classNameImagebuttonDuplicate="question-view-duplicate"
                         srcImagebuttonDuplicate="/images/duplicate.jpg"
                         altImagebuttonDuplicate="duplicateButton"
@@ -531,7 +807,7 @@ class t_CreateHootHootPage extends React.Component {
                         classNameImagebuttonDelete="question-view-delete"
                         srcImagebuttonDelete="/images/delete.jpg"
                         altImagebuttonDelete="deleteButton"
-                        onClickImagebuttonDelete={() => this.deleteQuestion(question.id)}
+                        onClickImagebuttonDelete={() => this.deleteQuestionAndAnswers(question.id)}
                         classNameText="question-overview-text" 
                         valueText={question.name}
                         classNameQuestionSelectionButton="question-selection-button"
@@ -575,7 +851,7 @@ class t_CreateHootHootPage extends React.Component {
                                     onChange={this.handleChangeCourseIndex}>
                                 {/* TODO: einbeziehen */}
                                 {this.state.courses.map((course) => (
-                                    <option key={course.courseId} value={course.courseId}>{course.courseName}</option>
+                                    <option key={course.id} value={course.id}>{course.name}</option>
                                 ))}
                             </select>
                         </Col>
@@ -597,7 +873,7 @@ class t_CreateHootHootPage extends React.Component {
                     <Row>
                         <Col md={2}>
                             <Field idField="question-overview">
-                                {this.loadQuestionView()}
+                                {this.showQuestions()}
                                 <Imagebutton
                                     className="add-new-question"
                                     src="/images/addNewQuestion.jpg"
@@ -626,7 +902,7 @@ class t_CreateHootHootPage extends React.Component {
                                     inputOnChange={this.fileSelectedHandler.bind(this)}>  
                                 </FileInput>
                             </Field>
-                            {this.setQuestionType(this.state.selectType)}
+                            {this.showAnswers(this.state.selectType)}
                         </Col>
                         <Col md={2}>
                             <Field

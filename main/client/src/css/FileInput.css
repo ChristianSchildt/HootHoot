@@ -10,3 +10,16 @@
     width: 8em;
     height: 2em;
 }
+#fileInputProfilbildInsert
+{
+    border: 1px solid #ffffff;
+    border-radius: 2em;
+    font-family: 'Calibri';
+    font-size: 1em;
+    font-weight: bold;
+    background-color: white;
+    color: white;
+    width: 8em;
+    height: 2em;
+    margin-top: 2em;
+}

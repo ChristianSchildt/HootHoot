@@ -31,9 +31,12 @@ CREATE TABLE role
 CREATE TABLE question 
 ( 
 	id integer NOT NULL UNIQUE,
-	question text,
-	type text,
 	topic text,
+	name text,
+	type text,
+	timelimit integer,
+	points text,
+	answer_options text,
 	courseid integer NOT NULL,
 	user_id uuid REFERENCES users(user_id)
 ); 
@@ -124,3 +127,14 @@ ALTER TABLE course ADD CONSTRAINT course_user_fkey FOREIGN KEY (user_id) REFEREN
 
 
 --INSERT INTO users (user_name, user_password, user_email, name) VALUES ('hoothoot', 'hoothoot', 'hoothoot@hootmail.de', 'HSBO', 1);
+
+-- INSERT INTO course (name) VALUES ('BK1');
+-- INSERT INTO course (name) VALUES ('BK2');
+
+-- INSERT INTO question (name, type, timelimit, points, answer_options, courseid, user_id) VALUES ('Erste Frage?', 'quiz', 10, 'standard', 'mehrfachauswahl', 1, '');
+-- INSERT INTO question (name, type, timelimit, points, answer_options, courseid, user_id) VALUES ('Zweite Frage?', 'wahrOderFalsch', 20, 'standard', 'einzelauswahl', 1, '');
+
+-- INSERT INTO answer(id, questionid, answer, iscorrect) VALUES (1, 1, 'A', 't');
+-- INSERT INTO answer(id, questionid, answer, iscorrect) VALUES (2, 1, 'B', 'f');
+-- INSERT INTO answer(id, questionid, answer, iscorrect) VALUES (1, 2, 'A2', 't');
+-- INSERT INTO answer(id, questionid, answer, iscorrect) VALUES (2, 2, 'B2', 'f');
