@@ -12,12 +12,9 @@ class t_PlayHootHootPage extends React.Component {
     
     constructor(props) {
         super(props);
-        
-        this.state = {
-            timer: 0
-        };
 
-        if (this.props.route) {
+        // TODO: passing props between pages via navigate
+        /*if (this.props.route) {
             this.time = this.props.route.params.time;
             this.question = this.props.route.params.question;
             this.answerA = this.props.route.params.answers[0];
@@ -25,7 +22,23 @@ class t_PlayHootHootPage extends React.Component {
             this.answerC = this.props.route.params.answers[2];
             this.answerD = this.props.route.params.answers[3];
             this.correctAnswerIndex = this.props.route.params.correctAnswerIndex;
+        }*/
+        this.quiz = {
+            time: 20,
+            question: "Frage",
+            answers: ["Antwort 1", "Antwort 2", "Antwort 3", "Antwort 4"],
+            correctAnswerIndex: 3
         }
+        this.question = this.quiz.question;
+        this.answerA = this.quiz.answers[0];
+        this.answerB = this.quiz.answers[1];
+        this.answerC = this.quiz.answers[2];
+        this.answerD = this.quiz.answers[3];
+        this.correctAnswerIndex = this.quiz.correctAnswerIndex;
+
+        this.state = {
+            timer: this.quiz.time
+        };
     }
 
     componentDidMount() {
@@ -34,9 +47,28 @@ class t_PlayHootHootPage extends React.Component {
             return;
         }
 
-        window.connection.socket.emit('quiz-started')    
+        window.connection.socket.emit('quiz-started')
+        
+        // check just to be sure
+        if (!this.timerStarted) {
+            setInterval(this.timerTick.bind(this), 1000)
+        }
     }
     
+    timerTick() {
+        this.timerStarted = true; //workaround
+        if (this.state.timer > 0) {
+            this.setState({timer: this.state.timer - 1})
+        } else {
+            // TODO: cldearnterval
+            this.endQuiz()
+        }
+    }
+
+    endQuiz() {
+        this.props.navigate("/teacher/answerEvaluation", this.quiz)
+    }
+
     render() {
         return(
             <div className='tPlayHootHootPage'>
@@ -58,6 +90,7 @@ class t_PlayHootHootPage extends React.Component {
                                 className="button"
                                 id="button-skip-playHootHootPage"
                                 value="Überspringen"
+                                onClick={this.endQuiz.bind(this)}
                                 // href=""
                                 >
                             </Button>
@@ -67,7 +100,7 @@ class t_PlayHootHootPage extends React.Component {
                             <div id="div-HootHoot-question">
                                 <Text
                                     id="HootHoot-question"
-                                    value="Mit dem GUI zufrieden?">
+                                    value={this.question}>
                                 </Text>
                             </div>
                         </Col>
@@ -78,7 +111,7 @@ class t_PlayHootHootPage extends React.Component {
                             <div id="div-countdown">
                                 <Text
                                     id="countdown"
-                                    value="20">
+                                    value={this.state.timer}>
                                 </Text>
                             </div>
                             </a>

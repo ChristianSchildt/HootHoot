@@ -23,7 +23,7 @@ class t_LetStudentsJoinPage extends React.Component {
             time: 20,
             question: "Frage",
             answers: ["Antwort 1", "Antwort 2", "Antwort 3", "Antwort 4"],
-            correctAnswerIndex: 1
+            correctAnswerIndex: 3
         }
     }
     
@@ -39,7 +39,7 @@ class t_LetStudentsJoinPage extends React.Component {
     }
 
     startGame() {
-        this.props.navigation.navigate("/teacher/playHootHoot", this.props.quiz)
+        this.props.navigate("/teacher/playHootHoot", this.quiz)
     }
 
     render() {

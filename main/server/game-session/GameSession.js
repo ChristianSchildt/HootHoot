@@ -9,6 +9,8 @@ class GameSession {
         this.answers = answers;
         this.correctAnswerIndex = correctAnswerIndex;
         this.players = new Map();
+
+        host.on('get-answer-counts', (callback) => (this.getAnswerCounts(host, callback)));
     }
 
     addPlayer(socket, payload) {
@@ -43,10 +45,10 @@ class GameSession {
         console.log("player " + socket.id + " left");
     }
 
-    selectAnswer(socket, answer) {
-        this.players.get(socket.id).answer = answer;
+    selectAnswer(socket, answerIndex) {
+        this.players.get(socket.id).answerIndex = answerIndex;
 
-        console.log("user " + this.players.get(socket.id).name + " selected answer " + answer);
+        console.log("user " + this.players.get(socket.id).name + " selected answer " + answerIndex);
     }
 
     startQuiz(socket) {
@@ -70,6 +72,32 @@ class GameSession {
         return Array.from(this.players.values()).map((player) => {
             return player.name;
         });
+    }
+
+    getAnswerCounts(socket, callback) {
+        callback = typeof callback == "function" ? callback : () => {}
+        if (socket.id != this.host.id) {
+            return
+        }
+
+        let answerCounts = [0, 0, 0, 0];
+        let hasAnswer = false;
+        for (const player of this.players.values()) {
+            hasAnswer = true;
+            //console.log(player.answerIndex)
+            if (player.answerIndex >= 0 && player.answerIndex <= 3) {
+                //console.log("value increased")
+                answerCounts[player.answerIndex] = answerCounts[player.answerIndex] + 1;           
+            }
+        };
+        
+        console.log(answerCounts)
+
+        // workaround for issue with multiple socket connections for one hist
+        // TODO: fix!
+        if (hasAnswer) {
+            callback(answerCounts)
+        }
     }
 }
 

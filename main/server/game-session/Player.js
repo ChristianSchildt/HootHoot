@@ -4,7 +4,7 @@ class Player {
         this.name = name
     }
 
-    answer = undefined
+    answerIndex = undefined
 }
 
 module.exports = Player;
