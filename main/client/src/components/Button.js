@@ -1,22 +1,30 @@
 import React from 'react';
+import { useNavigate } from "react-router-dom";
 import '../css/Button.css';
 
-class Button extends React.Component {
+function Button(props) {
+  const navigate = useNavigate();
   
-  render() {
+  const onClick = (e) => {
+    if (props.onClick) {
+      props.onClick(e);
+    }
+    if (props.href) {
+      navigate(props.href)
+    } 
+  }
+
     return (
-        <a  id={this.props.aId}
-            href={this.props.href}>
+        <a  id={props.aId}>
           <button 
-            className={this.props.className} /*Darf nicht "class" heißen*/
-            id={this.props.id}
+            className={props.className} /*Darf nicht "class" heißen*/
+            id={props.id}
             type="submit"
-            onClick={this.props.onClick}> 
-            {this.props.value}
+            onClick={onClick}> 
+            {props.value}
           </button>
         </a>
     )
-  }
 }
 
 export default Button;

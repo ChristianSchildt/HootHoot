@@ -6,14 +6,69 @@ import Picture from '../components/Picture';
 import Text from '../components/Text';
 import Button from '../components/Button';
 import Field from '../components/Field';
+import withNavigate from '../utility/with-navigate';
 
 class t_PlayHootHootPage extends React.Component {
     
     constructor(props) {
         super(props);
 
+        // TODO: passing props between pages via navigate
+        /*if (this.props.route) {
+            this.time = this.props.route.params.time;
+            this.question = this.props.route.params.question;
+            this.answerA = this.props.route.params.answers[0];
+            this.answerB = this.props.route.params.answers[1];
+            this.answerC = this.props.route.params.answers[2];
+            this.answerD = this.props.route.params.answers[3];
+            this.correctAnswerIndex = this.props.route.params.correctAnswerIndex;
+        }*/
+        this.quiz = {
+            time: 60,
+            question: "Sind Sie mit dem GUI zufrieden?",
+            answers: ["Antwort A", "Antwort B", "Antwort C", "Antwort D"],
+            correctAnswerIndex: 3
+        }
+        this.question = this.quiz.question;
+        this.answerA = this.quiz.answers[0];
+        this.answerB = this.quiz.answers[1];
+        this.answerC = this.quiz.answers[2];
+        this.answerD = this.quiz.answers[3];
+        this.correctAnswerIndex = this.quiz.correctAnswerIndex;
+
+        this.state = {
+            timer: this.quiz.time
+        };
+    }
+
+    componentDidMount() {
+        if (!window.connection.socket) {
+            // die Seite wurde nicht über vorherige Seite aufgerufen, deshalb gibt es kein Quiz zum starten
+            return;
+        }
+
+        window.connection.socket.emit('quiz-started')
+        
+        // check just to be sure
+        if (!this.timerStarted) {
+            setInterval(this.timerTick.bind(this), 1000)
+        }
     }
     
+    timerTick() {
+        this.timerStarted = true; //workaround
+        if (this.state.timer > 0) {
+            this.setState({timer: this.state.timer - 1})
+        } else {
+            // TODO: cldearnterval
+            this.endQuiz()
+        }
+    }
+
+    endQuiz() {
+        this.props.navigate("/teacher/answerEvaluation", this.quiz)
+    }
+
     render() {
         return(
             <div className='tPlayHootHootPage'>
@@ -35,6 +90,7 @@ class t_PlayHootHootPage extends React.Component {
                                 className="button"
                                 id="button-skip-playHootHootPage"
                                 value="Überspringen"
+                                onClick={this.endQuiz.bind(this)}
                                 // href=""
                                 >
                             </Button>
@@ -44,7 +100,7 @@ class t_PlayHootHootPage extends React.Component {
                             <div id="div-HootHoot-question">
                                 <Text
                                     id="HootHoot-question"
-                                    value="Mit dem GUI zufrieden?">
+                                    value={this.question}>
                                 </Text>
                             </div>
                         </Col>
@@ -55,7 +111,7 @@ class t_PlayHootHootPage extends React.Component {
                             <div id="div-countdown">
                                 <Text
                                     id="countdown"
-                                    value="20">
+                                    value={this.state.timer}>
                                 </Text>
                             </div>
                             </a>
@@ -91,7 +147,7 @@ class t_PlayHootHootPage extends React.Component {
                                 <div className="column2-HootHoot-answers">
                                     <Text
                                         className="answer-text"
-                                        value="Antwort A">
+                                        value={this.answerA}>
                                     </Text>
                                 </div>
                             </div>
@@ -107,7 +163,7 @@ class t_PlayHootHootPage extends React.Component {
                                 <div className="column2-HootHoot-answers">
                                     <Text
                                         className="answer-text"
-                                        value="Antwort B">
+                                        value={this.answerB}>
                                     </Text>
                                 </div>
                             </div>
@@ -125,7 +181,7 @@ class t_PlayHootHootPage extends React.Component {
                                 <div className="column2-HootHoot-answers">
                                     <Text
                                         className="answer-text"
-                                        value="Antwort C">
+                                        value={this.answerC}>
                                     </Text>
                                 </div>
                             </div>
@@ -141,7 +197,7 @@ class t_PlayHootHootPage extends React.Component {
                                 <div className="column2-HootHoot-answers">
                                     <Text
                                         className="answer-text"
-                                        value="Antwort D">
+                                        value={this.answerD}>
                                     </Text>
                                 </div>
                             </div>
@@ -173,4 +229,4 @@ class t_PlayHootHootPage extends React.Component {
     }
 }
 
-export default t_PlayHootHootPage;
+export default withNavigate(t_PlayHootHootPage);

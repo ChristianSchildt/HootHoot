@@ -32,10 +32,10 @@ const options = {
     },
 };
 
-const players = {'Antwort A': 1, 
-                 'Antwort B': 1, 
+const players = {'Antwort A': 0, 
+                 'Antwort B': 0, 
                  'Antwort C': 0, 
-                 'Antwort D': 3};
+                 'Antwort D': 0};
 
 
 const data = {
@@ -53,8 +53,57 @@ class t_AnswerEvaluationPage extends React.Component {
     
     constructor(props) {
         super(props);
+
+        this.state = {
+            chartData: data
+        }
+        
+        // TODO: passing props between pages via navigate
+        /*if (this.props.route) {
+            this.time = this.props.route.params.time;
+            this.question = this.props.route.params.question;
+            this.answerA = this.props.route.params.answers[0];
+            this.answerB = this.props.route.params.answers[1];
+            this.answerC = this.props.route.params.answers[2];
+            this.answerD = this.props.route.params.answers[3];
+            this.correctAnswerIndex = this.props.route.params.correctAnswerIndex;
+        }*/
+        this.quiz = {
+            time: 60,
+            question: "Sind Sie mit dem GUI zufrieden?",
+            answers: ["Antwort A", "Antwort B", "Antwort C", "Antwort D"],
+            correctAnswerIndex: 3
+        }
+        this.time = this.quiz.time;
+        this.question = this.quiz.question;
+        this.answerA = this.quiz.answers[0];
+        this.answerB = this.quiz.answers[1];
+        this.answerC = this.quiz.answers[2];
+        this.answerD = this.quiz.answers[3];
+        this.correctAnswerIndex = this.quiz.correctAnswerIndex;
     }
     
+    componentDidMount() {
+        window.connection.connect()
+        window.connection.socket.emit("get-answer-counts", (answerCounts) => {
+            console.log(answerCounts)
+            this.setState({chartData: {
+                datasets: [
+                    {
+                        label: 'Dataset 1',
+                        data: {
+                            "Antwort A": answerCounts[0],
+                            "Antwort B": answerCounts[1],
+                            "Antwort C": answerCounts[2],
+                            "Antwort D": answerCounts[3]
+                        },
+                        backgroundColor: '#476D7C',
+                    }
+                ]
+            }})
+        });
+    }
+
     render() {
         return(
             <div className='tAnswerEvaluationPage'>
@@ -84,7 +133,7 @@ class t_AnswerEvaluationPage extends React.Component {
                             <div id="div-HootHoot-question">
                                 <Text
                                     id="HootHoot-question"
-                                    value="Mit dem GUI zufrieden?">
+                                    value={this.question}>
                                 </Text>
                             </div>
                         </Col>
@@ -140,7 +189,7 @@ class t_AnswerEvaluationPage extends React.Component {
                             <Bar
                                 id="barchart"
                                 options={options}
-                                data={data}>
+                                data={this.state.chartData}>
                             </Bar>
                         </Col>
                     </Row>
@@ -156,7 +205,7 @@ class t_AnswerEvaluationPage extends React.Component {
                                 <div className="column2-HootHoot-answers">
                                     <Text
                                         className="answer-text"
-                                        value="Antwort A">
+                                        value={this.answerA}>
                                     </Text>
                                 </div>
                             </div>
@@ -172,7 +221,7 @@ class t_AnswerEvaluationPage extends React.Component {
                                 <div className="column2-HootHoot-answers">
                                     <Text
                                         className="answer-text"
-                                        value="Antwort B">
+                                        value={this.answerB}>
                                     </Text>
                                 </div>
                             </div>
@@ -190,7 +239,7 @@ class t_AnswerEvaluationPage extends React.Component {
                                 <div className="column2-HootHoot-answers">
                                     <Text
                                         className="answer-text"
-                                        value="Antwort C">
+                                        value={this.answerC}>
                                     </Text>
                                 </div>
                             </div>
@@ -206,7 +255,7 @@ class t_AnswerEvaluationPage extends React.Component {
                                 <div className="column2-HootHoot-answers">
                                     <Text
                                         className="answer-text"
-                                        value="Antwort D">
+                                        value={this.answerD}>
                                     </Text>
                                 </div>
                             </div>

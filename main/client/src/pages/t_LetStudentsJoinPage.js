@@ -6,6 +6,7 @@ import Picture from '../components/Picture';
 import Text from '../components/Text';
 import Button from '../components/Button.js';
 import Field from '../components/Field';
+import withNavigate from '../utility/with-navigate';
 
 class t_LetStudentsJoinPage extends React.Component {
     
@@ -13,25 +14,32 @@ class t_LetStudentsJoinPage extends React.Component {
         super(props);
 
         this.state = {
-            players : [
-                {   
-                    "id": 1,
-                    "name": "Mustafa"
-                },
-                {   
-                    "id": 2,
-                    "name": "Maurice"
-                },
-                {   
-                    "id": 3,
-                    "name": "Christian"
-                },
-                {   
-                    "id": 4,
-                    "name": "Roland"
-                }
-            ]
+            players : [],
+            pin: ""
         };
+
+        //TODO: exchange with real data and make as prop
+        this.quiz = {
+            time: 60,
+            question: "Sind Sie mit dem GUI zufrieden?",
+            answers: ["Antwort A", "Antwort B", "Antwort C", "Antwort D"],
+            correctAnswerIndex: 3
+        }
+    }
+    
+    componentDidMount() {
+        window.connection.connect();
+        window.connection.socket.emit('create-game', this.quiz, (response) => {
+            console.log(response);
+            this.setState({pin: response.pin})
+        });
+        window.connection.socket.on('players-updated', (response) => {
+            this.setState({players: response})
+        })
+    }
+
+    startGame() {
+        this.props.navigate("/teacher/playHootHoot", this.quiz)
     }
 
     render() {
@@ -88,7 +96,7 @@ class t_LetStudentsJoinPage extends React.Component {
                                         <Text
                                             className=""
                                             id="number-gamePIN"
-                                            value="123 4567">
+                                            value={this.state.pin}>
                                         </Text>
                                     </div>   
                                 </Col>
@@ -110,7 +118,7 @@ class t_LetStudentsJoinPage extends React.Component {
                                 className="button"
                                 id="button-HootHoot"
                                 value="HootHoot!"
-                                href="/teacher/playHootHoot">
+                                onClick={this.startGame.bind(this)}>
                             </Button>
                         </Col>
                     </Row>
@@ -119,10 +127,9 @@ class t_LetStudentsJoinPage extends React.Component {
                             <Col md={2}>
                                 <div className="playernames">
                                     <Text
-                                        key={player.id.toString()}
                                         className="playername"
                                         id=""
-                                        value={player.name}>
+                                        value={player}>
                                     </Text>
                                 </div>
                             </Col>
@@ -134,4 +141,4 @@ class t_LetStudentsJoinPage extends React.Component {
     }
 }
 
-export default t_LetStudentsJoinPage;
+export default withNavigate(t_LetStudentsJoinPage);

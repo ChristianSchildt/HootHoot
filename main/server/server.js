@@ -1,3 +1,5 @@
+const GameSession = require('./game-session/GameSession')
+
 require('dotenv').config();
 
 const express = require("express");
@@ -29,41 +31,66 @@ httpServer.listen(5000, () => {
 });
 
 
-
 let gameSessions = {
-  "12456": {
-    playersNames: {
-      "HwXUT_CNQM12vlclAAAB": "Dummy Player"
-    },
-    answers: {
-      "HwXUT_CNQM12vlclAAAB": "D"
-    }
+  
+};
+function generatePin() {
+  let pin = Math.floor(100000 + Math.random() * 900000)
+  if (!gameSessions[pin]) {
+    return pin;
   }
-};
-let playerGameSessionMap = {
-  "HwXUT_CNQM12vlclAAAB": "12456"
-};
+  else {
+    return generatePin()
+  }
+}
 
 io.on('connection', (socket) => {
-  console.log("user " + socket.id + " connected");
+  console.log(socket.id + " connected")
 
-  socket.on('disconnect', () => {
-    console.log("user " + socket.id + " disconnected");
+  socket.on('create-game', (payload, callback) => {
+    callback = typeof callback == "function" ? callback : () => {}
+    
+    let pin;
+    try {
+      pin = generatePin();
+      gameSessions[pin] = new GameSession(socket, pin, payload.question, payload.answers, payload.correctAnswerIndex);
+      callback({pin});
+    }
+    catch(err) {
+      console.log("host-game failed: " +  err);
+      delete gameSessions[pin];
+      callback({error: err});
+    }
   });
 
-  socket.on('player-join', args => {
-    var gameSession = gameSessions[args.gamepin]
+  socket.on('start-game', (payload, callback) => {
+    callback = typeof callback == "function" ? callback : () => {}
+    
+    try {
+      let gameSession = gameSessions[payload.gamepin]
+      gameSession.startQuiz()
+    }
+    catch(err) {
+      console.log("start-game failed: " +  err)
+      callback({error: err});
+    }
+
+    callback({status:'OK'});
+  });
+
+  socket.on('player-join', (payload, callback) => {
+    callback = typeof callback == "function" ? callback : () => {}
+
+    let gameSession = gameSessions[payload.gamepin]
+    //console.log(payload.gamepin)
     if (!gameSession) {
       console.log("invalid game pin")
+      callback({error:"invalid game pin"});
       return;
     }
-    playerGameSessionMap[[socket.id]] = args.pin
-    gameSession.playerNames[socket.id] = args.name
-    console.log("player " + args.name + " joined");
+    callback({status:'OK'});
+    gameSession.addPlayer(socket, payload)
   })
-
-  socket.on('answer', (answer) => {
-    gameSession.playerNames[socket.id] = args.name
-    console.log("user " + socket.id + " selected answer " + answer);
-  });
+  
 });
+
