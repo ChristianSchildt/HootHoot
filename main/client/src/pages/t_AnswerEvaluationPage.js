@@ -69,9 +69,9 @@ class t_AnswerEvaluationPage extends React.Component {
             this.correctAnswerIndex = this.props.route.params.correctAnswerIndex;
         }*/
         this.quiz = {
-            time: 20,
-            question: "Frage",
-            answers: ["Antwort 1", "Antwort 2", "Antwort 3", "Antwort 4"],
+            time: 60,
+            question: "Sind Sie mit dem GUI zufrieden?",
+            answers: ["Antwort A", "Antwort B", "Antwort C", "Antwort D"],
             correctAnswerIndex: 3
         }
         this.time = this.quiz.time;
