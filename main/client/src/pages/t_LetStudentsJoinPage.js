@@ -39,7 +39,7 @@ class t_LetStudentsJoinPage extends React.Component {
     }
 
     startGame() {
-        this.props.navigate("/teacher/playHootHoot", this.quiz)
+        this.props.navigate("/teacher/playHootHoot", {state: {quiz: this.quiz}})
     }
 
     render() {

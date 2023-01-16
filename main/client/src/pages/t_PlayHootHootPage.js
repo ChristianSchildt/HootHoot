@@ -13,28 +13,26 @@ class t_PlayHootHootPage extends React.Component {
     constructor(props) {
         super(props);
 
-        // TODO: passing props between pages via navigate
-        /*if (this.props.route) {
-            this.time = this.props.route.params.time;
-            this.question = this.props.route.params.question;
-            this.answerA = this.props.route.params.answers[0];
-            this.answerB = this.props.route.params.answers[1];
-            this.answerC = this.props.route.params.answers[2];
-            this.answerD = this.props.route.params.answers[3];
-            this.correctAnswerIndex = this.props.route.params.correctAnswerIndex;
-        }*/
-        this.quiz = {
-            time: 60,
-            question: "Sind Sie mit dem GUI zufrieden?",
-            answers: ["Antwort A", "Antwort B", "Antwort C", "Antwort D"],
-            correctAnswerIndex: 3
+        if (this.props.location.state) {
+            this.quiz = this.props.location.state.quiz;
+        } else {
+            // test daten
+            this.quiz = {
+                time: 60,
+                question: "Keine Frage ausgewählt",
+                answers: ["Antwort A", "Antwort B", "Antwort C", "Antwort D"],
+                correctAnswerIndex: 3
+            }
         }
+
+        this.time = this.quiz.time;
         this.question = this.quiz.question;
         this.answerA = this.quiz.answers[0];
         this.answerB = this.quiz.answers[1];
         this.answerC = this.quiz.answers[2];
         this.answerD = this.quiz.answers[3];
         this.correctAnswerIndex = this.quiz.correctAnswerIndex;
+
 
         this.state = {
             timer: this.quiz.time

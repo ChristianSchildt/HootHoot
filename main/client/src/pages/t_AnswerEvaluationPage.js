@@ -9,6 +9,7 @@ import Field from '../components/Field';
 import {Chart as ChartJS, CategoryScale,LinearScale,BarElement,Title,Tooltip,Legend,} from 'chart.js';
 import { Bar } from 'react-chartjs-2';
 import '../css/BarChart.css';
+import withNavigate from '../utility/with-navigate';
 
 ChartJS.register(
     CategoryScale,
@@ -58,29 +59,17 @@ class t_AnswerEvaluationPage extends React.Component {
             chartData: data
         }
         
-        // TODO: passing props between pages via navigate
-        /*if (this.props.route) {
-            this.time = this.props.route.params.time;
-            this.question = this.props.route.params.question;
-            this.answerA = this.props.route.params.answers[0];
-            this.answerB = this.props.route.params.answers[1];
-            this.answerC = this.props.route.params.answers[2];
-            this.answerD = this.props.route.params.answers[3];
-            this.correctAnswerIndex = this.props.route.params.correctAnswerIndex;
-        }*/
-        this.quiz = {
-            time: 60,
-            question: "Sind Sie mit dem GUI zufrieden?",
-            answers: ["Antwort A", "Antwort B", "Antwort C", "Antwort D"],
-            correctAnswerIndex: 3
+        if (this.props.location.state) {
+            this.quiz = this.props.location.state.quiz;
+        } else {
+            // test daten
+            this.quiz = {
+                time: 60,
+                question: "Keine Frage ausgewählt",
+                answers: ["Antwort A", "Antwort B", "Antwort C", "Antwort D"],
+                correctAnswerIndex: 3
+            }
         }
-        this.time = this.quiz.time;
-        this.question = this.quiz.question;
-        this.answerA = this.quiz.answers[0];
-        this.answerB = this.quiz.answers[1];
-        this.answerC = this.quiz.answers[2];
-        this.answerD = this.quiz.answers[3];
-        this.correctAnswerIndex = this.quiz.correctAnswerIndex;
     }
     
     componentDidMount() {
@@ -287,4 +276,4 @@ class t_AnswerEvaluationPage extends React.Component {
     }
 }
 
-export default t_AnswerEvaluationPage;
+export default withNavigate(t_AnswerEvaluationPage);
