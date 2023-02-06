@@ -5,6 +5,18 @@
     height: 60px;
 }
 
+#deleteCourse{
+    border-radius: 4em;
+    position: absolute;
+    display: block;
+    margin-left:99px;
+    margin-right:auto;
+    margin-top: auto;
+    margin-bottom: auto;
+    height: 20px;
+    width: 20px;
+}
+
 .popup-close
 {
     float: right;

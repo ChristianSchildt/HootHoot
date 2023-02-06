@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect, createRef } from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Imagebutton from '../components/Imagebutton';
 import Text from '../components/Text';
 import Picture from '../components/Picture';
 import MenuNavigation from '../components/MenuNavigation';
@@ -16,7 +17,7 @@ import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css'; 
 
 
-function t_HomeMenuPage(){
+function T_HomeMenuPage(){
 
     const [courses, setCourses] = useState([]);
     const inputKursname = useRef(null);
@@ -148,7 +149,7 @@ function t_HomeMenuPage(){
                                 return (
                                 //img statt x
                                 <div>
-                                    <span onClick={() => submit(course.id)} style={{marginLeft:"10px", color:"red", cursor:"pointer"}}>x</span>
+                                    <Imagebutton id="deleteCourse" src="/images/button_close.png" onClick={() => submit(course.id)}></Imagebutton>
                                     <CourseTile 
                                         key={course.id} 
                                         srcPicture=""
@@ -254,4 +255,4 @@ function t_HomeMenuPage(){
 }
 
 
-export default t_HomeMenuPage;
+export default T_HomeMenuPage;
