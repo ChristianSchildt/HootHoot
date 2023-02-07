@@ -172,9 +172,9 @@ router.get('/api/answers/:questionid', async(req, res) => {
 //create question
 router.post("/api/question", authorize, async(req, res) => {
   try{                                                
-    const results = await pool.query('INSERT INTO question (id, name, type, timelimit, points, answer_options, courseid, user_id) '+ 
-                                     'VALUES ($1, $2, $3, $4 ,$5 ,$6 ,$7, $8) RETURNING *', 
-                                     [req.body.id, req.body.name, req.body.type, req.body.timelimit, req.body.points, req.body.answer_options, 
+    const results = await pool.query('INSERT INTO question (name, type, timelimit, points, answer_options, courseid, user_id) '+ 
+                                     'VALUES ($1, $2, $3, $4 ,$5 ,$6 ,$7) RETURNING *', 
+                                     [req.body.name, req.body.type, req.body.timelimit, req.body.points, req.body.answer_options, 
                                       req.body.courseid, req.user.id]);
     
     console.log("CREATED a question");

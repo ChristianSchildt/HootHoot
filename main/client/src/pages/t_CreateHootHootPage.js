@@ -116,7 +116,8 @@ class t_CreateHootHootPage extends React.Component {
             const data = await response.json()
             
             this.setState({questions: data})
-            
+            console.log("Questions:")
+            console.log(data)
         } catch(e) {
             console.log(e)
         }
@@ -139,7 +140,7 @@ class t_CreateHootHootPage extends React.Component {
         try {
 
             let body = {
-                id: this.state.questions[this.state.questions.length-1].id,
+                // id: this.state.questions[this.state.questions.length-1].id,
                 name: this.state.questionname,
                 type: this.state.selectType,
                 timelimit: this.state.selectTimelimit,
@@ -160,7 +161,9 @@ class t_CreateHootHootPage extends React.Component {
 
             console.log(response)
 
-            this.getQuestionsFromSelectedCourse(this.state.selectedCourseIndex)
+            await this.getQuestionsFromSelectedCourse(this.state.selectedCourseIndex)
+            console.log("selectedQuestionId: "+this.state.selectedQuestionIndex-1)
+            this.setState({selectedQuestionIndex: this.state.questions[this.state.selectedQuestionIndex-1].id}, this.createAnswers)
 
         } catch (e) {
             console.log(e)
@@ -169,11 +172,18 @@ class t_CreateHootHootPage extends React.Component {
 
     async createAnswers() {
         try {
-
+            console.log('setState selectedQuestionIndex finished')
+            
+            console.log('getQuestions')
+            console.log(this.state.questions)
+            //id umwandeln
+            
+            console.log('createAnswer->selectedQuestionIndex: '+this.state.selectedQuestionIndex)
+            
             //first answer
             let body1 = {
                     id: 1,
-                    questionid: this.state.selectedQuestionIndex,
+                    questionid: this.state.questions[this.state.selectedQuestionIndex-1].id,
                     answer: this.state.textareaA,
                     iscorrect: this.state.isCorrectA
             }
@@ -194,7 +204,7 @@ class t_CreateHootHootPage extends React.Component {
             //second answer
             let body2 = {
                     id: 2,
-                    questionid: this.state.selectedQuestionIndex,
+                    questionid: this.state.questions[this.state.selectedQuestionIndex-1].id,
                     answer: this.state.textareaB,
                     iscorrect: this.state.isCorrectB
             }
@@ -211,7 +221,7 @@ class t_CreateHootHootPage extends React.Component {
             //third answer
             let body3 = {
                     id: 3,
-                    questionid: this.state.selectedQuestionIndex,
+                    questionid: this.state.questions[this.state.selectedQuestionIndex-1].id,
                     answer: this.state.textareaC,
                     iscorrect: this.state.isCorrectC
             }
@@ -228,7 +238,7 @@ class t_CreateHootHootPage extends React.Component {
             //fourth answer
             let body4 = {
                     id: 4,
-                    questionid: this.state.selectedQuestionIndex,
+                    questionid: this.state.questions[this.state.selectedQuestionIndex-1].id,
                     answer: this.state.textareaD,
                     iscorrect: this.state.isCorrectD
                 }
@@ -242,7 +252,7 @@ class t_CreateHootHootPage extends React.Component {
             console.log(response4)
 
             
-            await this.getAnswers()
+            await this.getAnswers(this.state.selectedQuestionIndex)
 
         } catch (e) {
             console.log(e)
@@ -400,6 +410,7 @@ class t_CreateHootHootPage extends React.Component {
         // console.log(this.state.answers)
     }
 
+    //TODO: löschen, doppelt?
     duplicateQuestion(questionId) {
         let questionCopyDeep = cloneDeep(this.state.courses[this.state.selectedCourseIndex].questions[questionId])
         let answersCopyDeep = cloneDeep(this.state.courses[this.state.selectedCourseIndex].answers[questionId])
@@ -531,7 +542,7 @@ class t_CreateHootHootPage extends React.Component {
         if(this.checkIsCorrect()) {
             
             await this.createQuestion()
-            await this.createAnswers()
+            // await this.createAnswers()
             console.log('Alles abgespeichert') 
 
         }
@@ -549,41 +560,48 @@ class t_CreateHootHootPage extends React.Component {
         this.setState({questionname: changeText})
     }
 
-    handleChangeCourseIndex(event) {
+    async handleChangeCourseIndex(event) {
+        try {
+            let courseid = null
 
-        let courseid = null
-
-        if(typeof event === 'undefined') {
-            courseid = this.state.courses[0].id
-        } else {
-            courseid = event.target.value
-        }
-
-        this.setState({selectedCourseIndex: courseid})
-
-        {this.state.courses.map((course) => {
-            if(course.id === courseid) {
-                this.setState({coursename: course.name})
+            if(typeof event === 'undefined') {
+                courseid = this.state.courses[0].id
+            } else {
+                courseid = event.target.value
             }
-        })}
-        
-        this.getQuestionsFromSelectedCourse(courseid)
+            console.log('Courseid: '+courseid)
+            this.setState({selectedCourseIndex: courseid})
 
-        //Question-Felder reset
-        this.setState({questionname: ""})
-        this.setState({imageData: 0})
-        this.setState({textareaA: ""})
-        this.setState({textareaB: ""})
-        this.setState({textareaC: ""})
-        this.setState({textareaD: ""})
-        this.setState({isCorrectA: false})
-        this.setState({isCorrectB: false})
-        this.setState({isCorrectC: false})
-        this.setState({isCorrectD: false})
-        this.setState({selectType: "quiz"})
-        this.setState({selectTimelimit: 10})
-        this.setState({selectPoints: "standard"})
-        this.setState({selectAnswerOptions: "einzelauswahl"})
+            {this.state.courses.map((course) => {
+                if(course.id === courseid) {
+                    this.setState({coursename: course.name})
+                    console.log(this.state.coursename + '/' + course.name)
+                }
+            })}
+            
+            await this.getQuestionsFromSelectedCourse(courseid)
+
+            //Question-Felder reset
+            this.setState({questionname: ""})
+            this.setState({imageData: 0})
+            this.setState({textareaA: ""})
+            this.setState({textareaB: ""})
+            this.setState({textareaC: ""})
+            this.setState({textareaD: ""})
+            this.setState({isCorrectA: false})
+            this.setState({isCorrectB: false})
+            this.setState({isCorrectC: false})
+            this.setState({isCorrectD: false})
+            this.setState({selectType: "quiz"})
+            this.setState({selectTimelimit: 10})
+            this.setState({selectPoints: "standard"})
+            this.setState({selectAnswerOptions: "einzelauswahl"})
+
+            console.log('Kurs ausgewählt: '+this.state.coursename)
+            console.log('selectedCourseIndex: '+this.state.selectedCourseIndex)
+        } catch (e) {
+            console.log(e)
+        }
     }
 
     handleTextareaAChange(changeText) {
@@ -641,9 +659,9 @@ class t_CreateHootHootPage extends React.Component {
     }
 
     showAnswers(type) {
-        console.log('mittendrin')
-        console.log(this.state.textareaA)
-        console.log(this.state.textareaB)
+        // console.log('mittendrin')
+        // console.log(this.state.textareaA)
+        // console.log(this.state.textareaB)
 
         if(type === "quiz")
         {
