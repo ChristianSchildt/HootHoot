@@ -30,7 +30,7 @@ CREATE TABLE role
 
 CREATE TABLE question 
 ( 
-	id integer NOT NULL UNIQUE,
+	id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
 	topic text,
 	name text,
 	type text,
@@ -43,7 +43,7 @@ CREATE TABLE question
 
 CREATE TABLE answer 
 ( 
-	id serial NOT NULL,
+	id PRIMARY KEY DEFAULT uuid_generate_v4(),
 	questionid integer NOT NULL,
 	answer text,
 	iscorrect boolean
@@ -79,7 +79,7 @@ CREATE TABLE quiz
 
 CREATE TABLE review 
 ( 
-	id integer NOT NULL,
+	id PRIMARY KEY DEFAULT uuid_generate_v4(),
 	quizid integer NOT NULL,
 	score text,
 	time integer,
