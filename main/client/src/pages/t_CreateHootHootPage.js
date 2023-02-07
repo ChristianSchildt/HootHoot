@@ -492,7 +492,7 @@ class t_CreateHootHootPage extends React.Component {
     }
 
     async selectQuestion(questionId) {
-
+        console.log("questionid: "+questionId)
         this.setState({selectedQuestionIndex: questionId})
         await this.getAnswers(questionId)
         this.setQuestionProperties(questionId)
