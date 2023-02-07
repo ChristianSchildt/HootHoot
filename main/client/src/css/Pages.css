@@ -8,7 +8,7 @@ body
 .tLoginPage, .tHomeMenuPage, .tLibraryMenuPage,
 .tCreateHootHootPage, .tLetStudentsJoinPage, .tPlayHootHootPage,
 .tAnswerEvaluationPage, .tWinnerAnimationPage, .tHootHootEndcardPage,
-.s_LandingPage, .s_Answermin
+.s_LandingPage, .s_Answermin, .tAnalysesMenuPage
 {
     color: #476D7C;
     font-family: 'Calibri';

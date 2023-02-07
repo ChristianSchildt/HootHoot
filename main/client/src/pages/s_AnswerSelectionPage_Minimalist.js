@@ -6,24 +6,18 @@ import Col from 'react-bootstrap/Col';
 import Button from '../components/Button';
 import Picture from '../components/Picture';
 import Text from '../components/Text';
-import io from 'socket.io-client';
-
-
 
 class s_AnswerSelectionPage_Minimalist extends React.Component {
-    socket = io('localhost:5000')
     constructor(props) {
         super(props)
     }
 
     componentDidMount() {
-        this.socket.on('connect', () => {
-            console.log("connected")
-        });
+
     }
 
-    sendAnswer(answer) {
-        this.socket.emit("answer", answer)
+    sendAnswer(answerIndex) {
+        window.connection.socket.emit("answer", answerIndex)
     }
 
     render() {
@@ -57,13 +51,13 @@ class s_AnswerSelectionPage_Minimalist extends React.Component {
                             className="button"
                             id="button-answerad"
                             value="A"
-                            onClick={() => this.sendAnswer('A')}>
+                            onClick={() => this.sendAnswer(0)}>
                         </Button>
                         <Button
                             className="button"
                             id="button-answerbc"
                             value="B"
-                            onClick={() => this.sendAnswer('B')}>
+                            onClick={() => this.sendAnswer(1)}>
                         </Button>
                     </Col>
                 </Row>
@@ -73,13 +67,13 @@ class s_AnswerSelectionPage_Minimalist extends React.Component {
                             className="button"
                             id="button-answerbc"
                             value="C"
-                            onClick={() => this.sendAnswer('C')}>
+                            onClick={() => this.sendAnswer(2)}>
                         </Button>
                         <Button
                             className="button"
                             id="button-answerad"
                             value="D"
-                            onClick={() => this.sendAnswer('D')}>
+                            onClick={() => this.sendAnswer(3)}>
                         </Button>
                     </Col>
                 </Row>

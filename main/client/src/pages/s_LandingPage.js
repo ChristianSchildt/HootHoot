@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import '../css/Pages.css';
 import Container from 'react-bootstrap/esm/Container';
 import Row from 'react-bootstrap/Row';
@@ -6,10 +6,27 @@ import Col from 'react-bootstrap/Col';
 import HeaderRole from '../components/HeaderRole';
 import InputField from '../components/InputField.js';
 import Button from '../components/Button';
-
-
+import { useNavigate } from "react-router-dom";
 
 function s_LandingPage(){
+    const inputName = useRef(null);
+    const inputPin = useRef(null);
+    const navigate = useNavigate();
+
+    const enterSession = async e => {
+        // TODO: better input validation and feedback for user
+        window.connection.socket.emit('player-join', { gamepin: inputPin.current.getValue(), name: inputName.current.getValue() }, (response) => {
+            console.log(response);
+            if (response.status === "OK") {
+                navigate("/student/answerselectionMinimalist");
+            }
+        });
+    };
+
+    useEffect(() => {
+        window.connection.connect();
+    },[])
+
     return(
         <div className="s_LandingPage">
         <Container fluid>
@@ -25,6 +42,7 @@ function s_LandingPage(){
             <Row>
                 <Col>
                     <InputField
+                        ref={inputPin}
                         className="inputField"
                         placeholder="Spiel-Pin eintippen...">
                     </InputField>
@@ -33,6 +51,7 @@ function s_LandingPage(){
             <Row>
                 <Col>
                     <InputField
+                        ref={inputName}
                         className="inputField"
                         placeholder="Matrikelnummer eingeben...">
                     </InputField>
@@ -44,7 +63,7 @@ function s_LandingPage(){
                         className="button"
                         id="button_answermin"
                         value="Beitreten"
-                        href="/student/answerselectionMinimalist">
+                        onClick={enterSession}>
                     </Button>
                 </Col>
             </Row>

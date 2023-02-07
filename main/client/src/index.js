@@ -2,7 +2,22 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
+import io from 'socket.io-client';
 //import reportWebVitals from './reportWebVitals'; // TODO: check if we need/want this
+
+window.connection = {};
+window.connection.socket = null;
+window.connection.connect = function() {
+  if (!window.connection.socket) {
+    window.connection.socket = io('localhost:5000');
+  }
+};
+window.connection.disconnect = function()  {
+  if (window.connection.socket) {
+    window.connection.socket.close();
+    window.connection.socket = null;
+  }
+};
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

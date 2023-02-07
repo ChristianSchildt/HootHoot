@@ -8,7 +8,7 @@ import Button from '../components/Button.js';
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 
-const t_RegistrationPage = ({ setAuth }) => {
+const T_RegistrationPage = ({ setAuth }) => {
     const inputName = useRef(null);
     const inputEmail = useRef(null);
     const inputPassword1 = useRef(null);
@@ -112,4 +112,4 @@ const t_RegistrationPage = ({ setAuth }) => {
 
 
 
-export default t_RegistrationPage;
+export default T_RegistrationPage;
