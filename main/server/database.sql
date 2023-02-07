@@ -30,7 +30,7 @@ CREATE TABLE role
 
 CREATE TABLE question 
 ( 
-	id integer NOT NULL UNIQUE,
+	id serial,
 	topic text,
 	name text,
 	type text,
