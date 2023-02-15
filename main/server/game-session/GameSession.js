@@ -1,4 +1,7 @@
 Player = require('./Player')
+const { onGameEnded } = require("../db");
+
+const pointsCalcFunc = (time, elapsedTime) => Math.round(1000 * (time - elapsedTime) / time)
 
 class GameSession {
     constructor(host, pin, time, question, answers, correctAnswerIndex) {
@@ -9,16 +12,22 @@ class GameSession {
         this.answers = answers;
         this.correctAnswerIndex = correctAnswerIndex;
         this.players = new Map();
+        this.startTime = null;
 
-        host.on('get-answer-counts', (callback) => (this.getAnswerCounts(host, callback)));
+        this.timeoutID = undefined;
+
+        host.on('get-answer-counts', (callback) => { this.getAnswerCounts(host, callback); });
+        host.on('get-top-players', (callback) => { this.getTopPlayers(host, callback); });
+        host.on('quiz-started', () => { this.startQuiz(host); });
+        host.on('stop-quiz', () => { this.stopQuiz(host); });
     }
 
     addPlayer(socket, payload) {
         this.players.set(socket.id, new Player(socket, payload.name));
 
         // set up hooks
-        socket.on('answer', (answer) => { this.selectAnswer(socket, answer);});
-        socket.on('disconnect', () => {this.removePlayer(socket);});
+        socket.on('answer', (answer) => { this.selectAnswer(socket, answer); });
+        socket.on('disconnect', () => { this.removePlayer(socket); });
 
         // inform all other players
         let playerNames = this.getPlayerNames();
@@ -46,9 +55,11 @@ class GameSession {
     }
 
     selectAnswer(socket, answerIndex) {
-        this.players.get(socket.id).answerIndex = answerIndex;
+        let player = this.players.get(socket.id);
+        player.answerIndex = answerIndex;
+        player.points = answerIndex == this.correctAnswerIndex ? pointsCalcFunc(this.time, (Date.now() - this.startTime) / 1000) : 0;
 
-        console.log("user " + this.players.get(socket.id).name + " selected answer " + answerIndex);
+        console.log("user " + player.name + " selected answer " + answerIndex + " (" + player.points + " points)");
     }
 
     startQuiz(socket) {
@@ -56,16 +67,34 @@ class GameSession {
             return
         }
 
+        if (!this.timeoutID) { // check just to be sure
+            this.timeoutID = setTimeout(this.stopQuiz.bind(this), this.time * 1000);
+        }
+        this.startTime = Date.now();
+
         for (const player of this.players.values()) {
             player.socket.emit('quiz-started', this.time);
         };
-        setTimeout(this.time * 1000, this.stopQuiz);
     }
 
-    stopQuiz() {
+    stopQuiz(socket) {
+        if (socket && socket.id != this.host.id) {
+            return
+        }
+
+        clearTimeout(this.timeoutID);
+
         for (const player of this.players.values()) {
             player.socket.emit('quiz-ended', this.correctAnswerIndex);
         };
+
+        let scores = []
+        for (const player of this.players.values()) {
+            if (player.points != undefined) {
+                scores.push({name: player.name, points: player.points});
+            }
+        };
+        onGameEnded(scores);
     }
 
     getPlayerNames() {
@@ -81,9 +110,7 @@ class GameSession {
         }
 
         let answerCounts = [0, 0, 0, 0];
-        let hasAnswer = false;
         for (const player of this.players.values()) {
-            hasAnswer = true;
             //console.log(player.answerIndex)
             if (player.answerIndex >= 0 && player.answerIndex <= 3) {
                 //console.log("value increased")
@@ -91,14 +118,37 @@ class GameSession {
             }
         };
         
-        console.log(answerCounts)
+        //console.log(answerCounts)
 
-        // workaround for issue with multiple socket connections for one hist
+        // workaround for issue with multiple socket connections for one host
         // TODO: fix!
-        if (hasAnswer) {
+        if (this.players.size > 0) {
             callback(answerCounts)
         }
     }
+
+    getTopPlayers(socket, callback) {
+        callback = typeof callback == "function" ? callback : () => {}
+        if (socket.id != this.host.id) {
+            return
+        }
+
+        let returnValues = []
+        for (const player of this.players.values()) {
+
+            if (player.points && player.points > 0) {
+                returnValues.push({name: player.name, points: player.points})
+            }
+        };
+        returnValues = returnValues.sort((a,b) => b.points-a.points).slice(0,5);
+
+        // workaround for issue with multiple socket connections for one host
+        // TODO: fix!
+        if (this.players.size > 0) {
+            callback(returnValues)
+        }
+    }
+
 }
 
 module.exports = GameSession;

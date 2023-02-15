@@ -53,7 +53,8 @@ io.on('connection', (socket) => {
     let pin;
     try {
       pin = generatePin();
-      gameSessions[pin] = new GameSession(socket, pin, payload.question, payload.answers, payload.correctAnswerIndex);
+      //console.log(payload)
+      gameSessions[pin] = new GameSession(socket, pin, payload.time, payload.question, payload.answers, payload.correctAnswerIndex);
       callback({pin});
     }
     catch(err) {
@@ -65,7 +66,7 @@ io.on('connection', (socket) => {
 
   socket.on('start-game', (payload, callback) => {
     callback = typeof callback == "function" ? callback : () => {}
-    
+
     try {
       let gameSession = gameSessions[payload.gamepin]
       gameSession.startQuiz()
@@ -74,7 +75,6 @@ io.on('connection', (socket) => {
       console.log("start-game failed: " +  err)
       callback({error: err});
     }
-
     callback({status:'OK'});
   });
 
