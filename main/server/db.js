@@ -9,4 +9,12 @@ const pool = new Pool({
 });
 console.log("database connected.")
 
+
+//TODO
+const onGameEnded = (playerScores) =>
+{
+
+}
+
+
 module.exports = pool;

@@ -28,6 +28,13 @@ CREATE TABLE role
 	description text NOT NULL UNIQUE
 ); 
 
+CREATE TABLE course 
+( 
+	id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
+	name text,
+	user_id uuid REFERENCES users(user_id)
+);
+
 CREATE TABLE question 
 ( 
 	id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
@@ -47,13 +54,6 @@ CREATE TABLE answer
 	questionid uuid REFERENCES question(id),
 	answer text,
 	iscorrect boolean
-); 
-
-CREATE TABLE course 
-( 
-	id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
-	name text,
-	user_id uuid REFERENCES users(user_id)
 ); 
 
 CREATE TABLE media 

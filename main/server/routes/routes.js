@@ -195,9 +195,9 @@ router.post("/api/question", authorize, async(req, res) => {
 //create answer
 router.post('/api/answer/', async(req, res) => {
   try {
-    const results = await pool.query('INSERT INTO answer (id, questionid, answer, iscorrect) '+
-                                     'VALUES ($1, $2, $3, $4) RETURNING *',
-                                     [req.body.id, req.body.questionid, req.body.answer, req.body.iscorrect])
+    const results = await pool.query('INSERT INTO answer (questionid, answer, iscorrect) '+
+                                     'VALUES ($1, $2, $3) RETURNING *',
+                                     [req.body.questionid, req.body.answer, req.body.iscorrect])
     
     console.log('CREATED an answer')
     console.log(results)
@@ -240,15 +240,15 @@ router.delete('/api/questions/:id', async(req, res) => {
   }
 })
 
-//delete answer
-router.delete('/api/questions/:questionid/answers/:answerid', async(req, res) => {
+//delete answers
+router.delete('/api/questions/:questionid/answers/', async(req, res) => {
   try {
     
     const results = await pool.query('DELETE FROM answer '+
-                                     'WHERE id = $1 AND questionid = $2', 
-                                     [req.params.answerid, req.params.questionid]);
+                                     'WHERE questionid = $1', 
+                                     [req.params.questionid]);
 
-    console.log('DELETE answer sucessfully')
+    console.log('DELETE answers sucessfully')
 
     res.status(204).json({
       status: "success"
