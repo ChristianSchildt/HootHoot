@@ -9,6 +9,7 @@ const pool = new Pool({
 });
 console.log("database connected.")
 
+
 function onGameEnded(playerPoints) {
   // array containing objects [{name: '123456', points: 789}, {name: '987654', points: 321}]
   console.log(playerPoints)
