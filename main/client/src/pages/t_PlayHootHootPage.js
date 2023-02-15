@@ -33,6 +33,7 @@ class t_PlayHootHootPage extends React.Component {
         this.answerD = this.quiz.answers[3];
         this.correctAnswerIndex = this.quiz.correctAnswerIndex;
 
+        this.intervalId = undefined;
 
         this.state = {
             timer: this.quiz.time
@@ -42,28 +43,29 @@ class t_PlayHootHootPage extends React.Component {
     componentDidMount() {
         if (!window.connection.socket) {
             // die Seite wurde nicht über vorherige Seite aufgerufen, deshalb gibt es kein Quiz zum starten
+            console.warn("no socket connection")
             return;
         }
 
         window.connection.socket.emit('quiz-started')
-        
+
         // check just to be sure
-        if (!this.timerStarted) {
-            setInterval(this.timerTick.bind(this), 1000)
+        if (!this.intervalId) {
+            this.intervalId = setInterval(this.timerTick.bind(this), 1000)
         }
     }
     
     timerTick() {
-        this.timerStarted = true; //workaround
         if (this.state.timer > 0) {
             this.setState({timer: this.state.timer - 1})
         } else {
-            // TODO: cldearnterval
+            clearInterval(this.intervalId)
             this.endQuiz()
         }
     }
 
     endQuiz() {
+        window.connection.socket.emit('stop-quiz')
         this.props.navigate("/teacher/answerEvaluation", this.quiz)
     }
 

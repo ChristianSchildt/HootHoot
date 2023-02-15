@@ -11,9 +11,29 @@ class t_WinnerAnimationPage extends React.Component {
     
     constructor(props) {
         super(props);
-
+        this.state = {
+            topPlayers: [ // test data gets overridden if game sesson active
+                {name: 'test player 1', points: 1000},
+                {name: 'test player 2', points: 800},
+                {name: 'test player 3', points: 600},
+                {name: 'test player 4', points: 400},
+                {name: 'test player 5', points: 200}
+            ]
+        }
     }
     
+    componentDidMount() {
+        if (!window.connection.socket) {
+            // die Seite wurde nicht über vorherige Seite aufgerufen, deshalb gibt es kein Quiz zum starten
+            console.warn("no socket connection")
+            return;
+        }
+        window.connection.socket.emit("get-top-players", (topPlayers) => {
+            console.log(topPlayers)
+            this.setState({topPlayers});
+        })
+    }
+
     render() {
         return(
             <div className='tWinnerAnimationPage'>

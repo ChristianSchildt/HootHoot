@@ -5,6 +5,7 @@ class Player {
     }
 
     answerIndex = undefined
+    points = undefined
 }
 
 module.exports = Player;
