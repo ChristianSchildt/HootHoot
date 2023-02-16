@@ -1,5 +1,5 @@
 Player = require('./Player')
-const { onGameEnded } = require("../db");
+//const { onGameEnded } = require("../db");
 
 const pointsCalcFunc = (time, elapsedTime) => Math.round(1000 * (time - elapsedTime) / time)
 
@@ -149,6 +149,10 @@ class GameSession {
         }
     }
 
+    onGameEnded(playerPoints) {
+        // array containing objects [{name: '123456', points: 789}, {name: '987654', points: 321}]
+        console.log(playerPoints)
+    }
 }
 
 module.exports = GameSession;

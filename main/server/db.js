@@ -15,4 +15,4 @@ function onGameEnded(playerPoints) {
   console.log(playerPoints)
 }
 
-module.exports = { pool, onGameEnded };
+module.exports = pool;
