@@ -94,7 +94,7 @@ class GameSession {
                 scores.push({name: player.name, points: player.points});
             }
         };
-        onGameEnded(scores);
+        this.onGameEnded(scores);
     }
 
     getPlayerNames() {
