@@ -36,7 +36,8 @@ class t_PlayHootHootPage extends React.Component {
         this.intervalId = undefined;
 
         this.state = {
-            timer: this.quiz.time
+            timer: this.quiz.time,
+            answerCount: 0
         };
     }
 
@@ -48,6 +49,9 @@ class t_PlayHootHootPage extends React.Component {
         }
 
         window.connection.socket.emit('quiz-started')
+        window.connection.socket.on('answer-count-updated', (answerCount) => {
+            this.setState({answerCount})
+        })
 
         // check just to be sure
         if (!this.intervalId) {
@@ -127,7 +131,7 @@ class t_PlayHootHootPage extends React.Component {
                         <Col>
                            <Text
                                 id="counter-answers"
-                                value="5">
+                                value={this.state.answerCount}>
                             </Text>
                             <Text
                                 id="text-answers"
@@ -210,7 +214,7 @@ class t_PlayHootHootPage extends React.Component {
                                 value="1/1">
                             </Text>
                         </Col>
-                        <Col  md={{span: 2, offset:7}}>
+                        {/* <Col  md={{span: 2, offset:7}}>
                             <Text
                                 id="gamePIN-text"
                                 value="Spiel-PIN:">
@@ -221,7 +225,7 @@ class t_PlayHootHootPage extends React.Component {
                                 id="gamePIN-number"
                                 value="123 4567">
                             </Text>
-                        </Col>
+                        </Col> */}
                     </Row>
                 </Container>
             </div>

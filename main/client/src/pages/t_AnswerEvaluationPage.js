@@ -70,6 +70,11 @@ class t_AnswerEvaluationPage extends React.Component {
                 correctAnswerIndex: 3
             }
         }
+
+        this.answerA = this.quiz.answers[0];
+        this.answerB = this.quiz.answers[1];
+        this.answerC = this.quiz.answers[2];
+        this.answerD = this.quiz.answers[3];
     }
     
     componentDidMount() {
@@ -184,7 +189,8 @@ class t_AnswerEvaluationPage extends React.Component {
                     </Row>
                     <Row>
                         <Col md={{span: 5, offset:1}}>
-                            <div id="div-answerA-evaluation">
+                            <div id="div-answerA-evaluation"
+                                style={{opacity: this.quiz.correctAnswerIndex !== 0 ? '0.5': ''}}>
                                 <div className="column1-HootHoot-answers">
                                     <Text
                                         className="answer-letter"
@@ -200,7 +206,8 @@ class t_AnswerEvaluationPage extends React.Component {
                             </div>
                         </Col>
                         <Col md={5}>
-                            <div id="div-answerB-evaluation">
+                            <div id="div-answerB-evaluation"
+                                style={{opacity: this.quiz.correctAnswerIndex !== 1 ? '0.5': ''}}>
                                 <div className="column1-HootHoot-answers">
                                     <Text
                                         className="answer-letter"
@@ -218,7 +225,8 @@ class t_AnswerEvaluationPage extends React.Component {
                     </Row>
                     <Row>
                         <Col md={{span: 5, offset:1}}>
-                            <div id="div-answerC-evaluation">
+                            <div id="div-answerC-evaluation"
+                                style={{opacity: this.quiz.correctAnswerIndex !== 2 ? '0.5': ''}}>
                                 <div className="column1-HootHoot-answers">
                                     <Text
                                         className="answer-letter"
@@ -234,7 +242,8 @@ class t_AnswerEvaluationPage extends React.Component {
                             </div>
                         </Col>
                         <Col md={5}>
-                            <div id="div-answerD-evaluation">
+                            <div id="div-answerD-evaluation"
+                                style={{opacity: this.quiz.correctAnswerIndex !== 3 ? '0.5': ''}}>
                                 <div className="column1-HootHoot-answers">
                                     <Text
                                         className="answer-letter"
@@ -257,7 +266,7 @@ class t_AnswerEvaluationPage extends React.Component {
                                 value="1/1">
                             </Text>
                         </Col>
-                        <Col  md={{span: 2, offset:7}}>
+                        {/* <Col  md={{span: 2, offset:7}}>
                             <Text
                                 id="gamePIN-text"
                                 value="Spiel-PIN:">
@@ -268,7 +277,7 @@ class t_AnswerEvaluationPage extends React.Component {
                                 id="gamePIN-number"
                                 value="123 4567">
                             </Text>
-                        </Col>
+                        </Col> */}
                     </Row>
                 </Container>
             </div>

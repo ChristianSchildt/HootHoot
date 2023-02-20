@@ -60,6 +60,9 @@ class GameSession {
         player.points = answerIndex == this.correctAnswerIndex ? pointsCalcFunc(this.time, (Date.now() - this.startTime) / 1000) : 0;
 
         console.log("user " + player.name + " selected answer " + answerIndex + " (" + player.points + " points)");
+
+        let answerCount = [...this.players.values()].filter((p) => p.points !== undefined).length // TODO: find nicer solution
+        this.host.emit('answer-count-updated', answerCount)
     }
 
     startQuiz(socket) {
@@ -73,7 +76,7 @@ class GameSession {
         this.startTime = Date.now();
 
         for (const player of this.players.values()) {
-            player.socket.emit('quiz-started', this.time);
+            player.socket.emit('quiz-started');
         };
     }
 
@@ -94,7 +97,9 @@ class GameSession {
                 scores.push({name: player.name, points: player.points});
             }
         };
-        this.onGameEnded(scores);
+        if (scores.length > 0) {
+            this.onGameEnded(scores);
+        }
     }
 
     getPlayerNames() {

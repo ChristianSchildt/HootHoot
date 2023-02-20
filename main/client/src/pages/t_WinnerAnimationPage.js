@@ -94,7 +94,7 @@ class t_WinnerAnimationPage extends React.Component {
                                 value="1/1">
                             </Text>
                         </Col>
-                        <Col  md={{span: 2, offset:7}}>
+                        {/* <Col  md={{span: 2, offset:7}}>
                             <Text
                                 id="gamePIN-text"
                                 value="Spiel-PIN:">
@@ -105,7 +105,7 @@ class t_WinnerAnimationPage extends React.Component {
                                 id="gamePIN-number"
                                 value="123 4567">
                             </Text>
-                        </Col>
+                        </Col> */}
                     </Row>
                 </Container>
             </div>

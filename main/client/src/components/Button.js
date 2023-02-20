@@ -20,6 +20,8 @@ function Button(props) {
             className={props.className} /*Darf nicht "class" heißen*/
             id={props.id}
             type="submit"
+            disabled={props.disabled}
+            style={props.style}
             onClick={onClick}> 
             {props.value}
           </button>
