@@ -7,6 +7,7 @@ DROP TABLE IF EXISTS course CASCADE;
 DROP TABLE IF EXISTS media CASCADE;
 DROP TABLE IF EXISTS question_media CASCADE;
 DROP TABLE IF EXISTS quiz CASCADE;
+DROP TABLE IF EXISTS game_session CASCADE;
 DROP TABLE IF EXISTS review CASCADE;
 DROP TABLE IF EXISTS user_quiz CASCADE;
 DROP TABLE IF EXISTS quiz_question CASCADE;
@@ -77,6 +78,15 @@ CREATE TABLE quiz
 	sessionpin text
 ); 
 
+CREATE TABLE game_session
+(
+	id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
+	user_id uuid REFERENCES users(user_id),
+	name text,
+	score integer,
+	question_id text	
+);
+
 CREATE TABLE review 
 ( 
 	id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
@@ -98,32 +108,6 @@ CREATE TABLE quiz_question
 	quizid uuid REFERENCES quiz(id),
 	questionid uuid REFERENCES question(id)
 ); 
-
-
---ALTER TABLE role ADD PRIMARY KEY (id);
--- ALTER TABLE question ADD PRIMARY KEY (id);
--- ALTER TABLE answer ADD PRIMARY KEY (id, questionid);
--- ALTER TABLE course ADD PRIMARY KEY (id);
--- ALTER TABLE media ADD PRIMARY KEY (id);
--- ALTER TABLE question_media ADD PRIMARY KEY (id);
--- ALTER TABLE quiz ADD PRIMARY KEY (id);
--- ALTER TABLE review ADD PRIMARY KEY (id, quizid);
--- ALTER TABLE user_quiz ADD PRIMARY KEY (quizid, user_id);
--- ALTER TABLE quiz_question ADD PRIMARY KEY (quizid);
-
---ALTER TABLE users ADD CONSTRAINT user_roleid_fkey FOREIGN KEY (roleid) REFERENCES role(id);
--- ALTER TABLE question ADD CONSTRAINT question_courseid_fkey FOREIGN KEY (courseid) REFERENCES course(id);
--- ALTER TABLE question ADD CONSTRAINT question_userid_fkey FOREIGN KEY (user_id) REFERENCES users(user_id);
--- ALTER TABLE answer ADD CONSTRAINT answer_questionid_fkey FOREIGN KEY (questionid) REFERENCES question(id);
--- ALTER TABLE question_media ADD CONSTRAINT question_media_id_fkey FOREIGN KEY (id) REFERENCES question(id);
--- ALTER TABLE question_media ADD CONSTRAINT question_media_mediaid_fkey FOREIGN KEY (mediaid) REFERENCES media(id);
--- ALTER TABLE review ADD CONSTRAINT review_quizid_fkey FOREIGN KEY (quizid) REFERENCES quiz_question(quizid);
--- ALTER TABLE user_quiz ADD CONSTRAINT user_quiz_quizid_fkey FOREIGN KEY (quizid) REFERENCES quiz(id);
--- ALTER TABLE user_quiz ADD CONSTRAINT user_quiz_userid_fkey FOREIGN KEY (user_id) REFERENCES users(user_id);
--- ALTER TABLE quiz_question ADD CONSTRAINT quiz_question_quizid_fkey FOREIGN KEY (quizid) REFERENCES quiz(id);
--- ALTER TABLE quiz_question ADD CONSTRAINT quiz_question_id_fkey FOREIGN KEY (id) REFERENCES question(id);
--- ALTER TABLE question_media ADD CONSTRAINT transformation_FK_unique UNIQUE (id,mediaid);
--- ALTER TABLE course ADD CONSTRAINT course_user_fkey FOREIGN KEY (user_id) REFERENCES users(user_id); 
 
 
 --INSERT INTO users (user_name, user_password, user_email, name) VALUES ('hoothoot', 'hoothoot', 'hoothoot@hootmail.de', 'HSBO', 1);

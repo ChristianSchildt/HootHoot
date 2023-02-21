@@ -127,6 +127,9 @@ router.delete("/api/courses/:id", authorize, async(req,res) => {
 });
 //-------------------------------------------------------------------------------
 
+
+
+//-------------------------------------------------------------------------------
 //get all questions for a selected course
 router.get('/api/courses/:courseid/questions', async(req, res) => {
   try {
@@ -154,13 +157,13 @@ router.get('/api/answers/:questionid', async(req, res) => {
     const results = await pool.query('SELECT * FROM answer WHERE questionid = $1', [req.params.questionid]);
     
     console.log('select answers with specified questionid')
-    
+    console.log("HIER GUCKEN: "+JSON.stringify(results.rows))
     res.json(results.rows)
     res.status(200).json({
       status: "success",
       results: results.rows.length,
       data:{
-        answers: results.rows
+        answer: results.rows
       }
     });
     
@@ -179,11 +182,11 @@ router.post("/api/question", authorize, async(req, res) => {
     
     console.log("CREATED a question");
     console.log(results);
-
+    console.log("id?ist es das: "+results.rows[0].id)
     res.status(201).json({
       status: "success",
       data: {
-        questions: results.rows
+        questionid: results.rows[0].id
       }
     });
 
@@ -240,15 +243,15 @@ router.delete('/api/questions/:id', async(req, res) => {
   }
 })
 
-//delete answers
-router.delete('/api/questions/:questionid/answers/', async(req, res) => {
+//delete answer
+router.delete('/api/questions/:questionid/answers/:answerid', async(req, res) => {
   try {
     
     const results = await pool.query('DELETE FROM answer '+
-                                     'WHERE questionid = $1', 
-                                     [req.params.questionid]);
+                                     'WHERE id = $1 AND questionid = $2', 
+                                     [req.params.answerid, req.params.questionid]);
 
-    console.log('DELETE answers sucessfully')
+    console.log('DELETE answer sucessfully')
 
     res.status(204).json({
       status: "success"
@@ -258,5 +261,7 @@ router.delete('/api/questions/:questionid/answers/', async(req, res) => {
     console.log(e)
   }
 })
+
+
 
 module.exports = router;

@@ -1,3 +1,4 @@
+const pool = require("../db");
 Player = require('./Player')
 //const { onGameEnded } = require("../db");
 
@@ -154,8 +155,22 @@ class GameSession {
         }
     }
 
-    onGameEnded(playerPoints) {
+    async onGameEnded(playerPoints) {
         // array containing objects [{name: '123456', points: 789}, {name: '987654', points: 321}]
+
+        let body = {
+            questionid: question_id,
+            name: this.name,
+            score: points
+        }
+
+        const name = req.body.name;
+        const user_id = req.user.id;
+        const score = req.body.score
+        const questionid = req.body.questionid
+        console.log(req.body.name);
+        await pool.query("INSERT INTO game_session (name, score, question_id) VALUES ($1, $2, $3) returning *", [name, score, questionid]);
+            
         console.log(playerPoints)
     }
 }
