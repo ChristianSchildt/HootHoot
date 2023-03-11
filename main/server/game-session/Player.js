@@ -5,6 +5,7 @@ class Player {
     }
 
     answerIndex = undefined
+    time = undefined
     points = undefined
 }
 

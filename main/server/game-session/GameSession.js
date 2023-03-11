@@ -17,7 +17,7 @@ class GameSession {
         this.timeoutID = undefined;
 
         host.on('get-answer-counts', (callback) => { this.getAnswerCounts(host, callback); });
-        host.on('get-top-players', (callback) => { this.getTopPlayers(host, callback); });
+        host.on('get-sorted-game-results', (callback) => { this.getSortedGameResults(host, callback); });
         host.on('quiz-started', () => { this.startQuiz(host); });
         host.on('stop-quiz', () => { this.stopQuiz(host); });
     }
@@ -57,7 +57,8 @@ class GameSession {
     selectAnswer(socket, answerIndex) {
         let player = this.players.get(socket.id);
         player.answerIndex = answerIndex;
-        player.points = answerIndex == this.quiz.correctAnswerIndex ? pointsCalcFunc(this.time, (Date.now() - this.startTime) / 1000) : 0;
+        player.time = Math.round((Date.now() - this.startTime) / 1000);
+        player.points = answerIndex == this.quiz.correctAnswerIndex ? pointsCalcFunc(this.quiz.time, (Date.now() - this.startTime) / 1000) : 0;
 
         console.log("user " + player.name + " selected answer " + answerIndex + " (" + player.points + " points)");
 
@@ -91,14 +92,14 @@ class GameSession {
             player.socket.emit('quiz-ended', this.quiz.correctAnswerIndex);
         };
 
-        let scores = []
+        let playerTimes = []
         for (const player of this.players.values()) {
-            if (player.points != undefined) {
-                scores.push({name: player.name, points: player.points});
+            if (player.time != undefined) {
+                playerTimes.push({name: player.name, time: player.time});
             }
         };
-        if (scores.length > 0) {
-            this.saveGameResults(this.quiz.questionId, scores);
+        if (playerTimes.length > 0) {
+            this.saveGameResults(this.quiz.questionId, playerTimes);
         }
     }
 
@@ -132,7 +133,7 @@ class GameSession {
         }
     }
 
-    getTopPlayers(socket, callback) {
+    getSortedGameResults(socket, callback) {
         callback = typeof callback == "function" ? callback : () => {}
         if (socket.id != this.host.id) {
             return
@@ -145,7 +146,7 @@ class GameSession {
                 returnValues.push({name: player.name, points: player.points})
             }
         };
-        returnValues = returnValues.sort((a,b) => b.points-a.points).slice(0,5);
+        returnValues.sort((a,b) => b.points-a.points);
 
         // workaround for issue with multiple socket connections for one host
         // TODO: fix!
@@ -154,9 +155,9 @@ class GameSession {
         }
     }
 
-    async saveGameResults(questionId, playerPoints) {
-        // playerPoints is an array containing objects in format [{name: '123456', points: 789}, {name: '987654', points: 321}]
-        console.log(playerPoints)
+    async saveGameResults(questionId, playerTimes) {
+        // playerTimes is an array containing objects in format [{name: '123456', time: 10}, {name: '987654', time: 5}]
+        console.log(playerTimes)
 
         // code below throws exceptions
         return

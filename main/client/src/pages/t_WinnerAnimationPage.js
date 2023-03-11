@@ -12,7 +12,7 @@ class t_WinnerAnimationPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            topPlayers: [ // test data gets overridden if game sesson active
+            gameResults: [ // test data gets overridden if game sesson active
                 {name: 'test player 1', points: 1000},
                 {name: 'test player 2', points: 800},
                 {name: 'test player 3', points: 600},
@@ -28,9 +28,9 @@ class t_WinnerAnimationPage extends React.Component {
             console.warn("no socket connection")
             return;
         }
-        window.connection.socket.emit("get-top-players", (topPlayers) => {
-            console.log(topPlayers)
-            this.setState({topPlayers});
+        window.connection.socket.emit('get-sorted-game-results', (gameResults) => {
+            console.log(gameResults)
+            this.setState({gameResults});
         })
     }
 
