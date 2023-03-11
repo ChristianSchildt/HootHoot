@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const authorize = require("../middleware/authorize");
-const pool = require("../db");
-
+const getPool = require("../db");
+const pool = getPool();
 
 router.get("/userdata", authorize, async (req, res) => {
   try {

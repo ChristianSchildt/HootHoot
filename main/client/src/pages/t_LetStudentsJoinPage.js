@@ -19,17 +19,28 @@ class t_LetStudentsJoinPage extends React.Component {
         };
 
         //TODO: exchange with real data and make as prop
-        this.quiz = {
-            time: 60,
-            question: "Sind Sie mit dem GUI zufrieden?",
-            answers: ["Antwort A", "Antwort B", "Antwort C", "Antwort D"],
-            correctAnswerIndex: 3
-        }
+        this.quizes = [
+            {
+                questionId: 123,
+                time: 60,
+                question: "Sind Sie mit dem GUI zufrieden?",
+                answers: ["Antwort A", "Antwort B", "Antwort C", "Antwort D"],
+                correctAnswerIndex: 3
+            },
+            {
+                questionId: 123,
+                time: 60,
+                question: "Wer ist der Beste?",
+                answers: ["Köhn", "Köhn", "Köhn", "Köhn"],
+                correctAnswerIndex: 3
+            }
+        ]
+        this.quiz = this.quizes[0];
     }
     
     componentDidMount() {
         window.connection.connect();
-        window.connection.socket.emit('create-game', this.quiz, (response) => {
+        window.connection.socket.emit('create-game', this.quizes, (response) => {
             console.log(response);
             this.setState({pin: response.pin})
         });

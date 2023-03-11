@@ -1,17 +1,16 @@
-const pool = require("../db");
+const getPool = require("../db");
+const pool = getPool();
 Player = require('./Player')
 //const { onGameEnded } = require("../db");
 
 const pointsCalcFunc = (time, elapsedTime) => Math.round(1000 * (time - elapsedTime) / time)
 
 class GameSession {
-    constructor(host, pin, time, question, answers, correctAnswerIndex) {
+    constructor(host, pin, quizes) {
         this.host = host;
         this.pin = pin;
-        this.time = time;
-        this.question = question;
-        this.answers = answers;
-        this.correctAnswerIndex = correctAnswerIndex;
+        this.quizes = quizes
+        this.quiz = quizes[0];
         this.players = new Map();
         this.startTime = null;
 
@@ -58,7 +57,7 @@ class GameSession {
     selectAnswer(socket, answerIndex) {
         let player = this.players.get(socket.id);
         player.answerIndex = answerIndex;
-        player.points = answerIndex == this.correctAnswerIndex ? pointsCalcFunc(this.time, (Date.now() - this.startTime) / 1000) : 0;
+        player.points = answerIndex == this.quiz.correctAnswerIndex ? pointsCalcFunc(this.time, (Date.now() - this.startTime) / 1000) : 0;
 
         console.log("user " + player.name + " selected answer " + answerIndex + " (" + player.points + " points)");
 
@@ -72,7 +71,7 @@ class GameSession {
         }
 
         if (!this.timeoutID) { // check just to be sure
-            this.timeoutID = setTimeout(this.stopQuiz.bind(this), this.time * 1000);
+            this.timeoutID = setTimeout(this.stopQuiz.bind(this), this.quiz.time * 1000);
         }
         this.startTime = Date.now();
 
@@ -89,7 +88,7 @@ class GameSession {
         clearTimeout(this.timeoutID);
 
         for (const player of this.players.values()) {
-            player.socket.emit('quiz-ended', this.correctAnswerIndex);
+            player.socket.emit('quiz-ended', this.quiz.correctAnswerIndex);
         };
 
         let scores = []
@@ -99,7 +98,7 @@ class GameSession {
             }
         };
         if (scores.length > 0) {
-            this.onGameEnded(scores);
+            this.saveGameResults(this.quiz.questionId, scores);
         }
     }
 
@@ -155,8 +154,12 @@ class GameSession {
         }
     }
 
-    async onGameEnded(playerPoints) {
-        // array containing objects [{name: '123456', points: 789}, {name: '987654', points: 321}]
+    async saveGameResults(questionId, playerPoints) {
+        // playerPoints is an array containing objects in format [{name: '123456', points: 789}, {name: '987654', points: 321}]
+        console.log(playerPoints)
+
+        // code below throws exceptions
+        return
 
         let body = {
             questionid: question_id,
@@ -170,8 +173,6 @@ class GameSession {
         const questionid = req.body.questionid
         console.log(req.body.name);
         await pool.query("INSERT INTO game_session (name, score, question_id) VALUES ($1, $2, $3) returning *", [name, score, questionid]);
-            
-        console.log(playerPoints)
     }
 }
 

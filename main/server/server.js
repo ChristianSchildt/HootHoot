@@ -54,7 +54,7 @@ io.on('connection', (socket) => {
     try {
       pin = generatePin();
       //console.log(payload)
-      gameSessions[pin] = new GameSession(socket, pin, payload.time, payload.question, payload.answers, payload.correctAnswerIndex);
+      gameSessions[pin] = new GameSession(socket, pin, payload);
       callback({pin});
     }
     catch(err) {
