@@ -14,7 +14,7 @@ function s_AnswerSelectionPage_Detailed(){
         <div className="s_Answermin">
         <Container fluid>
         <Row>
-                 <Col md={2}>
+                 <Col>
                        <Picture
                             id="logomenue"
                             src="/images/profil.png"
@@ -24,12 +24,9 @@ function s_AnswerSelectionPage_Detailed(){
                         className="projectname-left"
                         value="HootHoot">
                     </Text>
-
-                </Col>
-                <Col>
                     <Button
                         className="button"
-                        id="button_switchansicht"
+                        id="button_switchansicht_det"
                         value="Minimierte Ansicht"
                         href="/student/answerselectionMinimalist">
                     </Button>
@@ -50,7 +47,7 @@ function s_AnswerSelectionPage_Detailed(){
                                 value="20">
                                 </Text>
                             </div>
-                            </a>
+                        </a>
                         </Col>
                     <ContentQuestion
                             contentquestion="HootHoot!"

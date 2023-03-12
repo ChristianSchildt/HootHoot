@@ -202,45 +202,8 @@ function T_HomeMenuPage() {
                             <NewsTile classNameNewstext="newstext" valuetext="Du hast ein neues HootHoot erstellt!"/>
                         </Field>
                     </Col> */}
-                    <Col md={8}>
-                        <Field
-                            id="field-hoothoots" 
-                            classNameField="field"
-                            classNameTitle="field-title"
-                            valueTitle="HootHoots">
-                            <Row>
-                                <Col>
-                                    <Imagebutton
-                                        className="button-coursePlay"
-                                        /*TODO: Besseres Bild*/
-                                        src="/images/play.jpg"  
-                                        alt="Play Symbol"
-                                        onClick={() => submitHootHoots()}>
-                                    </Imagebutton>
-                                </Col>
-                            </Row>
-                            <Row>
-                                <div id='select-hoothoots'>
-                                    <Col>
-                                        {(questions.map((question, i) => {
-                                            return (
-                                                <div>
-                                                    <QuestionTile
-                                                        labelCheckbox={question.id}
-                                                        isSelectedCheckbox={checkboxIsSelected[i+1]} //TODO
-                                                        onCheckboxChange={handleCheckboxChange} //TODO
-                                                        key={question.id}
-                                                        valuetext={question.name}>
-                                                    </QuestionTile>
-                                                </div>
-                                            );
-                                        }))}
-                                    </Col>
-                                </div>
-                            </Row>
-                        </Field>
-                    </Col>
-                    <Col md={3}>
+                    
+                    <Col md={2}>
                             <Container fluid className={'createTile'}>
                                 <Row>
                                     <Col>
@@ -323,7 +286,37 @@ function T_HomeMenuPage() {
                                 </div>
                             </Container>
                     </Col>    
-                </Row>         
+                </Row>
+                <Row className="justify-content-md-center">
+                <Col>
+                    <Field
+                            classNameField="field-hoothoots"
+                            classNameTitle="field-title"
+                            valueTitle="HootHoots">                                                        
+                                    <Imagebutton
+                                        className="button-coursePlay"
+                                        src="/images/play.jpg"  
+                                        alt="Play Symbol"
+                                        onClick={() => submitHootHoots()}>
+                                    </Imagebutton>                     
+                                    <div id='select-hoothoots'>
+                                        {(questions.map((question, i) => {
+                                            return (
+                                                <div>
+                                                    <QuestionTile
+                                                        labelCheckbox={question.id}
+                                                        isSelectedCheckbox={checkboxIsSelected[i+1]} //TODO
+                                                        onCheckboxChange={handleCheckboxChange} //TODO
+                                                        key={question.id}
+                                                        valuetext={question.name}>
+                                                    </QuestionTile>
+                                                </div>
+                                            );
+                                        }))}
+                                    </div>
+                        </Field>
+                    </Col>  
+                </Row>       
             </Container>
         </div>
     );

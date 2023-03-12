@@ -6,11 +6,25 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-image: url("/public/images/background1.png");
-  background-size: cover;
   background-repeat: no-repeat;
+  background-size: 100vw 100vh;
+
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+
+@media (width <1400px){
+  body{
+    background-image: url("/public/images/background2.png");
+  }
+}
+
+@media (width <1000px){
+  body{
+    background-image: url("/public/images/background3.png");
+  }
 }

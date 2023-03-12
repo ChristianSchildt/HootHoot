@@ -18,3 +18,19 @@
     height: 40vh;
     background-size: cover;
 }
+
+@media (width <1000px){
+    .ContentQuestion{
+        margin-bottom: 10%;
+        margin-top: 10%;
+    }
+}
+
+@media (width <650px){
+    .ContentQuestion{
+        width: 55vw;
+        height: 50vh;
+        margin-bottom: 6%;
+        margin-top: 0%;
+    }
+}

@@ -210,7 +210,12 @@
     padding-top: 5em;
 }
 
-#button_switchansicht{
+#button_switchansicht_det{
+    float: right;
+    width: auto;
+    margin-top: 1%;
+}
+#button_switchansicht_min{
     float: right;
     width: auto;
     margin-top: 1%;
@@ -255,4 +260,44 @@
 #button-create-course:hover
 {
     border: 3px solid #ffffff;
+}
+
+@media (width <650px){
+    #button_switchansicht_min{
+        float: right;
+        width: 40%;
+        font-size: 15px;
+        margin-top: 5%;
+        margin-bottom: 40%;
+        
+    }
+    #button_switchansicht_det{
+        float: right;
+        width: 40%;
+        font-size: 15px;
+        margin-top: 5%; 
+    }
+    #button-answerad{
+        height: 23vh;
+        width: 40vw;
+        margin: 10px;
+    }
+    #button-answerbc{
+        height: 23vh;
+        width: 40vw;
+        margin: 10px;
+    }
+
+    #button-detail-answerad{
+        background-color: #476D7C;
+        height: 10vh;
+        width: 40vw;
+        margin: 5px;
+    }
+    #button-detail-answerbc{
+        height: 10vh;
+        width: 40vw;
+        margin: 5px 5px 5px 5px;
+    }
+
 }

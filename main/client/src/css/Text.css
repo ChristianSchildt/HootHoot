@@ -1,5 +1,6 @@
 .projectname-left
 {
+    float: left;
     text-align: left;
     font-family: 'Calibri';
     font-size: 1.8em;
@@ -309,3 +310,33 @@
     font-size: 1.4em;
 }
 
+@media (width <1000px){
+    #text-answers{
+        font-size: 30px;
+    }
+    #div-countdown
+    {
+        margin-top: 25vH;
+    }
+    #counter-answers
+    { 
+        padding-top: 25vh;
+    }
+}
+
+@media (width <650px){
+.col{
+    width: 0;
+}
+#text-answers{
+    font-size: 17px;
+}
+#div-countdown
+{
+    margin-top: 20vH;
+}
+#counter-answers
+{ 
+    padding-top: 20vh;
+}
+}
