@@ -18,8 +18,14 @@ class t_LetStudentsJoinPage extends React.Component {
             pin: ""
         };
 
+        this.continueGame = false;
+
+        if (this.props.location.state) {
+            this.continueGame = this.props.location.state.continueGame && window.connection.socket != null;
+        }
+
         //TODO: exchange with real data and make as prop
-        this.quizes = [
+        this.questions = [
             {
                 questionId: 123,
                 time: 60,
@@ -35,22 +41,37 @@ class t_LetStudentsJoinPage extends React.Component {
                 correctAnswerIndex: 3
             }
         ]
-        this.quiz = this.quizes[0];
+        this.question = this.questions[0];
     }
     
     componentDidMount() {
         window.connection.connect();
-        window.connection.socket.emit('create-game', this.quizes, (response) => {
-            console.log(response);
-            this.setState({pin: response.pin})
-        });
+        if (!this.continueGame) {
+            window.connection.socket.emit('create-game', this.questions, (response) => {
+                console.log(response);
+                this.setState({pin: response.pin})
+            });
+        } else {
+            window.connection.socket.emit('prepare-next-question', (response) => {
+                console.log(response);
+                if (response) {
+                    this.question = response;
+                }
+
+            })
+            window.connection.socket.emit('get-existing-game-info', (response) => {
+                console.log(response);
+                this.setState({pin: response.pin, players: response.players})
+            });
+        }
+
         window.connection.socket.on('players-updated', (response) => {
             this.setState({players: response})
         })
     }
 
     startGame() {
-        this.props.navigate("/teacher/playHootHoot", {state: {quiz: this.quiz}})
+        this.props.navigate("/teacher/playHootHoot", {state: {question: this.question}})
     }
 
     render() {

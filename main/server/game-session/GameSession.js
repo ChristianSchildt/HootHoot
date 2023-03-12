@@ -6,11 +6,11 @@ Player = require('./Player')
 const pointsCalcFunc = (time, elapsedTime) => Math.round(1000 * (time - elapsedTime) / time)
 
 class GameSession {
-    constructor(host, pin, quizes) {
+    constructor(host, pin, questions) {
         this.host = host;
         this.pin = pin;
-        this.quizes = quizes
-        this.quiz = quizes[0];
+        this.questions = questions
+        this.question = questions[0];
         this.players = new Map();
         this.startTime = null;
 
@@ -18,8 +18,11 @@ class GameSession {
 
         host.on('get-answer-counts', (callback) => { this.getAnswerCounts(host, callback); });
         host.on('get-sorted-game-results', (callback) => { this.getSortedGameResults(host, callback); });
-        host.on('quiz-started', () => { this.startQuiz(host); });
-        host.on('stop-quiz', () => { this.stopQuiz(host); });
+        host.on('question-started', () => { this.startQuestion(host); });
+        host.on('stop-question', () => { this.stopQuestion(host); });
+        host.on('has-another-question', (callback) => { this.hasAnotherQuestion(host, callback) });
+        host.on('prepare-next-question', (callback) => { this.prepareNextQuestion(host, callback) });
+        host.on('get-existing-game-info', (callback) => { this.getExistingGameInfo(host, callback) });
     }
 
     addPlayer(socket, payload) {
@@ -58,7 +61,7 @@ class GameSession {
         let player = this.players.get(socket.id);
         player.answerIndex = answerIndex;
         player.time = Math.round((Date.now() - this.startTime) / 1000);
-        player.points = answerIndex == this.quiz.correctAnswerIndex ? pointsCalcFunc(this.quiz.time, (Date.now() - this.startTime) / 1000) : 0;
+        player.points = answerIndex == this.question.correctAnswerIndex ? pointsCalcFunc(this.question.time, (Date.now() - this.startTime) / 1000) : 0;
 
         console.log("user " + player.name + " selected answer " + answerIndex + " (" + player.points + " points)");
 
@@ -66,22 +69,22 @@ class GameSession {
         this.host.emit('answer-count-updated', answerCount)
     }
 
-    startQuiz(socket) {
+    startQuestion(socket) {
         if (socket.id != this.host.id) {
-            return
+            return;
         }
 
         if (!this.timeoutID) { // check just to be sure
-            this.timeoutID = setTimeout(this.stopQuiz.bind(this), this.quiz.time * 1000);
+            this.timeoutID = setTimeout(this.stopQuestion.bind(this), this.question.time * 1000);
         }
         this.startTime = Date.now();
 
         for (const player of this.players.values()) {
-            player.socket.emit('quiz-started');
+            player.socket.emit('question-started');
         };
     }
 
-    stopQuiz(socket) {
+    stopQuestion(socket) {
         if (socket && socket.id != this.host.id) {
             return
         }
@@ -89,7 +92,7 @@ class GameSession {
         clearTimeout(this.timeoutID);
 
         for (const player of this.players.values()) {
-            player.socket.emit('quiz-ended', this.quiz.correctAnswerIndex);
+            player.socket.emit('questionz-ended', this.question.correctAnswerIndex);
         };
 
         let playerTimes = []
@@ -99,8 +102,43 @@ class GameSession {
             }
         };
         if (playerTimes.length > 0) {
-            this.saveGameResults(this.quiz.questionId, playerTimes);
+            this.saveGameResults(this.question.questionId, playerTimes);
         }
+    }
+
+    hasAnotherQuestion(socket, callback) {
+        callback = typeof callback == "function" ? callback : () => {};
+
+        let result = this.questions.indexOf(this.question) < this.questions.length;
+        callback(result);
+        return result;
+    }
+
+    prepareNextQuestion(socket, callback) {
+        callback = typeof callback == "function" ? callback : () => {};
+
+        if (!this.hasAnotherQuestion()) {
+            console.log("redundant prepareNextQuestion call")
+            return;
+        }
+
+        clearTimeout(this.timeoutID);
+        this.timeoutID = undefined;
+        this.time = undefined;
+        this.question = this.questions[this.questions.indexOf(this.question) + 1];
+
+        callback(this.question);
+    }
+
+    getExistingGameInfo(socket, callback) {
+        callback = typeof callback == "function" ? callback : () => {};
+
+        callback({
+            players: this.getPlayerNames(),
+            pin: this.pin,
+            questionsAmount: this.questions.length,
+            currentQuestionIndex: this.currentQuestionIndex
+        });
     }
 
     getPlayerNames() {

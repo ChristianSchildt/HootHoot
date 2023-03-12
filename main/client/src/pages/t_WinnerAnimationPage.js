@@ -6,6 +6,7 @@ import Text from '../components/Text';
 import Picture from '../components/Picture';
 import Button from '../components/Button';
 import Field from '../components/Field';
+import withNavigate from '../utility/with-navigate';
 
 class t_WinnerAnimationPage extends React.Component {
     
@@ -20,6 +21,7 @@ class t_WinnerAnimationPage extends React.Component {
                 {name: 'test player 5', points: 200}
             ]
         }
+        this.hasMoreQuestions = false;
     }
     
     componentDidMount() {
@@ -32,6 +34,18 @@ class t_WinnerAnimationPage extends React.Component {
             console.log(gameResults)
             this.setState({gameResults});
         })
+        window.connection.socket.emit('has-another-question', (response) => {
+            console.log(response)
+            this.hasMoreQuestions = response;
+        })
+    }
+
+    goToNextPage() {
+        if (this.hasMoreQuestions) {
+            this.props.navigate("/teacher/letStudentsJoin", {state: {continueGame: true}});
+        } else {
+            this.props.navigate("/teacher/homeMenu");
+        }
     }
 
     render() {
@@ -56,7 +70,9 @@ class t_WinnerAnimationPage extends React.Component {
                                 className="button"
                                 id="button-goBack-winnerAnimationPage"
                                 value="Zurück"
-                                href="/teacher/answerEvaluation">
+                                // not properly implemented yet
+                                //href="/teacher/answerEvaluation"
+                                >
                             </Button>
                         </Col>
 
@@ -65,7 +81,7 @@ class t_WinnerAnimationPage extends React.Component {
                                 className="button"
                                 id="button-goOn-winnerAnimationPage"
                                 value="Weiter"
-                                href="/teacher/hootHootEndcard">
+                                onClick={this.goToNextPage.bind(this)}>
                             </Button>
                         </Col>
                     </Row>
@@ -113,4 +129,4 @@ class t_WinnerAnimationPage extends React.Component {
     }
 }
 
-export default t_WinnerAnimationPage;
+export default withNavigate(t_WinnerAnimationPage);

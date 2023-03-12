@@ -14,7 +14,7 @@ class t_PlayHootHootPage extends React.Component {
         super(props);
 
         if (this.props.location.state) {
-            this.quiz = this.props.location.state.quiz;
+            this.quiz = this.props.location.state.question;
         } else {
             // test daten
             this.quiz = {
@@ -48,7 +48,7 @@ class t_PlayHootHootPage extends React.Component {
             return;
         }
 
-        window.connection.socket.emit('quiz-started')
+        window.connection.socket.emit('question-started')
         window.connection.socket.on('answer-count-updated', (answerCount) => {
             this.setState({answerCount})
         })
@@ -69,8 +69,8 @@ class t_PlayHootHootPage extends React.Component {
     }
 
     endQuiz() {
-        window.connection.socket.emit('stop-quiz')
-        this.props.navigate("/teacher/answerEvaluation", this.quiz)
+        window.connection.socket.emit('stop-question')
+        this.props.navigate("/teacher/answerEvaluation")
     }
 
     render() {
