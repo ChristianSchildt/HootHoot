@@ -7,8 +7,7 @@ import Text from '../components/Text';
 import Picture from '../components/Picture';
 import MenuNavigation from '../components/MenuNavigation';
 import Field from '../components/Field';
-import CourseTile from '../components/CourseTile';
-import NewsTile from '../components/NewsTile';
+import QuestionTile from '../components/QuestionTile';
 import ProfileMenu from '../components/ProfileMenu';
 import Button from '../components/Button';
 import PopupCourse from '../components/PopupCourse';
@@ -17,10 +16,59 @@ import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css'; 
 
 
-function T_HomeMenuPage(){
+function T_HomeMenuPage() {
 
     const [courses, setCourses] = useState([]);
+    const [questions, setQuestions] = useState([]);
     const inputKursname = useRef(null);
+
+    //TODO
+    var options = []
+    var checkboxIsSelected= []
+
+    questions.map((question) => {
+        options.push(question.id)
+    })
+
+    checkboxIsSelected = options.reduce(
+        (options, option) => ({
+            ...options,
+            [option]: false
+        }),
+        {}
+    )
+
+    function handleCheckboxChange(checkboxid) {
+        checkboxIsSelected[checkboxid] = !checkboxIsSelected[checkboxid]
+        // console.log(checkboxid+ ": "+ checkboxIsSelected[checkboxid])
+    }
+
+    function submitHootHoots() {
+        // alert('submitHootHoots')
+        // console.log('QUESTIONS:')
+        // console.log(questions)
+        // console.log('OPTIONS:')
+        // console.log(options)
+        // console.log('CHECKBOXES:')
+        // console.log(checkboxIsSelected)
+
+        //TODO
+        var sessionQuestions = []
+
+        Object.entries(checkboxIsSelected).map(([key, value]) => {
+            if(value == true) {
+                questions.map((question) => {
+                    if(question.id == key) {
+                        sessionQuestions.push(question)
+                    }
+                })
+            } 
+        })
+        
+        //Questions für die Session
+        console.log('SESSIONQUESTIONS:')
+        console.log(sessionQuestions)
+    }
 
     async function deleteCourse(id) {
         try{
@@ -48,10 +96,26 @@ function T_HomeMenuPage(){
             console.log(e);
         }
     }
+
+    const getQuestions = async () => {
+        try{
+            const response = await fetch('http://localhost:5000/api/user/questions', {
+            method: "GET",
+            headers: { "jwt_token": localStorage.token }
+            })
+
+            const data = await response.json()
+            setQuestions(data)
+
+        } catch(e) {
+            console.log(e)
+        }
+    }
     
     useEffect(() => {
         console.log("useeffect löst aus")
-        getCourses();
+        // getCourses();
+        getQuestions()
     },[])
     
     
@@ -101,7 +165,7 @@ function T_HomeMenuPage(){
         }catch(e) {
             console.log(e);
         }
-      }  
+    }  
 
     return(
         
@@ -129,126 +193,137 @@ function T_HomeMenuPage(){
                         <ProfileMenu/>
                     </Col>
                 </Row>
-                <Row>
-                    <Col>
+                <Row className="justify-content-md-center">
+                    {/* <Col>
                         <Field classNameField="field"
                             classNameTitle="field-title"
                             valueTitle="Neuigkeiten">
                             <NewsTile classNameNewstext="newstext" valuetext="Willkommen bei HootHoot:)"/>
                             <NewsTile classNameNewstext="newstext" valuetext="Du hast ein neues HootHoot erstellt!"/>
                         </Field>
-                    </Col>
-                    <Col>
+                    </Col> */}
+                    <Col md={8}>
                         <Field
-                            id="tiles" 
+                            id="field-hoothoots" 
                             classNameField="field"
                             classNameTitle="field-title"
-                            valueTitle="Meine Kurse"
-                            >    
-                            {(courses.map((course) => {
-                                return (
-                                //img statt x
-                                <div>
-                                    <Imagebutton id="deleteCourse" src="/images/button_close.png" onClick={() => submit(course.id)}></Imagebutton>
-                                    <CourseTile 
-                                        key={course.id} 
-                                        srcPicture=""
-                                        valuetext={course.name}>
-                                    </CourseTile>
-                            
-                                </div>
-                            );
-                            }))}
-                        </Field>
-                        <div className={"createTile"}>
-                        <Container fluid>
+                            valueTitle="HootHoots">
                             <Row>
                                 <Col>
-                                    <Text
-                                        id="createTile-header"
-                                        value="Erstellen">
-                                    </Text>
+                                    <Imagebutton
+                                        className="button-coursePlay"
+                                        /*TODO: Besseres Bild*/
+                                        src="/images/play.jpg"  
+                                        alt="Play Symbol"
+                                        onClick={() => submitHootHoots()}>
+                                    </Imagebutton>
                                 </Col>
                             </Row>
-                            <div className="div-createTile">
+                            <Row>
+                                <div id='select-hoothoots'>
+                                    <Col>
+                                        {(questions.map((question, i) => {
+                                            return (
+                                                <div>
+                                                    <QuestionTile
+                                                        labelCheckbox={question.id}
+                                                        isSelectedCheckbox={checkboxIsSelected[i+1]} //TODO
+                                                        onCheckboxChange={handleCheckboxChange} //TODO
+                                                        key={question.id}
+                                                        valuetext={question.name}>
+                                                    </QuestionTile>
+                                                </div>
+                                            );
+                                        }))}
+                                    </Col>
+                                </div>
+                            </Row>
+                        </Field>
+                    </Col>
+                    <Col md={3}>
+                            <Container fluid className={'createTile'}>
                                 <Row>
                                     <Col>
                                         <Text
-                                            className="createTile-text"
-                                            // TODO: Values auslagern
-                                            value="Kurs">
+                                            id="createTile-header"
+                                            value="Erstellen">
                                         </Text>
                                     </Col>
-                                    <Col>
-                                    <Picture
-                                        className="symbol-add"
-                                        src="/images/add.png"
-                                        alt="Plus"
-                                        variant="outlined"
-                                        onClick={()=>openPopup("popup-profile2")}
-                                        >
-                                    </Picture>
-                                    <Field classNameField="body-overlay2"/>
-                                    <PopupCourse classNamePopup="popup"
-                                            idPopup="popup-profile2"
-                                            altImage="button-close Platzhalter"
-                                            onClickImage={() =>closePopup("popup-profile2")}
-                                            srcImage="/images/button_close.png"
-                                            valueTitle="Neuen Kurs erstellen">
-                                            <Row>
-                                                <Col>
-                                                    <Text
-                                                        className="createTile-text"
-                                                        value="Wie soll der neue Kurs heißen?">
-                                                    </Text>
-                                                </Col>
-                                                <Col>
-                                                    <InputField 
-                                                        ref={inputKursname}
-                                                        className="inputField-popup"
-                                                        placeholder="Kursname">
-                                                    </InputField>    
-                                                </Col>
-                                            </Row>
-                                            <Row>
-                                                <Col>
-                                                    <Button
-                                                        className="button-popup"
-                                                        value="Erstellen"
-                                                        onClick={()=>createCourse()}>
-                                                    </Button>    
-                                                </Col>
-                                            </Row>
-                                        </PopupCourse>
-                                            </Col>
-                                        </Row>
-                                    </div>
-                                    <div className="div-createTile">
-                                        <Row>
-                                            <Col>
-                                                <Text
-                                                    className="createTile-text"
-                                                    value="HootHoot">
-                                                </Text>
-                                            </Col>
-                                            <Col>
-                                                <Picture
-                                                    className="symbol-add"
-                                                    src="/images/add.png"
-                                                    alt="Plus"
-                                                    variant="outlined"
-                                                    onClick={() => window.location.href = "/teacher/createHootHoot"}>
-                                                </Picture>
-                                                
-                                            </Col>
-                                        </Row>
-                                    
-                                    </div>
-                        </Container>
-                            </div>
-                                </Col>
-                </Row>
-                        
+                                </Row>
+                                <div className="div-createTile">
+                                    <Row>
+                                        <Col>
+                                            <Text
+                                                className="createTile-text"
+                                                // TODO: Values auslagern
+                                                value="Kurs">
+                                            </Text>
+                                        </Col>
+                                        <Col>
+                                            <Picture
+                                                className="symbol-add"
+                                                src="/images/add.png"
+                                                alt="Plus"
+                                                variant="outlined"
+                                                onClick={()=>openPopup("popup-profile2")}>
+                                            </Picture>
+                                            <Field classNameField="body-overlay2"/>
+                                            <PopupCourse classNamePopup="popup"
+                                                idPopup="popup-profile2"
+                                                altImage="button-close Platzhalter"
+                                                onClickImage={() =>closePopup("popup-profile2")}
+                                                srcImage="/images/button_close.png"
+                                                valueTitle="Neuen Kurs erstellen">
+                                                <Row>
+                                                    <Col>
+                                                        <Text
+                                                            className="createTile-text"
+                                                            value="Wie soll der neue Kurs heißen?">
+                                                        </Text>
+                                                    </Col>
+                                                    <Col>
+                                                        <InputField 
+                                                            ref={inputKursname}
+                                                            className="inputField-popup"
+                                                            placeholder="Kursname">
+                                                        </InputField>    
+                                                    </Col>
+                                                </Row>
+                                                <Row>
+                                                    <Col>
+                                                        <Button
+                                                            className="button-popup"
+                                                            value="Erstellen"
+                                                            onClick={()=>createCourse()}>
+                                                        </Button>    
+                                                    </Col>
+                                                </Row>
+                                            </PopupCourse>
+                                        </Col>
+                                    </Row>
+                                </div>
+                                <div className="div-createTile">
+                                    <Row>
+                                        <Col>
+                                            <Text
+                                                className="createTile-text"
+                                                value="HootHoot">
+                                            </Text>
+                                        </Col>
+                                        <Col>
+                                            <Picture
+                                                className="symbol-add"
+                                                src="/images/add.png"
+                                                alt="Plus"
+                                                variant="outlined"
+                                                onClick={() => window.location.href = "/teacher/createHootHoot"}>
+                                            </Picture>
+                                        </Col>
+                                    </Row>
+                                </div>
+                            </Container>
+                    </Col>    
+                </Row>         
             </Container>
         </div>
     );

@@ -42,6 +42,11 @@
     pointer-events: auto;
 }
 
+#select-hoothoots
+{
+    padding-top: 3em;
+}
+
 #question-overview
 {
     border: 0.5px solid #476D7C;

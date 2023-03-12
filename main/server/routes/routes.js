@@ -151,6 +151,28 @@ router.get('/api/courses/:courseid/questions', async(req, res) => {
   }
 })
 
+//get all questions for the current user
+router.get('/api/user/questions', authorize, async(req, res) => {
+  try {
+    const results = await pool.query('SELECT * FROM question '+
+                                     'WHERE user_id = $1', 
+                                      [req.user.id]);
+    console.log('select all questions for the current user')
+
+    res.json(results.rows)
+    res.status(200).json({
+      status: "success",
+      results: results.rows.length,
+      data:{
+        questions: results.rows
+      }
+    });
+    
+  } catch (e) {
+    console.log(e)
+  }
+})
+
 //get answers for a selected question
 router.get('/api/answers/:questionid', async(req, res) => {
   try {
