@@ -14,9 +14,10 @@ import PopupCourse from '../components/PopupCourse';
 import InputField from '../components/InputField'
 import { confirmAlert } from 'react-confirm-alert'; 
 import 'react-confirm-alert/src/react-confirm-alert.css'; 
-
+import { useNavigate } from 'react-router-dom'; 
 
 function T_HomeMenuPage() {
+    const navigate = useNavigate();
 
     const [courses, setCourses] = useState([]);
     const [questions, setQuestions] = useState([]);
@@ -43,7 +44,7 @@ function T_HomeMenuPage() {
         // console.log(checkboxid+ ": "+ checkboxIsSelected[checkboxid])
     }
 
-    function submitHootHoots() {
+    async function submitHootHoots() {
         // alert('submitHootHoots')
         // console.log('QUESTIONS:')
         // console.log(questions)
@@ -52,9 +53,7 @@ function T_HomeMenuPage() {
         // console.log('CHECKBOXES:')
         // console.log(checkboxIsSelected)
 
-        //TODO
-        var sessionQuestions = []
-
+        let sessionQuestions = []
         Object.entries(checkboxIsSelected).map(([key, value]) => {
             if(value == true) {
                 questions.map((question) => {
@@ -64,10 +63,40 @@ function T_HomeMenuPage() {
                 })
             } 
         })
-        
+
         //Questions für die Session
         console.log('SESSIONQUESTIONS:')
         console.log(sessionQuestions)
+
+        // we prepare all questions here for the game session and send it to the backend later, because via
+        // the REST routes we have security mechanisms that verify, that the requested data is owned by the user.
+        let preparedQuestions = [];
+        for (let question of sessionQuestions) {
+            let preparedQuestion = {};
+            preparedQuestion.id = question.id;
+            preparedQuestion.time = question.timelimit;
+            preparedQuestion.question = question.name;
+            preparedQuestion.answers = []
+            preparedQuestion.correctAnswerIndex = null;
+
+            const response = await fetch('http://localhost:5000/api/answers/'+ question.id);
+            const data = await response.json();
+            for (let index = 0; index < data.length; index++) {
+                const element = data[index];
+                preparedQuestion.answers.push(element.answer);
+                if (element.iscorrect) {
+                    preparedQuestion.correctAnswerIndex = index;
+                }
+            }
+
+            console.assert(preparedQuestion.correctAnswerIndex != null)
+            preparedQuestions.push(preparedQuestion)
+        }
+
+        console.log('PREPAREDQUESTIONS:')
+        console.log(preparedQuestions)
+
+        navigate("/teacher/letStudentsJoin", {state: {questions: preparedQuestions, continueGame: false}});
     }
 
     async function deleteCourse(id) {

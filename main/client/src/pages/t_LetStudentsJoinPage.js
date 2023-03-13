@@ -19,59 +19,75 @@ class t_LetStudentsJoinPage extends React.Component {
         };
 
         this.continueGame = false;
+        this.questions = [];
 
         if (this.props.location.state) {
             this.continueGame = this.props.location.state.continueGame && window.connection.socket != null;
+
+            if (!this.continueGame) {
+                this.questions = this.props.location.state.questions;
+            }
         }
 
-        //TODO: exchange with real data and make as prop
-        this.questions = [
-            {
-                questionId: 123,
-                time: 60,
-                question: "Sind Sie mit dem GUI zufrieden?",
-                answers: ["Antwort A", "Antwort B", "Antwort C", "Antwort D"],
-                correctAnswerIndex: 3
-            },
-            {
-                questionId: 123,
-                time: 60,
-                question: "Wer ist der Beste?",
-                answers: ["Köhn", "Köhn", "Köhn", "Köhn"],
-                correctAnswerIndex: 3
-            }
-        ]
-        this.question = this.questions[0];
+        // create test data if not questions provided
+        if (!this.questions || this.questions.length === 0) {
+            this.questions = [
+                {
+                    questionId: 123,
+                    time: 60,
+                    question: "Sind Sie mit dem GUI zufrieden?",
+                    answers: ["Antwort A", "Antwort B", "Antwort C", "Antwort D"],
+                    correctAnswerIndex: 3
+                },
+                {
+                    questionId: 123,
+                    time: 60,
+                    question: "Wer ist der Beste?",
+                    answers: ["Köhn", "Köhn", "Köhn", "Köhn"],
+                    correctAnswerIndex: 3
+                }
+            ]
+        }
+
+        this.questionsAmount = this.questions.length;
+        this.currentQuestionIndex = 0;       
+        this.question = this.questions[this.currentQuestionIndex];
     }
     
     componentDidMount() {
-        window.connection.connect();
-        if (!this.continueGame) {
-            window.connection.socket.emit('create-game', this.questions, (response) => {
-                console.log(response);
-                this.setState({pin: response.pin})
-            });
-        } else {
-            window.connection.socket.emit('prepare-next-question', (response) => {
-                console.log(response);
-                if (response) {
-                    this.question = response;
-                }
-
+        if (!this.initializedConnection) { 
+            window.connection.connect();
+            console.log(this.continueGame)
+            if (!this.continueGame) {
+                window.connection.socket.emit('create-game', this.questions, (response) => {
+                    console.log(response);
+                    this.setState({pin: response.pin})
+                });
+            } else {
+                window.connection.socket.emit('prepare-next-question', (response) => {
+                    console.log(response);
+                    if (response) {
+                        this.question = response;
+                    }
+                })
+                window.connection.socket.emit('get-existing-game-info', (response) => {
+                    console.log(response);
+                    this.setState({pin: response.pin, players: response.players});
+                    this.questionsAmount = response.questionsAmount;
+                    this.currentQuestionIndex = response.currentQuestionIndex;
+                });
+            }
+    
+            window.connection.socket.on('players-updated', (response) => {
+                this.setState({players: response})
             })
-            window.connection.socket.emit('get-existing-game-info', (response) => {
-                console.log(response);
-                this.setState({pin: response.pin, players: response.players})
-            });
+            
+            this.initializedConnection = true;
         }
-
-        window.connection.socket.on('players-updated', (response) => {
-            this.setState({players: response})
-        })
     }
 
     startGame() {
-        this.props.navigate("/teacher/playHootHoot", {state: {question: this.question}})
+        this.props.navigate("/teacher/playHootHoot", {state: {question: this.question, questionsAmount: this.questionsAmount, currentQuestionIndex: this.currentQuestionIndex}})
     }
 
     render() {

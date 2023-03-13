@@ -10,7 +10,8 @@ class GameSession {
         this.host = host;
         this.pin = pin;
         this.questions = questions
-        this.question = questions[0];
+        this.currentQuestionIndex = 0;
+        this.question = questions[this.currentQuestionIndex = 0];
         this.players = new Map();
         this.startTime = null;
 
@@ -109,7 +110,7 @@ class GameSession {
     hasAnotherQuestion(socket, callback) {
         callback = typeof callback == "function" ? callback : () => {};
 
-        let result = this.questions.indexOf(this.question) < this.questions.length;
+        let result = this.currentQuestionIndex < this.questions.length - 1;
         callback(result);
         return result;
     }
@@ -125,7 +126,8 @@ class GameSession {
         clearTimeout(this.timeoutID);
         this.timeoutID = undefined;
         this.time = undefined;
-        this.question = this.questions[this.questions.indexOf(this.question) + 1];
+        this.currentQuestionIndex++
+        this.question = this.questions[this.currentQuestionIndex];
 
         callback(this.question);
     }

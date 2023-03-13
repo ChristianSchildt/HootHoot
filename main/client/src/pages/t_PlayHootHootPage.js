@@ -13,11 +13,16 @@ class t_PlayHootHootPage extends React.Component {
     constructor(props) {
         super(props);
 
+        this.questionsAmount = 1;
+        this.currentQuestionIndex = 0;   
+
         if (this.props.location.state) {
-            this.quiz = this.props.location.state.question;
+            this.question = this.props.location.state.question;
+            this.questionsAmount = this.props.location.state.questionsAmount;
+            this.currentQuestionIndex = this.props.location.state.currentQuestionIndex;  
         } else {
             // test daten
-            this.quiz = {
+            this.question = {
                 time: 60,
                 question: "Keine Frage ausgewählt",
                 answers: ["Antwort A", "Antwort B", "Antwort C", "Antwort D"],
@@ -25,18 +30,18 @@ class t_PlayHootHootPage extends React.Component {
             }
         }
 
-        this.time = this.quiz.time;
-        this.question = this.quiz.question;
-        this.answerA = this.quiz.answers[0];
-        this.answerB = this.quiz.answers[1];
-        this.answerC = this.quiz.answers[2];
-        this.answerD = this.quiz.answers[3];
-        this.correctAnswerIndex = this.quiz.correctAnswerIndex;
+        this.time = this.question.time;
+        this.questionText = this.question.question;
+        this.answerA = this.question.answers[0];
+        this.answerB = this.question.answers[1];
+        this.answerC = this.question.answers[2];
+        this.answerD = this.question.answers[3];
+        this.correctAnswerIndex = this.question.correctAnswerIndex;
 
         this.intervalId = undefined;
 
         this.state = {
-            timer: this.quiz.time,
+            timer: this.question.time,
             answerCount: 0
         };
     }
@@ -70,7 +75,11 @@ class t_PlayHootHootPage extends React.Component {
 
     endQuiz() {
         window.connection.socket.emit('stop-question')
-        this.props.navigate("/teacher/answerEvaluation")
+        this.props.navigate("/teacher/answerEvaluation", {state: {
+            question: this.question,
+            questionsAmount: this.questionsAmount,
+            currentQuestionIndex: this.currentQuestionIndex
+        }});
     }
 
     render() {
@@ -104,7 +113,7 @@ class t_PlayHootHootPage extends React.Component {
                             <div id="div-HootHoot-question">
                                 <Text
                                     id="HootHoot-question"
-                                    value={this.question}>
+                                    value={this.questionText}>
                                 </Text>
                             </div>
                         </Col>
@@ -211,7 +220,7 @@ class t_PlayHootHootPage extends React.Component {
                         <Col  md={1}>
                             <Text
                                 id="answerNumber-now-overall"
-                                value="1/1">
+                                value={(this.currentQuestionIndex + 1) + "/" + this.questionsAmount}>
                             </Text>
                         </Col>
                         {/* <Col  md={{span: 2, offset:7}}>

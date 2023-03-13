@@ -21,6 +21,23 @@ class t_WinnerAnimationPage extends React.Component {
                 {name: 'test player 5', points: 200}
             ]
         }
+
+        this.questionsAmount = 1;
+        this.currentQuestionIndex = 0;   
+        if (this.props.location.state) {
+            this.question = this.props.location.state.question;
+            this.questionsAmount = this.props.location.state.questionsAmount;
+            this.currentQuestionIndex = this.props.location.state.currentQuestionIndex;
+        } else {
+            // test daten
+            this.question = {
+                time: 60,
+                question: "Keine Frage ausgewählt",
+                answers: ["Antwort A", "Antwort B", "Antwort C", "Antwort D"],
+                correctAnswerIndex: 3
+            }
+        }
+
         this.hasMoreQuestions = false;
     }
     
@@ -90,7 +107,7 @@ class t_WinnerAnimationPage extends React.Component {
                             <div id="div-HootHoot-question">
                                 <Text
                                     id="HootHoot-question"
-                                    value="Mit dem GUI zufrieden?">
+                                    value={this.question.question}>
                                 </Text>
                             </div>
                         </Col>
@@ -107,7 +124,7 @@ class t_WinnerAnimationPage extends React.Component {
                         <Col  md={1}>
                             <Text
                                 id="answerNumber-now-overall"
-                                value="1/1">
+                                value={(this.currentQuestionIndex + 1) + "/" + this.questionsAmount}>
                             </Text>
                         </Col>
                         {/* <Col  md={{span: 2, offset:7}}>
