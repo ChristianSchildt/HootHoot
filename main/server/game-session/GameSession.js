@@ -200,20 +200,24 @@ class GameSession {
         console.log(playerTimes)
 
         // code below throws exceptions
-        return
+        //return
 
-        let body = {
-            questionid: question_id,
-            name: this.name,
-            score: points
+        try{
+            //Array zum JSON string machen
+            const playerTimesJson = JSON.stringify(playerTimes);
+            await pool.query("INSERT INTO game_session (question_id, player_times) VALUES ($1,$2)",[questionId, playerTimesJson]);
+        }catch(e){
+            console.log(e);
         }
 
-        const name = req.body.name;
-        const user_id = req.user.id;
-        const score = req.body.score
-        const questionid = req.body.questionid
-        console.log(req.body.name);
-        await pool.query("INSERT INTO game_session (name, score, question_id) VALUES ($1, $2, $3) returning *", [name, score, questionid]);
+        
+        /*
+        playerPoints.forEach( async (name, points) => {
+            await pool.query("INSERT INTO game_session (name, score, question_id) VALUES ($1, $2, $3) returning *", [name, points, questionId]);
+        });
+        */
+        
+    
     }
 }
 
