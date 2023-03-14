@@ -265,15 +265,15 @@ router.delete('/api/questions/:id', async(req, res) => {
   }
 })
 
-//delete answer
-router.delete('/api/questions/:questionid/answers/:answerid', async(req, res) => {
+//delete answers
+router.delete('/api/questions/:questionid/answers/', async(req, res) => {
   try {
     
     const results = await pool.query('DELETE FROM answer '+
-                                     'WHERE id = $1 AND questionid = $2', 
-                                     [req.params.answerid, req.params.questionid]);
+                                     'WHERE questionid = $1', 
+                                     [req.params.questionid]);
 
-    console.log('DELETE answer sucessfully')
+    console.log('DELETE answers sucessfully')
 
     res.status(204).json({
       status: "success"
