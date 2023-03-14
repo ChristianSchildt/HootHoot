@@ -7,6 +7,8 @@ import Picture from '../components/Picture';
 import Button from '../components/Button';
 import Field from '../components/Field';
 import withNavigate from '../utility/with-navigate';
+import Swinner from '../components/swinner';
+import LibraryTile from '../components/LibraryTile';
 
 class t_WinnerAnimationPage extends React.Component {
     
@@ -21,7 +23,6 @@ class t_WinnerAnimationPage extends React.Component {
                 {name: 'test player 5', points: 200}
             ]
         }
-
         this.questionsAmount = 1;
         this.currentQuestionIndex = 0;   
         if (this.props.location.state) {
@@ -64,6 +65,7 @@ class t_WinnerAnimationPage extends React.Component {
             this.props.navigate("/teacher/homeMenu");
         }
     }
+
 
     render() {
         return(
@@ -112,13 +114,16 @@ class t_WinnerAnimationPage extends React.Component {
                             </div>
                         </Col>
                     </Row>
-                    <Row>
-                        <Col>
-                            <Field idField="winneranimation">
-                                {/* TODO: Siegeranimation einfügen */}
-                                <h1>Platzhalter Siegeranimation</h1>
-                            </Field>
-                        </Col>
+                    <Row className='winner-row-animation'>
+                        <Field idField="winneranimation">
+                            <Swinner valuefirst= {this.state.gameResults[0].name} valuesecond= {this.state.gameResults[1].name} valuethird={this.state.gameResults[2].name}></Swinner>
+                        </Field>
+                        <Field idField="winnerattendess">  
+                        <h2><u>Alle Teilnehmer</u></h2>
+                            {this.state.gameResults.map((player) => (  
+                                    <LibraryTile classNameLibrarytext="librarytext" valuetext={(player.name + "\nPoints:" + player.points)} /> 
+                                ))}                         
+                        </Field>
                     </Row>
                     <Row>
                         <Col  md={1}>
