@@ -19,7 +19,7 @@ class s_AnswerSelectionPage_Minimalist extends React.Component {
 
     componentDidMount() {
         if (window.connection.socket) {
-            window.connection.socket.on('quiz-started', () => {
+            window.connection.socket.on('question-started', () => {
                 this.setState({gameStarted: true})
             })
         }
