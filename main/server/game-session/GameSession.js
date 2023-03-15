@@ -211,7 +211,7 @@ class GameSession {
         try{
             //Array zum JSON string machen
             const playerTimesJson = JSON.stringify(gameResults);
-            await pool.query("INSERT INTO game_session (question_id, player_times) VALUES ($1,$2)",[questionId, playerTimesJson]);
+            //await pool.query("INSERT INTO game_session (question_id, player_times) VALUES ($1,$2)",[questionId, playerTimesJson]);
         }catch(e){
             console.log(e);
         }
