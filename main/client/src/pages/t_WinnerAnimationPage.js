@@ -116,7 +116,11 @@ class t_WinnerAnimationPage extends React.Component {
                     </Row>
                     <Row className='winner-row-animation'>
                         <Field idField="winneranimation">
-                            <Swinner valuefirst= {this.state.gameResults[0].name} valuesecond= {this.state.gameResults[1].name} valuethird={this.state.gameResults[2].name}></Swinner>
+                            <Swinner
+                                valuefirst= {this.state.gameResults.length > 0 ? this.state.gameResults[0].name : ""}
+                                valuesecond= {this.state.gameResults.length > 1 ? this.state.gameResults[1].name : ""}
+                                valuethird={this.state.gameResults.length > 2 ? this.state.gameResults[2].name : ""}>
+                            </Swinner>
                         </Field>
                         <Field idField="winnerattendess">  
                         <h2><u>Alle Teilnehmer</u></h2>
