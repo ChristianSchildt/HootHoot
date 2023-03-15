@@ -76,7 +76,8 @@ function T_HomeMenuPage() {
             preparedQuestion.id = question.id;
             preparedQuestion.time = question.timelimit;
             preparedQuestion.question = question.name;
-            preparedQuestion.answers = []
+            preparedQuestion.answers = [];
+            preparedQuestion.answerIds = [];
             preparedQuestion.correctAnswerIndex = null;
 
             const response = await fetch('http://localhost:5000/api/answers/'+ question.id);
@@ -84,6 +85,7 @@ function T_HomeMenuPage() {
             for (let index = 0; index < data.length; index++) {
                 const element = data[index];
                 preparedQuestion.answers.push(element.answer);
+                preparedQuestion.answerIds.push(element.id);
                 if (element.iscorrect) {
                     preparedQuestion.correctAnswerIndex = index;
                 }

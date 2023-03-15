@@ -7,6 +7,7 @@ const pointsCalcFunc = (time, elapsedTime) => Math.round(1000 * (time - elapsedT
 
 class GameSession {
     constructor(host, pin, questions) {
+        console.log(questions)
         this.host = host;
         this.pin = pin;
         this.questions = questions
@@ -93,17 +94,21 @@ class GameSession {
         clearTimeout(this.timeoutID);
 
         for (const player of this.players.values()) {
-            player.socket.emit('questionz-ended', this.question.correctAnswerIndex);
+            player.socket.emit('question-ended', this.question.correctAnswerIndex);
         };
 
-        let playerTimes = []
+        let results = []
         for (const player of this.players.values()) {
-            if (player.time != undefined) {
-                playerTimes.push({name: player.name, time: player.time});
+            if (player.time != undefined && player.answerIndex != undefined) {
+                results.push({
+                    name: player.name, 
+                    time: player.time, 
+                    answersId: this.question.answerIds[player.answerIndex]
+                });
             }
         };
-        if (playerTimes.length > 0) {
-            this.saveGameResults(this.question.questionId, playerTimes);
+        if (results.length > 0) {
+            this.saveGameResults(this.question.questionId, results);
         }
     }
 
@@ -195,16 +200,17 @@ class GameSession {
         }
     }
 
-    async saveGameResults(questionId, playerTimes) {
-        // playerTimes is an array containing objects in format [{name: '123456', time: 10}, {name: '987654', time: 5}]
-        console.log(playerTimes)
+    async saveGameResults(questionId, gameResults) {
+        // gameResults is an array containing objects for each player in format
+        // [{name: '123456', time: 10, answerId: 'a-uuid'}, {name: '987654', time: 5, answerId: 'a-uuid'}]
+        console.log(gameResults)
 
         // code below throws exceptions
         //return
 
         try{
             //Array zum JSON string machen
-            const playerTimesJson = JSON.stringify(playerTimes);
+            const playerTimesJson = JSON.stringify(gameResults);
             await pool.query("INSERT INTO game_session (question_id, player_times) VALUES ($1,$2)",[questionId, playerTimesJson]);
         }catch(e){
             console.log(e);

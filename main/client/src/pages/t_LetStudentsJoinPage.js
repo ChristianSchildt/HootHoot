@@ -37,6 +37,7 @@ class t_LetStudentsJoinPage extends React.Component {
                     time: 60,
                     question: "Sind Sie mit dem GUI zufrieden?",
                     answers: ["Antwort A", "Antwort B", "Antwort C", "Antwort D"],
+                    answersIds: [-1, -1, -1, -1],
                     correctAnswerIndex: 3
                 },
                 {
@@ -44,6 +45,7 @@ class t_LetStudentsJoinPage extends React.Component {
                     time: 60,
                     question: "Wer ist der Beste?",
                     answers: ["Köhn", "Köhn", "Köhn", "Köhn"],
+                    answersIds: [-1, -1, -1, -1],
                     correctAnswerIndex: 3
                 }
             ]
