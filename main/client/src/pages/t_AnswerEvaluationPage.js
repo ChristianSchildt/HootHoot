@@ -79,6 +79,8 @@ class t_AnswerEvaluationPage extends React.Component {
         this.answerB = this.question.answers[1];
         this.answerC = this.question.answers[2];
         this.answerD = this.question.answers[3];
+
+        this.gameResults = null;
     }
     
     componentDidMount() {
@@ -100,6 +102,10 @@ class t_AnswerEvaluationPage extends React.Component {
                 ]
             }})
         });
+        window.connection.socket.emit('get-sorted-game-results', (gameResults) => {
+            console.log(gameResults)
+            this.gameResults = gameResults;
+        })
     }
 
     render() {
@@ -127,7 +133,8 @@ class t_AnswerEvaluationPage extends React.Component {
                                     this.props.navigate("/teacher/winnerAnimation", {state: {
                                         question: this.question,
                                         questionsAmount: this.questionsAmount,
-                                        currentQuestionIndex: this.currentQuestionIndex
+                                        currentQuestionIndex: this.currentQuestionIndex,
+                                        gameResults: this.gameResults
                                     }})
                                 }}>
                             </Button>

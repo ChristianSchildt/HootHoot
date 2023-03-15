@@ -15,20 +15,16 @@ class t_WinnerAnimationPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            gameResults: [ // test data gets overridden if game sesson active
-                {name: 'test player 1', points: 1000},
-                {name: 'test player 2', points: 800},
-                {name: 'test player 3', points: 600},
-                {name: 'test player 4', points: 400},
-                {name: 'test player 5', points: 200}
-            ]
+            gameResults: null
         }
+
         this.questionsAmount = 1;
         this.currentQuestionIndex = 0;   
         if (this.props.location.state) {
             this.question = this.props.location.state.question;
             this.questionsAmount = this.props.location.state.questionsAmount;
             this.currentQuestionIndex = this.props.location.state.currentQuestionIndex;
+            this.state.gameResults = this.props.location.state.gameResults;
         } else {
             // test daten
             this.question = {
@@ -37,6 +33,17 @@ class t_WinnerAnimationPage extends React.Component {
                 answers: ["Antwort A", "Antwort B", "Antwort C", "Antwort D"],
                 correctAnswerIndex: 3
             }
+        }
+
+        // if got no or invalid game data form location.state, we create some fake data to test the animation
+        if (!this.state.gameResults) {
+            this.state.gameResults = [ 
+                {name: 'test player 1', points: 1000},
+                {name: 'test player 2', points: 800},
+                {name: 'test player 3', points: 600},
+                {name: 'test player 4', points: 400},
+                {name: 'test player 5', points: 200}
+            ]
         }
 
         this.hasMoreQuestions = false;
@@ -48,10 +55,6 @@ class t_WinnerAnimationPage extends React.Component {
             console.warn("no socket connection")
             return;
         }
-        window.connection.socket.emit('get-sorted-game-results', (gameResults) => {
-            console.log(gameResults)
-            this.setState({gameResults});
-        })
         window.connection.socket.emit('has-another-question', (response) => {
             console.log(response)
             this.hasMoreQuestions = response;
