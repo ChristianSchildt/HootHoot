@@ -83,7 +83,26 @@ class t_AnalysesMenuPage extends React.Component{
             ]
         };
     }
-    
+    /*
+    async getAnalysis(questionid) {
+        try {
+            const response = await fetch('http://localhost:5000/api/questions/'+questionid +'/game_sessions/');
+            const data = await response.json()
+            console.log(data)
+            const array=[]
+            data.forEach(element => {
+                array.push(element)
+            });
+            
+            this.setState({info: array})
+            
+            
+
+        } catch(e) {
+            console.log(e)
+        }
+    }
+*/
     render() {
     return(
         <div className='tAnalysesMenuPage'>

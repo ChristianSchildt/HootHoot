@@ -283,6 +283,22 @@ router.delete('/api/questions/:questionid/answers/', async(req, res) => {
   }
 })
 
-
+//get data for analysis page
+router.get('/api/question/:questionid/game_sessions', async (req, res) => {
+  try{
+    const questionId = req.params.questionid;
+    const results = await pool.query('SELECT * FROM game_session WHERE question_id = $1', [questionId]);
+    
+    res.status(200).json({
+      status:"success",
+      results: results.rows.length,
+      data: {
+        gameSession: results.rows
+      }
+    })
+  }catch(e){
+    console.log(e)
+  }
+})
 
 module.exports = router;

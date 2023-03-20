@@ -18,6 +18,8 @@ class GameSession {
 
         this.timeoutID = undefined;
 
+        this.sessionid = null;
+
         host.on('get-answer-counts', (callback) => { this.getAnswerCounts(host, callback); });
         host.on('get-sorted-game-results', (callback) => { this.getSortedGameResults(host, callback); });
         host.on('question-started', () => { this.startQuestion(host); });
@@ -211,8 +213,12 @@ class GameSession {
         try{
             //Array zum JSON string machen
             const playerTimesJson = JSON.stringify(gameResults);
-            await pool.query("INSERT INTO game_session (question_id, player_times) VALUES ($1,$2)",[questionId, playerTimesJson]);
-        }catch(e){
+            if(!this.sessionid){
+                this.sessionid = await pool.query("INSERT INTO game_session (question_id, player_times) VALUES ($1,$2) RETURNING sessionid",[questionId, playerTimesJson]);
+            }else{
+                await pool.query("INSERT INTO game_session (question_id, player_times, sessionid) VALUES ($1,$2,$3)",[questionId, playerTimesJson, sessionid]);
+            }
+            }catch(e){
             console.log(e);
         }
 
