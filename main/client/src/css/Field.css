@@ -7,12 +7,23 @@
     margin-bottom: 10px;
     overflow-y: scroll;
 }
+
+.createTile
+{
+    width: 18em;
+    height: 12.5em;
+    border: 1px solid #476D7C;
+    border-radius: 1em;
+    margin:auto;
+    margin-top: 3vh;
+}
+
 .field-hoothoots
 {
     margin: auto;
-    margin-top: 5vh;
-    height: 65vh;
-    width: 80vw;
+    margin-top: 3vh;
+    height: 60vh;
+    width: 50vw;
     border: 0.5px solid #476D7C;
     border-radius: 1em;
     color: white;
@@ -35,6 +46,19 @@
     background-color: #334d57;
     border-radius: 10px;
   }
+
+.field-news
+{
+    margin: auto;
+    margin-top: 3vh;
+    height: 65vh;
+    width: 50vw;
+    border: 0.5px solid #476D7C;
+    border-radius: 1em;
+    color: white;
+    margin-bottom: 10px;
+    overflow-y: scroll;
+}
 
 .body-overlay
 {
@@ -232,6 +256,7 @@
     color: white;
     margin-bottom: 10px;
     margin: auto;
+    margin-top: 3vh;
 }
 .analyse-question-field
 {
@@ -242,6 +267,7 @@
     color: white;
     margin: auto;
     overflow-y: scroll;
+    margin-top: 3vh;
 }
 
 .analyse-question-field-title

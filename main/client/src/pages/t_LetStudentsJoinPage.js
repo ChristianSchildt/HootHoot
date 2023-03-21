@@ -113,7 +113,7 @@ class t_LetStudentsJoinPage extends React.Component {
                                 className="button"
                                 id="button-back-letStudentsjoinPage"
                                 value="Zurück"
-                                href="/teacher/homeMenu">
+                                href="/teacher/libraryMenu">
                             </Button>
                         </Col>
                     </Row>

@@ -842,10 +842,11 @@ class t_CreateHootHootPage extends React.Component {
                 {this.state.questions.map((question) => (  
                     <QuestionView
                         key={question.id}
-                        classNameImagebuttonDuplicate="question-view-duplicate"
-                        srcImagebuttonDuplicate="/images/duplicate.jpg"
-                        altImagebuttonDuplicate="duplicateButton"
-                        onClickImagebuttonDuplicate={() => this.duplicateQuestion(question.id)}
+                        //-----kein Duplizieren möglich, deswegen auskommentiert
+                        // classNameImagebuttonDuplicate="question-view-duplicate"
+                        // srcImagebuttonDuplicate="/images/duplicate.jpg"
+                        // altImagebuttonDuplicate="duplicateButton"
+                        // onClickImagebuttonDuplicate={() => this.duplicateQuestion(question.id)}
                         classNameImagebuttonDelete="question-view-delete"
                         srcImagebuttonDelete="/images/delete.jpg"
                         altImagebuttonDelete="deleteButton"
@@ -908,7 +909,7 @@ class t_CreateHootHootPage extends React.Component {
                                 id="button-exit"
                                 src="/images/exit.jpg"
                                 alt="exit-Symbol"
-                                href="/teacher/homeMenu">
+                                href="/teacher/libraryMenu">
                             </Imagebutton>
                         </Col>
                     </Row>

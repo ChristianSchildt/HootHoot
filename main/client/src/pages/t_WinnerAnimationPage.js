@@ -65,7 +65,7 @@ class t_WinnerAnimationPage extends React.Component {
         if (this.hasMoreQuestions) {
             this.props.navigate("/teacher/letStudentsJoin", {state: {continueGame: true}});
         } else {
-            this.props.navigate("/teacher/homeMenu");
+            this.props.navigate("/teacher/libraryMenu");
         }
     }
 

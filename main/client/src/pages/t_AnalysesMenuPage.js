@@ -122,7 +122,7 @@ class t_AnalysesMenuPage extends React.Component{
 
                         <Col md={7}>
                             <MenuNavigation className="menu-navigation"
-                            id3="mark"/>
+                            id2="mark"/>
                         </Col>
                         <Col md={{ span: 2, offset: 1}}>
                             <ProfileMenu/>
