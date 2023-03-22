@@ -81,13 +81,11 @@ CREATE TABLE quiz
 CREATE TABLE game_session
 (
 	id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
+	user_id uuid REFERENCES users(user_id),
 	question_id uuid REFERENCES question(id),
 	player_times text,
 	answerid uuid REFERENCES answer(id),
-<<<<<<< Updated upstream
-=======
 	datum TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
->>>>>>> Stashed changes
 	sessionid uuid DEFAULT uuid_generate_v4()
 );
 
