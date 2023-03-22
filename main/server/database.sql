@@ -84,7 +84,7 @@ CREATE TABLE game_session
 	question_id uuid REFERENCES question(id),
 	player_times text,
 	answerid uuid REFERENCES answer(id),
-	sessionid uuid DEFAULT uuid_generate_v4();
+	sessionid uuid DEFAULT uuid_generate_v4()
 );
 
 CREATE TABLE review 
