@@ -82,9 +82,11 @@ CREATE TABLE game_session
 (
 	id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
 	user_id uuid REFERENCES users(user_id),
-	name text,
-	score integer,
-	question_id text	
+	question_id uuid REFERENCES question(id),
+	player_times text,
+	answerid uuid REFERENCES answer(id),
+	datum TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
+	sessionid uuid DEFAULT uuid_generate_v4()
 );
 
 CREATE TABLE review 

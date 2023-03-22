@@ -55,35 +55,44 @@ class t_AnalysesMenuPage extends React.Component{
     constructor(props) {
         super(props);
         this.state={
-            hoothoots: [
-                {   
-                    "id": 1,
-                    "name": "Webtechnologien 1",
-                    "question":["Wann wurde der Erste PC entwickelt?","Wie ist das Wetter?"],
-                    "kalenderwoche": ['kw1', 'kw2']
-                },
-                {
-                    "id": 2,
-                    "name": 'Webtechnologien 2',
-                    "question":["Wie gefällt ihnen die Präsentation?","Wie viel sind Google Aktien wert?"],
-                    "kalenderwoche": ['kw1', 'kw2']
-                },
-                {
-                    "id": 3,
-                    "name": 'IT-Sicherheit',
-                    "question":["Wie sicher ist das Internet?","Welcher Browser ist am sichersten?"],
-                    "kalenderwoche": ['kw1']
-                },
-                {
-                    "id": 4,
-                    "name": 'Betriebssysteme',
-                    "question":["Wann wurde IOS entwickelt?","IOS > Android?"],
-                    "kalenderwoche": ['kw1']
-                }               
-            ]
+            hoothoots: [{}]
         };
     }
-    
+
+    async componentDidMount() {
+        await this.getAnalysis()
+    }
+
+    async getAnalysis() {
+        try {
+            const response = await fetch('http://localhost:5000/api/game_sessions/');
+            const data = await response.json()
+            console.log(data)
+            
+            const array = []
+            data.data.gameSession.forEach(element => {
+                const dateS = element.datum
+                const date = new Date(dateS);
+
+                // Format the date and time in German time pattern
+                const formattedDate = date.toLocaleDateString('de-DE') + ' ' + date.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' });
+                element.datum = formattedDate;
+            })
+
+            // data.gameSession.forEach(element => {
+            //     array.push(element)
+            // }); 
+
+            console.log(data.data.gameSession)
+            this.setState({ hoothoots: data.data.gameSession })
+            
+            
+
+        } catch(e) {
+            console.log(e)
+        }
+    }
+
     render() {
     return(
         <div className='tAnalysesMenuPage'>
@@ -103,7 +112,7 @@ class t_AnalysesMenuPage extends React.Component{
 
                         <Col md={7}>
                             <MenuNavigation className="menu-navigation"
-                            id2="mark"/>
+                            id3="mark"/>
                         </Col>
                         <Col md={{ span: 2, offset: 1}}>
                             <ProfileMenu/>
@@ -115,7 +124,7 @@ class t_AnalysesMenuPage extends React.Component{
                                 classNameTitle="analyse-question-field-title"
                                 valueTitle="Fragen">
                                 {this.state.hoothoots.map((hoothoot) => (  
-                                    <AnalysesTile key={hoothoot.id.toString()} classNameLibrarytext="librarytext" valuetext={hoothoot.name} questionone={hoothoot.question[0]} questiontwo={hoothoot.question[1]} /> 
+                                    <AnalysesTile key={hoothoot.id} classNameLibrarytext="librarytext" valuetext={hoothoot.datum}  /> 
                                 ))}
                             </Field>
                         </Col>

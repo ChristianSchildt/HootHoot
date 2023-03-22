@@ -59,11 +59,15 @@ class t_AnswerEvaluationPage extends React.Component {
             chartData: data
         }
         
+        this.questionsAmount = 1;
+        this.currentQuestionIndex = 0;   
         if (this.props.location.state) {
-            this.quiz = this.props.location.state.quiz;
+            this.question = this.props.location.state.question;
+            this.questionsAmount = this.props.location.state.questionsAmount;
+            this.currentQuestionIndex = this.props.location.state.currentQuestionIndex;
         } else {
             // test daten
-            this.quiz = {
+            this.question = {
                 time: 60,
                 question: "Keine Frage ausgewählt",
                 answers: ["Antwort A", "Antwort B", "Antwort C", "Antwort D"],
@@ -71,10 +75,12 @@ class t_AnswerEvaluationPage extends React.Component {
             }
         }
 
-        this.answerA = this.quiz.answers[0];
-        this.answerB = this.quiz.answers[1];
-        this.answerC = this.quiz.answers[2];
-        this.answerD = this.quiz.answers[3];
+        this.answerA = this.question.answers[0];
+        this.answerB = this.question.answers[1];
+        this.answerC = this.question.answers[2];
+        this.answerD = this.question.answers[3];
+
+        this.gameResults = null;
     }
     
     componentDidMount() {
@@ -96,6 +102,10 @@ class t_AnswerEvaluationPage extends React.Component {
                 ]
             }})
         });
+        window.connection.socket.emit('get-sorted-game-results', (gameResults) => {
+            console.log(gameResults)
+            this.gameResults = gameResults;
+        })
     }
 
     render() {
@@ -119,7 +129,14 @@ class t_AnswerEvaluationPage extends React.Component {
                                 className="button"
                                 id="button-goOn-answerEvaluationPage"
                                 value="Weiter"
-                                href="/teacher/winnerAnimation">
+                                onClick={() => {
+                                    this.props.navigate("/teacher/winnerAnimation", {state: {
+                                        question: this.question,
+                                        questionsAmount: this.questionsAmount,
+                                        currentQuestionIndex: this.currentQuestionIndex,
+                                        gameResults: this.gameResults
+                                    }})
+                                }}>
                             </Button>
                         </Col>
                     </Row>
@@ -127,7 +144,7 @@ class t_AnswerEvaluationPage extends React.Component {
                             <div id="div-HootHoot-question">
                                 <Text
                                     id="HootHoot-question"
-                                    value={this.question}>
+                                    value={this.question.question}>
                                 </Text>
                             </div>
                         </Col>
@@ -190,7 +207,7 @@ class t_AnswerEvaluationPage extends React.Component {
                     <Row>
                         <Col md={{span: 5, offset:1}}>
                             <div id="div-answerA-evaluation"
-                                style={{opacity: this.quiz.correctAnswerIndex !== 0 ? '0.5': ''}}>
+                                style={{opacity: this.question.correctAnswerIndex !== 0 ? '0.5': ''}}>
                                 <div className="column1-HootHoot-answers">
                                     <Text
                                         className="answer-letter"
@@ -207,7 +224,7 @@ class t_AnswerEvaluationPage extends React.Component {
                         </Col>
                         <Col md={5}>
                             <div id="div-answerB-evaluation"
-                                style={{opacity: this.quiz.correctAnswerIndex !== 1 ? '0.5': ''}}>
+                                style={{opacity: this.question.correctAnswerIndex !== 1 ? '0.5': ''}}>
                                 <div className="column1-HootHoot-answers">
                                     <Text
                                         className="answer-letter"
@@ -226,7 +243,7 @@ class t_AnswerEvaluationPage extends React.Component {
                     <Row>
                         <Col md={{span: 5, offset:1}}>
                             <div id="div-answerC-evaluation"
-                                style={{opacity: this.quiz.correctAnswerIndex !== 2 ? '0.5': ''}}>
+                                style={{opacity: this.question.correctAnswerIndex !== 2 ? '0.5': ''}}>
                                 <div className="column1-HootHoot-answers">
                                     <Text
                                         className="answer-letter"
@@ -243,7 +260,7 @@ class t_AnswerEvaluationPage extends React.Component {
                         </Col>
                         <Col md={5}>
                             <div id="div-answerD-evaluation"
-                                style={{opacity: this.quiz.correctAnswerIndex !== 3 ? '0.5': ''}}>
+                                style={{opacity: this.question.correctAnswerIndex !== 3 ? '0.5': ''}}>
                                 <div className="column1-HootHoot-answers">
                                     <Text
                                         className="answer-letter"
@@ -263,7 +280,7 @@ class t_AnswerEvaluationPage extends React.Component {
                         <Col  md={1}>
                             <Text
                                 id="answerNumber-now-overall"
-                                value="1/1">
+                                value={(this.currentQuestionIndex + 1) + "/" + this.questionsAmount}>
                             </Text>
                         </Col>
                         {/* <Col  md={{span: 2, offset:7}}>

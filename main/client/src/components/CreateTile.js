@@ -12,7 +12,7 @@ import MuiDialogActions from '@mui/material/DialogActions';
 import MuiDialogContent from '@mui/material/DialogContent';
 import MuiDialogContentText from '@mui/material/DialogContentText';
 import MuiDialogTitle from '@mui/material/DialogTitle';
-import getCourses from '../pages/t_HomeMenuPage';
+import getCourses from '../pages/t_LibraryMenuPage';
 
 
 

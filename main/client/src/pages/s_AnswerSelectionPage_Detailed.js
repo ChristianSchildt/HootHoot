@@ -8,13 +8,14 @@ import Picture from '../components/Picture';
 import Text from '../components/Text';
 import HeaderQuestion from '../components/HeaderQuestion';
 import ContentQuestion from '../components/ContentQuestion';
+import Field from '../components/Field';
 
 function s_AnswerSelectionPage_Detailed(){
     return(
         <div className="s_Answermin">
         <Container fluid>
         <Row>
-                 <Col md={2}>
+                 <Col>
                        <Picture
                             id="logomenue"
                             src="/images/profil.png"
@@ -24,12 +25,9 @@ function s_AnswerSelectionPage_Detailed(){
                         className="projectname-left"
                         value="HootHoot">
                     </Text>
-
-                </Col>
-                <Col>
                     <Button
                         className="button"
-                        id="button_switchansicht"
+                        id="button_switchansicht_det"
                         value="Minimierte Ansicht"
                         href="/student/answerselectionMinimalist">
                     </Button>
@@ -50,15 +48,15 @@ function s_AnswerSelectionPage_Detailed(){
                                 value="20">
                                 </Text>
                             </div>
-                            </a>
+                        </a>
                         </Col>
-                    <ContentQuestion
-                            contentquestion="HootHoot!"
-                            id="logomenue"
-                            src=""
-                            alt="Platzhalter">  
-                    </ContentQuestion>
-                    <Col>
+                            <Field idField="div-media">
+                                <Text
+                                    id="media"
+                                    value="HootHoot!">
+                                </Text>
+                            </Field>
+                        <Col>
                            <Text
                                 id="counter-answers"
                                 value="5">

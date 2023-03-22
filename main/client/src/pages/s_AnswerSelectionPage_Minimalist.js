@@ -19,8 +19,8 @@ class s_AnswerSelectionPage_Minimalist extends React.Component {
 
     componentDidMount() {
         if (window.connection.socket) {
-            window.connection.socket.on('quiz-started', () => {
-                this.setState({gameStarted: true})
+            window.connection.socket.on('question-started', () => {
+                this.setState({gameStarted: true, selectedAnswerIndex: null})
             })
         }
     }
@@ -41,7 +41,7 @@ class s_AnswerSelectionPage_Minimalist extends React.Component {
             <div className="s_Answermin">
             <Container fluid>
                 <Row>
-                    <Col md={2}>
+                    <Col>
                         <Picture
                             id="logomenue"
                             src="/images/profil.png"
@@ -51,11 +51,9 @@ class s_AnswerSelectionPage_Minimalist extends React.Component {
                             className="projectname-left"
                             value="HootHoot">
                         </Text>
-                    </Col>
-                    <Col>
                         <Button
                             className="button"
-                            id="button_switchansicht"
+                            id="button_switchansicht_min"
                             value="Detailierte Ansicht"
                             href="/student/answerselectionDetailed">
                         </Button>

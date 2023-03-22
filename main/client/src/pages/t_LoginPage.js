@@ -35,7 +35,7 @@ const T_LoginPage = ({ setAuth }) =>  {
           if (parseRes.jwtToken) {
             localStorage.setItem("token", parseRes.jwtToken);
             toast.success("Logged in Successfully");
-            window.location.href = "/teacher/homeMenu";
+            window.location.href = "/teacher/libraryMenu";
           } else {
             toast.error(parseRes);
           }

@@ -79,3 +79,14 @@
     75% { transform: translate(-5px, 5px) rotate(-5deg); }
     100% { transform: translate(0, 0) rotate(0deg); }
 }
+
+@media (width <1000px){
+    .swinner{
+        font-size: 2vh;
+    }
+}
+@media (width <300px){
+    .swinner{
+        font-size: 1.8vh;
+    }
+}

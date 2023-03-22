@@ -1,7 +1,6 @@
 const router = require("express").Router();
 const authorize = require("../middleware/authorize");
-const getPool = require("../db");
-const pool = getPool();
+const pool = require("../db");
 
 router.get("/userdata", authorize, async (req, res) => {
   try {
@@ -151,13 +150,35 @@ router.get('/api/courses/:courseid/questions', async(req, res) => {
   }
 })
 
+//get all questions for the current user
+router.get('/api/user/questions', authorize, async(req, res) => {
+  try {
+    const results = await pool.query('SELECT * FROM question '+
+                                     'WHERE user_id = $1', 
+                                      [req.user.id]);
+    console.log('select all questions for the current user')
+
+    res.json(results.rows)
+    res.status(200).json({
+      status: "success",
+      results: results.rows.length,
+      data:{
+        questions: results.rows
+      }
+    });
+    
+  } catch (e) {
+    console.log(e)
+  }
+})
+
 //get answers for a selected question
 router.get('/api/answers/:questionid', async(req, res) => {
   try {
     const results = await pool.query('SELECT * FROM answer WHERE questionid = $1', [req.params.questionid]);
     
     console.log('select answers with specified questionid')
-    console.log("HIER GUCKEN: "+JSON.stringify(results.rows))
+    //console.log("HIER GUCKEN: "+JSON.stringify(results.rows))
     res.json(results.rows)
     res.status(200).json({
       status: "success",
@@ -243,15 +264,15 @@ router.delete('/api/questions/:id', async(req, res) => {
   }
 })
 
-//delete answer
-router.delete('/api/questions/:questionid/answers/:answerid', async(req, res) => {
+//delete answers
+router.delete('/api/questions/:questionid/answers/', async(req, res) => {
   try {
     
     const results = await pool.query('DELETE FROM answer '+
-                                     'WHERE id = $1 AND questionid = $2', 
-                                     [req.params.answerid, req.params.questionid]);
+                                     'WHERE questionid = $1', 
+                                     [req.params.questionid]);
 
-    console.log('DELETE answer sucessfully')
+    console.log('DELETE answers sucessfully')
 
     res.status(204).json({
       status: "success"
@@ -262,6 +283,40 @@ router.delete('/api/questions/:questionid/answers/:answerid', async(req, res) =>
   }
 })
 
+//Get all data from game_session
+router.get('/api/game_sessions/', async (req, res) => {
+  try{
+    const questionId = req.params.questionid;
+    const results = await pool.query('SELECT * FROM game_session');
+    
+    res.status(200).json({
+      status:"success",
+      results: results.rows.length,
+      data: {
+        gameSession: results.rows
+      }
+    })
+  }catch(e){
+    console.log(e)
+  }
+})
 
+//get a game_session for analysis page
+router.get('/api/:sessionid/game_sessions/', async (req, res) => {
+  try{
+    const questionId = req.params.questionid;
+    const results = await pool.query('SELECT * FROM game_session WHERE question_id = $1', [questionId]);
+    
+    res.status(200).json({
+      status:"success",
+      results: results.rows.length,
+      data: {
+        gameSession: results.rows
+      }
+    })
+  }catch(e){
+    console.log(e)
+  }
+})
 
 module.exports = router;

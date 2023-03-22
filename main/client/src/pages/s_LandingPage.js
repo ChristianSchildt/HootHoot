@@ -44,6 +44,7 @@ function S_LandingPage(){
                     <InputField
                         ref={inputPin}
                         className="inputField"
+                        maxlength="6"
                         placeholder="Spiel-Pin eintippen...">
                     </InputField>
                 </Col>
@@ -53,6 +54,7 @@ function S_LandingPage(){
                     <InputField
                         ref={inputName}
                         className="inputField"
+                        maxlength="12"
                         placeholder="Matrikelnummer eingeben...">
                     </InputField>
                 </Col>

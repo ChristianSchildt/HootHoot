@@ -69,7 +69,7 @@ io.on('connection', (socket) => {
 
     try {
       let gameSession = gameSessions[payload.gamepin]
-      gameSession.startQuiz()
+      gameSession.startQuestion()
     }
     catch(err) {
       console.log("start-game failed: " +  err)

@@ -1,25 +1,32 @@
-const getPool = require("../db");
-const pool = getPool();
+const pool = require("../db");
+require('dotenv').config();
 Player = require('./Player')
 //const { onGameEnded } = require("../db");
 
 const pointsCalcFunc = (time, elapsedTime) => Math.round(1000 * (time - elapsedTime) / time)
 
 class GameSession {
-    constructor(host, pin, quizes) {
+    constructor(host, pin, questions) {
+        console.log("constructor questions:" +questions[0].id)
         this.host = host;
         this.pin = pin;
-        this.quizes = quizes
-        this.quiz = quizes[0];
+        this.questions = questions
+        this.currentQuestionIndex = 0;
+        this.question = questions[this.currentQuestionIndex = 0];
         this.players = new Map();
         this.startTime = null;
 
         this.timeoutID = undefined;
 
+        this.sessionid = null;
+
         host.on('get-answer-counts', (callback) => { this.getAnswerCounts(host, callback); });
         host.on('get-sorted-game-results', (callback) => { this.getSortedGameResults(host, callback); });
-        host.on('quiz-started', () => { this.startQuiz(host); });
-        host.on('stop-quiz', () => { this.stopQuiz(host); });
+        host.on('question-started', () => { this.startQuestion(host); });
+        host.on('stop-question', () => { this.stopQuestion(host); });
+        host.on('has-another-question', (callback) => { this.hasAnotherQuestion(host, callback) });
+        host.on('prepare-next-question', (callback) => { this.prepareNextQuestion(host, callback) });
+        host.on('get-existing-game-info', (callback) => { this.getExistingGameInfo(host, callback) });
     }
 
     addPlayer(socket, payload) {
@@ -58,7 +65,7 @@ class GameSession {
         let player = this.players.get(socket.id);
         player.answerIndex = answerIndex;
         player.time = Math.round((Date.now() - this.startTime) / 1000);
-        player.points = answerIndex == this.quiz.correctAnswerIndex ? pointsCalcFunc(this.quiz.time, (Date.now() - this.startTime) / 1000) : 0;
+        player.points = answerIndex == this.question.correctAnswerIndex ? pointsCalcFunc(this.question.time, (Date.now() - this.startTime) / 1000) : 0;
 
         console.log("user " + player.name + " selected answer " + answerIndex + " (" + player.points + " points)");
 
@@ -66,22 +73,22 @@ class GameSession {
         this.host.emit('answer-count-updated', answerCount)
     }
 
-    startQuiz(socket) {
+    startQuestion(socket) {
         if (socket.id != this.host.id) {
-            return
+            return;
         }
 
         if (!this.timeoutID) { // check just to be sure
-            this.timeoutID = setTimeout(this.stopQuiz.bind(this), this.quiz.time * 1000);
+            this.timeoutID = setTimeout(this.stopQuestion.bind(this), this.question.time * 1000);
         }
         this.startTime = Date.now();
 
         for (const player of this.players.values()) {
-            player.socket.emit('quiz-started');
+            player.socket.emit('question-started');
         };
     }
 
-    stopQuiz(socket) {
+    stopQuestion(socket) {
         if (socket && socket.id != this.host.id) {
             return
         }
@@ -89,18 +96,58 @@ class GameSession {
         clearTimeout(this.timeoutID);
 
         for (const player of this.players.values()) {
-            player.socket.emit('quiz-ended', this.quiz.correctAnswerIndex);
+            player.socket.emit('question-ended', this.question.correctAnswerIndex);
         };
 
-        let playerTimes = []
+        let results = []
         for (const player of this.players.values()) {
-            if (player.time != undefined) {
-                playerTimes.push({name: player.name, time: player.time});
+            if (player.time != undefined && player.answerIndex != undefined) {
+                results.push({
+                    name: player.name, 
+                    time: player.time, 
+                    answersId: this.question.answerIds[player.answerIndex]
+                });
             }
         };
-        if (playerTimes.length > 0) {
-            this.saveGameResults(this.quiz.questionId, playerTimes);
+        if (results.length > 0) {
+            this.saveGameResults(this.question.id, results);
         }
+    }
+
+    hasAnotherQuestion(socket, callback) {
+        callback = typeof callback == "function" ? callback : () => {};
+
+        let result = this.currentQuestionIndex < this.questions.length - 1;
+        callback(result);
+        return result;
+    }
+
+    prepareNextQuestion(socket, callback) {
+        callback = typeof callback == "function" ? callback : () => {};
+
+        if (!this.hasAnotherQuestion()) {
+            console.log("redundant prepareNextQuestion call")
+            return;
+        }
+
+        clearTimeout(this.timeoutID);
+        this.timeoutID = undefined;
+        this.time = undefined;
+        this.currentQuestionIndex++
+        this.question = this.questions[this.currentQuestionIndex];
+
+        callback(this.question);
+    }
+
+    getExistingGameInfo(socket, callback) {
+        callback = typeof callback == "function" ? callback : () => {};
+
+        callback({
+            players: this.getPlayerNames(),
+            pin: this.pin,
+            questionsAmount: this.questions.length,
+            currentQuestionIndex: this.currentQuestionIndex
+        });
     }
 
     getPlayerNames() {
@@ -155,25 +202,33 @@ class GameSession {
         }
     }
 
-    async saveGameResults(questionId, playerTimes) {
-        // playerTimes is an array containing objects in format [{name: '123456', time: 10}, {name: '987654', time: 5}]
-        console.log(playerTimes)
-
-        // code below throws exceptions
-        return
-
-        let body = {
-            questionid: question_id,
-            name: this.name,
-            score: points
+    async saveGameResults(questionId, gameResults) {
+        // gameResults is an array containing objects for each player in format
+        // [{name: '123456', time: 10, answerId: 'a-uuid'}, {name: '987654', time: 5, answerId: 'a-uuid'}]
+        console.log(gameResults)
+        
+        try{
+            //Array zum JSON string machen
+            const playerTimesJson = JSON.stringify(gameResults);
+            if(!this.sessionid){
+                this.sessionid = await pool.query("INSERT INTO game_session (question_id, player_times) VALUES ($1,$2) RETURNING sessionid",[questionId, playerTimesJson]);
+                console.log(this.sessionid.rows[0].sessionid)
+            }else{
+                await pool.query("INSERT INTO game_session (question_id, player_times, sessionid) VALUES ($1,$2,$3)",[questionId, playerTimesJson, this.sessionid.rows[0].sessionid]);
+            }
+            console.log("game_session data: questionID: " +questionId +" playertimesjson: " + playerTimesJson)
+            }catch(e){
+            console.log(e);
         }
 
-        const name = req.body.name;
-        const user_id = req.user.id;
-        const score = req.body.score
-        const questionid = req.body.questionid
-        console.log(req.body.name);
-        await pool.query("INSERT INTO game_session (name, score, question_id) VALUES ($1, $2, $3) returning *", [name, score, questionid]);
+        
+        /*
+        playerPoints.forEach( async (name, points) => {
+            await pool.query("INSERT INTO game_session (name, score, question_id) VALUES ($1, $2, $3) returning *", [name, points, questionId]);
+        });
+        */
+        
+    
     }
 }
 
