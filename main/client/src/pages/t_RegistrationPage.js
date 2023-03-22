@@ -24,7 +24,7 @@ const T_RegistrationPage = ({ setAuth }) => {
                 password: inputPassword1.current.getValue(),
                 name: inputName.current.getValue()
             };
-            const response = await fetch("http://localhost:5000/authentication/register",
+            const response = await fetch("http://localhost:443/authentication/register",
             {
                 method: "POST",
                 headers: {

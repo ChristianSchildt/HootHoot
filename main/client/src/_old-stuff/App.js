@@ -28,7 +28,7 @@ toast.configure();
 function App() {
   const checkAuthenticated = async () => {
     try {
-      const res = await fetch("http://localhost:5000/authentication/verify", {
+      const res = await fetch("http://localhost:443/authentication/verify", {
         method: "POST",
         headers: { jwt_token: localStorage.token }
       });

@@ -65,7 +65,7 @@ class t_AnalysesMenuPage extends React.Component{
 
     async getAnalysis() {
         try {
-            const response = await fetch('http://localhost:5000/api/game_sessions/');
+            const response = await fetch('http://localhost:443/api/game_sessions/');
             const data = await response.json()
             console.log(data)
             

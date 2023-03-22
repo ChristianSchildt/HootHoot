@@ -69,7 +69,7 @@ class ProfileMenu extends React.Component {
     
     async fetchUserData() {
         try {
-          const res = await fetch("http://localhost:5000/userdata/", {
+          const res = await fetch("http://localhost:443/userdata/", {
             method: "GET",
             headers: { jwt_token: localStorage.token },
           });  
@@ -88,7 +88,7 @@ class ProfileMenu extends React.Component {
           myHeaders.append("Content-Type", "application/json");
           myHeaders.append("jwt_token", localStorage.token);
     
-          await fetch(`http://localhost:5000/userdata/`, {
+          await fetch(`http://localhost:443/userdata/`, {
             method: "PUT",
             headers: myHeaders, 
             body: JSON.stringify(data),
