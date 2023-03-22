@@ -25,9 +25,9 @@ app.use(express.urlencoded({limit: '1mb'}));
 //routes
 app.use("/authentication", require("./routes/jwtAuth"));
 app.use("/", require("./routes/routes"));
-
-httpServer.listen(5000, () => {
-  console.log(`Server is starting on port 5000`);
+//changed from 5000 to 80
+httpServer.listen(443, () => {
+  console.log(`Server is starting on port 443`);
 });
 
 

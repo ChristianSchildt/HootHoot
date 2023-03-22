@@ -8,7 +8,7 @@ import InputField from '../components/InputField.js';
 import Button from '../components/Button';
 import { useNavigate } from "react-router-dom";
 
-function s_LandingPage(){
+function S_LandingPage(){
     const inputName = useRef(null);
     const inputPin = useRef(null);
     const navigate = useNavigate();
@@ -28,7 +28,7 @@ function s_LandingPage(){
     },[])
 
     return(
-        <div className="s_LandingPage">
+        <div className="S_LandingPage">
         <Container fluid>
             <Row>
                 <Col>
@@ -72,4 +72,4 @@ function s_LandingPage(){
     );
 }
 
-export default s_LandingPage;
+export default S_LandingPage;

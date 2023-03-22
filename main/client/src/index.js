@@ -9,7 +9,7 @@ window.connection = {};
 window.connection.socket = null;
 window.connection.connect = function() {
   if (!window.connection.socket) {
-    window.connection.socket = io('localhost:5000');
+    window.connection.socket = io('localhost:443');
   }
 };
 window.connection.disconnect = function()  {
