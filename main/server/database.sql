@@ -84,6 +84,10 @@ CREATE TABLE game_session
 	question_id uuid REFERENCES question(id),
 	player_times text,
 	answerid uuid REFERENCES answer(id),
+<<<<<<< Updated upstream
+=======
+	datum TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
+>>>>>>> Stashed changes
 	sessionid uuid DEFAULT uuid_generate_v4()
 );
 

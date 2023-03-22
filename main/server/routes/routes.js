@@ -178,7 +178,7 @@ router.get('/api/answers/:questionid', async(req, res) => {
     const results = await pool.query('SELECT * FROM answer WHERE questionid = $1', [req.params.questionid]);
     
     console.log('select answers with specified questionid')
-    console.log("HIER GUCKEN: "+JSON.stringify(results.rows))
+    //console.log("HIER GUCKEN: "+JSON.stringify(results.rows))
     res.json(results.rows)
     res.status(200).json({
       status: "success",
@@ -283,8 +283,26 @@ router.delete('/api/questions/:questionid/answers/', async(req, res) => {
   }
 })
 
-//get data for analysis page
-router.get('/api/question/:questionid/game_sessions', async (req, res) => {
+//Get all data from game_session
+router.get('/api/game_sessions/', async (req, res) => {
+  try{
+    const questionId = req.params.questionid;
+    const results = await pool.query('SELECT * FROM game_session');
+    
+    res.status(200).json({
+      status:"success",
+      results: results.rows.length,
+      data: {
+        gameSession: results.rows
+      }
+    })
+  }catch(e){
+    console.log(e)
+  }
+})
+
+//get a game_session for analysis page
+router.get('/api/:sessionid/game_sessions/', async (req, res) => {
   try{
     const questionId = req.params.questionid;
     const results = await pool.query('SELECT * FROM game_session WHERE question_id = $1', [questionId]);

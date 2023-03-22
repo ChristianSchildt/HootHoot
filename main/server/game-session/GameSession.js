@@ -7,7 +7,7 @@ const pointsCalcFunc = (time, elapsedTime) => Math.round(1000 * (time - elapsedT
 
 class GameSession {
     constructor(host, pin, questions) {
-        console.log(questions)
+        console.log("constructor questions:" +questions[0].id)
         this.host = host;
         this.pin = pin;
         this.questions = questions
@@ -110,7 +110,7 @@ class GameSession {
             }
         };
         if (results.length > 0) {
-            this.saveGameResults(this.question.questionId, results);
+            this.saveGameResults(this.question.id, results);
         }
     }
 
@@ -206,18 +206,17 @@ class GameSession {
         // gameResults is an array containing objects for each player in format
         // [{name: '123456', time: 10, answerId: 'a-uuid'}, {name: '987654', time: 5, answerId: 'a-uuid'}]
         console.log(gameResults)
-
-        // code below throws exceptions
-        //return
-
+        
         try{
             //Array zum JSON string machen
             const playerTimesJson = JSON.stringify(gameResults);
             if(!this.sessionid){
                 this.sessionid = await pool.query("INSERT INTO game_session (question_id, player_times) VALUES ($1,$2) RETURNING sessionid",[questionId, playerTimesJson]);
+                console.log(this.sessionid.rows[0].sessionid)
             }else{
-                await pool.query("INSERT INTO game_session (question_id, player_times, sessionid) VALUES ($1,$2,$3)",[questionId, playerTimesJson, sessionid]);
+                await pool.query("INSERT INTO game_session (question_id, player_times, sessionid) VALUES ($1,$2,$3)",[questionId, playerTimesJson, this.sessionid.rows[0].sessionid]);
             }
+            console.log("game_session data: questionID: " +questionId +" playertimesjson: " + playerTimesJson)
             }catch(e){
             console.log(e);
         }
