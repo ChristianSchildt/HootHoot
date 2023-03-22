@@ -16,7 +16,7 @@ import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css'; 
 import { useNavigate } from 'react-router-dom'; 
 
-function t_LibraryMenuPage() {
+function T_LibraryMenuPage() {
     const navigate = useNavigate();
 
     const [courses, setCourses] = useState([]);
@@ -345,4 +345,4 @@ function t_LibraryMenuPage() {
 }
 
 
-export default t_LibraryMenuPage;
+export default T_LibraryMenuPage;

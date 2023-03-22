@@ -8,6 +8,7 @@ import Picture from '../components/Picture';
 import Text from '../components/Text';
 import HeaderQuestion from '../components/HeaderQuestion';
 import ContentQuestion from '../components/ContentQuestion';
+import Field from '../components/Field';
 
 function s_AnswerSelectionPage_Detailed(){
     return(
@@ -49,13 +50,13 @@ function s_AnswerSelectionPage_Detailed(){
                             </div>
                         </a>
                         </Col>
-                    <ContentQuestion
-                            contentquestion="HootHoot!"
-                            id="logomenue"
-                            src=""
-                            alt="Platzhalter">  
-                    </ContentQuestion>
-                    <Col>
+                            <Field idField="div-media">
+                                <Text
+                                    id="media"
+                                    value="HootHoot!">
+                                </Text>
+                            </Field>
+                        <Col>
                            <Text
                                 id="counter-answers"
                                 value="5">
