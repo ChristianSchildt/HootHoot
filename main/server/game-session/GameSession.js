@@ -33,6 +33,7 @@ class GameSession {
         // set up hooks
         socket.on('answer', (answer) => { this.selectAnswer(socket, answer); });
         socket.on('disconnect', () => { this.removePlayer(socket); });
+        socket.on('get-existing-game-info', (callback) => { this.getExistingGameInfoPlayer(host, callback) });
 
         // inform all other players
         let playerNames = this.getPlayerNames();
@@ -145,6 +146,21 @@ class GameSession {
             pin: this.pin,
             questionsAmount: this.questions.length,
             currentQuestionIndex: this.currentQuestionIndex
+        });
+    }
+
+    // second method for information about the game, containg data that
+    // for the detailed answer button page
+    // IMPORTANT: do not send correct answer index
+    getExistingGameInfoPlayer(socket, callback) {
+        callback = typeof callback == "function" ? callback : () => {};
+
+        let questionClone = structuredClone(this.questions[this.currentQuestionIndex]);
+        delete questionClone.correctAnswerIndex;
+
+        callback({
+            question: questionClone,
+            startTime: this.startTime
         });
     }
 

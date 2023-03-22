@@ -6,6 +6,7 @@ import Col from 'react-bootstrap/Col';
 import Button from '../components/Button';
 import Picture from '../components/Picture';
 import Text from '../components/Text';
+import withNavigate from '../utility/with-navigate';
 
 class s_AnswerSelectionPage_Minimalist extends React.Component {
     constructor(props) {
@@ -15,6 +16,15 @@ class s_AnswerSelectionPage_Minimalist extends React.Component {
             gameStarted: false,
             selectedAnswerIndex: null
         };
+
+        if (this.props.location.state) {
+            if (typeof(this.props.location.state.gameStarted) === "boolean") {
+                this.state.gameStarted = this.props.location.state.gameStarted;
+            }
+            if (typeof(this.props.location.state.selectedAnswerIndex) === "boolean") {
+                this.state.selectedAnswerIndex = this.props.location.state.selectedAnswerIndex;
+            }
+        }
     }
 
     componentDidMount() {
@@ -34,6 +44,13 @@ class s_AnswerSelectionPage_Minimalist extends React.Component {
         if (window.connection.socket) {
             window.connection.socket.emit("answer", answerIndex)
         }
+    }
+
+    changeView() {
+        this.props.navigate("/student/answerselectionDetailed", {state: {
+            gameStarted: this.state.gameStarted,
+            selectedAnswerIndex: this.selectedAnswerIndex
+         }});
     }
 
     render() {
@@ -101,4 +118,4 @@ class s_AnswerSelectionPage_Minimalist extends React.Component {
     }
 }
 
-export default s_AnswerSelectionPage_Minimalist;
+export default withNavigate(s_AnswerSelectionPage_Minimalist);
