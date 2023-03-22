@@ -9,17 +9,17 @@ import Field from '../components/Field';
 import withNavigate from '../utility/with-navigate';
 
 class t_PlayHootHootPage extends React.Component {
-    
+
     constructor(props) {
         super(props);
 
         this.questionsAmount = 1;
-        this.currentQuestionIndex = 0;   
+        this.currentQuestionIndex = 0;
 
         if (this.props.location.state) {
             this.question = this.props.location.state.question;
             this.questionsAmount = this.props.location.state.questionsAmount;
-            this.currentQuestionIndex = this.props.location.state.currentQuestionIndex;  
+            this.currentQuestionIndex = this.props.location.state.currentQuestionIndex;
         } else {
             // test daten
             this.question = {
@@ -63,7 +63,7 @@ class t_PlayHootHootPage extends React.Component {
             this.intervalId = setInterval(this.timerTick.bind(this), 1000)
         }
     }
-    
+
     timerTick() {
         if (this.state.timer > 0) {
             this.setState({timer: this.state.timer - 1})
@@ -120,14 +120,14 @@ class t_PlayHootHootPage extends React.Component {
                     <Row>
                         <Col>
                             {/* provisorischer Link für Countdown abgelaufen*/}
-                            <a href="/teacher/answerEvaluation">
+                            {/* <a href="/teacher/answerEvaluation"> */}
                             <div id="div-countdown">
                                 <Text
                                     id="countdown"
                                     value={this.state.timer}>
                                 </Text>
                             </div>
-                            </a>
+                            {/* </a> */}
                         </Col>
                         <Col>
                             <Field idField="div-media">
