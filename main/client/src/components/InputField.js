@@ -30,6 +30,7 @@ class InputField extends React.Component{
                 onChange={this.handleInputfieldChange}
                 onKeyDown={this.props.onKeyDown}
                 readOnly={this.props.readOnly}
+                maxlength={this.props.maxlength}
             />
         )
     }

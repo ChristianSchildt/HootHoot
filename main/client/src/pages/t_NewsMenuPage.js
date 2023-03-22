@@ -28,7 +28,7 @@ function t_NewsMenuPage(){
                     <Col md={7}>
                         <MenuNavigation 
                             className="menu-navigation"
-                            id3="mark">
+                            id4="mark">
                         </MenuNavigation>
                     </Col>
                     <Col md={{ span: 2, offset: 1}}>

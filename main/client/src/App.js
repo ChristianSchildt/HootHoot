@@ -14,6 +14,7 @@ import TPlayHootHootPage from './pages/t_PlayHootHootPage.js';
 import TAnswerEvaluationPage from './pages/t_AnswerEvaluationPage';
 import TWinnerAnimationPage from './pages/t_WinnerAnimationPage.js';
 import THootHootEndcardPage from './pages/t_HootHootEndcardPage.js';
+import TGameReportPage from './pages/t_GameReportPage';
 import SLandingPage from './pages/s_LandingPage.js';
 import SAnswerSelectionMinimalistPage from './pages/s_AnswerSelectionPage_Minimalist.js';
 import SAnswerSelectionDetailedPage from './pages/s_AnswerSelectionPage_Detailed.js';
@@ -41,6 +42,7 @@ export default function App() {
           <Route path="/teacher/answerEvaluation" element={<TAnswerEvaluationPage/>} />
           <Route path="/teacher/winnerAnimation" element={<TWinnerAnimationPage/>} />
           <Route path="/teacher/hootHootEndcard" element={<THootHootEndcardPage/>} />
+          <Route path="/teacher/GameReportPage" element={<TGameReportPage/>} />
           <Route path="/student" element={<SLandingPage/>} />
           <Route path="/student/answerselectionMinimalist" element={<SAnswerSelectionMinimalistPage/>} />
           <Route path="/student/answerselectionDetailed" element={<SAnswerSelectionDetailedPage/>} />
