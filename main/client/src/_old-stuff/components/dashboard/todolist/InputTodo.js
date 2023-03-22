@@ -19,7 +19,7 @@ const InputTodo = ({ setTodosChange }) => {
       myHeaders.append("jwt_token", localStorage.token);
 
       const body = { description };
-      const response = await fetch("http://localhost:443/dashboard/todos", {
+      const response = await fetch("http://193.175.85.52:443/dashboard/todos", {
         method: "POST",
         headers: myHeaders,
         body: JSON.stringify(body)

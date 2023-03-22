@@ -90,7 +90,7 @@ class t_CreateHootHootPage extends React.Component {
     //GET-------------
     async getCourses() {
         try {
-            const response = await fetch('http://localhost:443/api/courses', {
+            const response = await fetch('http://193.175.85.52:443/api/courses', {
                 method: 'GET',
                 headers: { 'jwt_token': localStorage.token }
             });
@@ -111,7 +111,7 @@ class t_CreateHootHootPage extends React.Component {
                 courseid = this.state.selectedCourseId
             }
 
-            const response = await fetch('http://localhost:443/api/courses/'+courseid+'/questions');
+            const response = await fetch('http://193.175.85.52:443/api/courses/'+courseid+'/questions');
             const data = await response.json()
             
             this.setState({questions: data})
@@ -125,7 +125,7 @@ class t_CreateHootHootPage extends React.Component {
     async getAnswersAndSet(questionid) {
         try {
             if (questionid !== 1) {
-            const response = await fetch('http://localhost:443/api/answers/'+questionid);
+            const response = await fetch('http://193.175.85.52:443/api/answers/'+questionid);
             const data = await response.json()
             this.setState({answers: data})
             console.log("Answers:")
@@ -189,7 +189,7 @@ class t_CreateHootHootPage extends React.Component {
             myHeaders.append("Content-Type", "application/json");
             myHeaders.append("jwt_token", localStorage.token);
             
-            const response = await fetch('http://localhost:443/api/question/', { 
+            const response = await fetch('http://193.175.85.52:443/api/question/', { 
                 method: 'POST', 
                 headers: myHeaders, 
                 body: JSON.stringify(body)
@@ -233,7 +233,7 @@ class t_CreateHootHootPage extends React.Component {
             myHeaders.append("Content-Type", "application/json");
             myHeaders.append("jwt_token", localStorage.token);
     
-            const response1 = await fetch('http://localhost:443/api/answer/', {
+            const response1 = await fetch('http://193.175.85.52:443/api/answer/', {
                 method: 'POST', 
                 headers: myHeaders, 
                 body: JSON.stringify(body1)
@@ -249,7 +249,7 @@ class t_CreateHootHootPage extends React.Component {
                     iscorrect: this.state.isCorrectB
             }
 
-            const response2 = await fetch('http://localhost:443/api/answer/', {
+            const response2 = await fetch('http://193.175.85.52:443/api/answer/', {
                 method: 'POST', 
                 headers: myHeaders, 
                 body: JSON.stringify(body2)
@@ -265,7 +265,7 @@ class t_CreateHootHootPage extends React.Component {
                         iscorrect: this.state.isCorrectC
                 }
 
-                const response3 = await fetch('http://localhost:443/api/answer/', {
+                const response3 = await fetch('http://193.175.85.52:443/api/answer/', {
                     method: 'POST', 
                     headers: myHeaders, 
                     body: JSON.stringify(body3)
@@ -281,7 +281,7 @@ class t_CreateHootHootPage extends React.Component {
                         iscorrect: this.state.isCorrectD
                     }
 
-                const response4 = await fetch('http://localhost:443/api/answer/', {
+                const response4 = await fetch('http://193.175.85.52:443/api/answer/', {
                     method: 'POST', 
                     headers: myHeaders, 
                     body: JSON.stringify(body4)
@@ -313,7 +313,7 @@ class t_CreateHootHootPage extends React.Component {
         console.log("löschen questionid: "+id)
         
         if (id !== 1) {
-            await fetch('http://localhost:443/api/questions/'+id, {
+            await fetch('http://193.175.85.52:443/api/questions/'+id, {
                 method: 'DELETE'
             })
         
@@ -328,7 +328,7 @@ class t_CreateHootHootPage extends React.Component {
 
     async deleteAnswers(questionid) {
         if (questionid !== 1) {
-            await fetch('http://localhost:443/api/questions/'+ questionid +'/answers/', {
+            await fetch('http://193.175.85.52:443/api/questions/'+ questionid +'/answers/', {
                 method: 'DELETE'
             })
         } else {

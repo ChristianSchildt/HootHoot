@@ -26,7 +26,7 @@ const Register = ({ setAuth }) => {
     try {
       const body = { email, password, name };
       const response = await fetch(
-        "http://localhost:443/authentication/register",
+        "http://193.175.85.52:443/authentication/register",
         {
           method: "POST",
           headers: {

@@ -80,7 +80,7 @@ function T_HomeMenuPage() {
             preparedQuestion.answerIds = [];
             preparedQuestion.correctAnswerIndex = null;
 
-            const response = await fetch('http://localhost:443/api/answers/'+ question.id);
+            const response = await fetch('http://193.175.85.52:443/api/answers/'+ question.id);
             const data = await response.json();
             for (let index = 0; index < data.length; index++) {
                 const element = data[index];
@@ -103,7 +103,7 @@ function T_HomeMenuPage() {
 
     async function deleteCourse(id) {
         try{
-            await fetch(`http://localhost:443/api/courses/${id}`, {
+            await fetch(`http://193.175.85.52:443/api/courses/${id}`, {
                 method: "DELETE",
                 headers: { "jwt_token": localStorage.token }
             });
@@ -115,7 +115,7 @@ function T_HomeMenuPage() {
 
     const getCourses = async () => {
         try{
-            const response = await fetch('http://localhost:443/api/courses', {
+            const response = await fetch('http://193.175.85.52:443/api/courses', {
             method: "GET",
             headers: { "jwt_token": localStorage.token }
         })
@@ -130,7 +130,7 @@ function T_HomeMenuPage() {
 
     const getQuestions = async () => {
         try{
-            const response = await fetch('http://localhost:443/api/user/questions', {
+            const response = await fetch('http://193.175.85.52:443/api/user/questions', {
             method: "GET",
             headers: { "jwt_token": localStorage.token }
             })
@@ -182,7 +182,7 @@ function T_HomeMenuPage() {
             const myHeaders = new Headers();
             myHeaders.append("Content-Type", "application/json");
             myHeaders.append("jwt_token", localStorage.token);
-            const response = await fetch('http://localhost:443/api/courses/', { 
+            const response = await fetch('http://193.175.85.52:443/api/courses/', { 
     
                 method: 'POST', 
                 headers: myHeaders, 

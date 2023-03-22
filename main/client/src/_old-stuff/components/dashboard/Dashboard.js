@@ -20,7 +20,7 @@ const Dashboard = ({ setAuth }) => {
 
   const getProfile = async () => {
     try {
-      const res = await fetch("http://localhost:443/dashboard/", {
+      const res = await fetch("http://193.175.85.52:443/dashboard/", {
         method: "GET",
         headers: { jwt_token: localStorage.token },
       });

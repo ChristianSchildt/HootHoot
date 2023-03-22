@@ -20,7 +20,7 @@ const T_LoginPage = ({ setAuth }) =>  {
         try {
           const body = { email: inputEmail.current.getValue(), password: inputPassword.current.getValue() };
           const response = await fetch(
-            "http://localhost:443/authentication/login",
+            "http://193.175.85.52:443/authentication/login",
             {
               method: "POST",
               headers: {
