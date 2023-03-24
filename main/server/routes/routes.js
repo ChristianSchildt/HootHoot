@@ -284,10 +284,12 @@ router.delete('/api/questions/:questionid/answers/', async(req, res) => {
 })
 
 //Get all data from game_session
-router.get('/api/game_sessions/', async (req, res) => {
+router.get('/api/game_sessions/', authorize, async (req, res) => {
   try{
     const questionId = req.params.questionid;
-    const results = await pool.query('SELECT * FROM game_session');
+    const results = await pool.query('SELECT gs.id, gs.question_id, gs.player_times, gs.answerid,'
+    +' gs.datum, gs.sessionid, q.user_id FROM game_session gs JOIN question q on gs.question_id=q.id'
+    +' WHERE q.user_id=$1',[req.user.id]);
     
     res.status(200).json({
       status:"success",
@@ -319,4 +321,25 @@ router.get('/api/:sessionid/game_sessions/', async (req, res) => {
   }
 })
 
+
+//userId from questionId
+router.get('/api/answers/:questionid', async(req, res) => {
+  try {
+    const results = await pool.query('SELECT * FROM answer WHERE questionid = $1', [req.params.questionid]);
+    
+    console.log('select answers with specified questionid')
+    //console.log("HIER GUCKEN: "+JSON.stringify(results.rows))
+    res.json(results.rows)
+    res.status(200).json({
+      status: "success",
+      results: results.rows.length,
+      data:{
+        answer: results.rows
+      }
+    });
+    
+  } catch (e) {
+    console.log(e)
+  }
+})
 module.exports = router;

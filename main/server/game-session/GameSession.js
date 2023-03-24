@@ -220,14 +220,6 @@ class GameSession {
             }catch(e){
             console.log(e);
         }
-
-        
-        /*
-        playerPoints.forEach( async (name, points) => {
-            await pool.query("INSERT INTO game_session (name, score, question_id) VALUES ($1, $2, $3) returning *", [name, points, questionId]);
-        });
-        */
-        
     
     }
 }
