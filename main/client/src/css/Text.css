@@ -37,6 +37,18 @@
     margin-bottom: 2em;
 }
 
+.questiontext
+{
+    text-align: left;
+    margin-top: .2vh;
+}
+
+.coursetext
+{
+    text-align: right;
+    margin-top: 1.5vh;
+}
+
 #joinUnder
 {
     color: white;

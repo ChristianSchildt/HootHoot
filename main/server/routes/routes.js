@@ -150,13 +150,17 @@ router.get('/api/courses/:courseid/questions', async(req, res) => {
   }
 })
 
-//get all questions for the current user
+//get all questions for the current user with coursename
 router.get('/api/user/questions', authorize, async(req, res) => {
   try {
-    const results = await pool.query('SELECT * FROM question '+
-                                     'WHERE user_id = $1', 
+    const results = await pool.query('SELECT q.*, c.name "coursename" ' + 
+                                     'FROM question q ' +
+                                     'INNER JOIN course c ' + 
+                                     'ON q.courseid = c.id ' +
+                                     'WHERE q.user_id = $1 ' +
+                                     'ORDER BY q.courseid', 
                                       [req.user.id]);
-    console.log('select all questions for the current user')
+    console.log('select all questions for the current user with coursename')
 
     res.json(results.rows)
     res.status(200).json({

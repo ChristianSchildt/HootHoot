@@ -21,12 +21,27 @@ function T_LibraryMenuPage() {
 
     const [courses, setCourses] = useState([]);
     const [questions, setQuestions] = useState([]);
+    const [searchQuestion, setSearchQuestion] = useState("");
     const inputKursname = useRef(null);
 
-    //TODO
     var options = []
     var checkboxIsSelected= []
 
+    // Question Searchbar
+    function handleChangeQuestionSearch(searchtext) {
+        setSearchQuestion(searchtext)
+    }
+
+    const filteredData = questions.filter((el) => {
+        if(searchQuestion === '') {
+            return el
+        }
+        else {
+            return el.name.toLowerCase().includes(searchQuestion)
+        }
+    })
+
+    // Question Checkboxes
     questions.map((question) => {
         options.push(question.id)
     })
@@ -41,7 +56,6 @@ function T_LibraryMenuPage() {
 
     function handleCheckboxChange(checkboxid) {
         checkboxIsSelected[checkboxid] = !checkboxIsSelected[checkboxid]
-        // console.log(checkboxid+ ": "+ checkboxIsSelected[checkboxid])
     }
 
     async function submitHootHoots() {
@@ -137,6 +151,8 @@ function T_LibraryMenuPage() {
 
             const data = await response.json()
             setQuestions(data)
+            
+            console.log(data)
 
         } catch(e) {
             console.log(e)
@@ -314,28 +330,50 @@ function T_LibraryMenuPage() {
                         <Field
                             classNameField="field-hoothoots"
                             classNameTitle="field-title"
-                            valueTitle="HootHoots">                                                        
-                                <Imagebutton
-                                    className="button-coursePlay"
-                                    src="/images/play.jpg"  
-                                    alt="Play Symbol"
-                                    onClick={() => submitHootHoots()}>
-                                </Imagebutton>                     
-                                <div id='select-hoothoots'>
-                                    {(questions.map((question, i) => {
-                                        return (
-                                            <div>
-                                                <QuestionTile
-                                                    labelCheckbox={question.id}
-                                                    isSelectedCheckbox={checkboxIsSelected[i+1]} //TODO
-                                                    onCheckboxChange={handleCheckboxChange} //TODO
-                                                    key={question.id}
-                                                    valuetext={question.name}>
-                                                </QuestionTile>
-                                            </div>
-                                        );
-                                    }))}
-                                </div>
+                            valueTitle="HootHoots">
+                            <Container fluid>
+                                <Row>
+                                    <Col>                                                        
+                                        <Imagebutton
+                                            className="button-coursePlay"
+                                            src="/images/play.jpg"  
+                                            alt="Play Symbol"
+                                            onClick={() => submitHootHoots()}>
+                                        </Imagebutton>
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col>
+                                        <InputField
+                                            className="inputField"
+                                            id="searchQuestion-hoothoots"
+                                            placeholder="Suche nach deiner Frage..."
+                                            defaultValue=""
+                                            onChange={handleChangeQuestionSearch}>
+                                        </InputField>
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col>                     
+                                        <div id='select-hoothoots'>
+                                            {(filteredData.map((question, i) => {
+                                                return (
+                                                    <div>
+                                                        <QuestionTile
+                                                            labelCheckbox={question.id}
+                                                            isSelectedCheckbox={checkboxIsSelected[i+1]}
+                                                            onCheckboxChange={handleCheckboxChange}
+                                                            key={question.id}
+                                                            questiontext={question.name}
+                                                            coursetext={question.coursename}>
+                                                        </QuestionTile>
+                                                    </div>
+                                                );
+                                            }))}
+                                        </div>
+                                    </Col>
+                                </Row>
+                            </Container>
                         </Field>
                     </Col>  
                 </Row>       

@@ -36,10 +36,16 @@ class QuestionTile extends React.Component {
                             </input>
                         </div>
                     </Col>
-                    <Col md={11}>
+                    <Col md={8}>
                         <Text
                             className="questiontext"
-                            value={this.props.valuetext}>
+                            value={this.props.questiontext}>
+                        </Text>
+                    </Col>
+                    <Col md={3}>
+                        <Text
+                            className="coursetext"
+                            value={this.props.coursetext}>
                         </Text>
                     </Col>
                 </Row>
