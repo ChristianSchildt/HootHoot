@@ -307,6 +307,28 @@ router.get('/api/game_sessions/', authorize, async (req, res) => {
   }
 })
 
+
+//Get all data from game_result
+router.get('/api/game_result/', authorize, async (req, res) => {
+  try{
+    const questionId = req.params.questionid;
+    const results = await pool.query('SELECT gr.id, gr.question_id, gr.name, gr.time, gr.selected_answer_id,'
+    +' gr.datum, gr.sessionid, q.user_id FROM game_result gr JOIN question q on gr.question_id=q.id'
+    +' WHERE q.user_id=$1',[req.user.id]);
+    
+    res.status(200).json({
+      status:"success",
+      results: results.rows.length,
+      data: {
+        gameResults: results.rows
+      }
+    })
+  }catch(e){
+    console.log(e)
+  }
+})
+
+
 //get a game_session for analysis page
 router.get('/api/:sessionid/game_sessions/', async (req, res) => {
   try{
@@ -326,24 +348,28 @@ router.get('/api/:sessionid/game_sessions/', async (req, res) => {
 })
 
 
-//userId from questionId
-router.get('/api/answers/:questionid', async(req, res) => {
-  try {
-    const results = await pool.query('SELECT * FROM answer WHERE questionid = $1', [req.params.questionid]);
+// //userId from questionId
+// router.get('/api/answers/:questionid', async(req, res) => {
+//   try {
+//     const results = await pool.query('SELECT * FROM answer WHERE questionid = $1', [req.params.questionid]);
     
-    console.log('select answers with specified questionid')
-    //console.log("HIER GUCKEN: "+JSON.stringify(results.rows))
-    res.json(results.rows)
-    res.status(200).json({
-      status: "success",
-      results: results.rows.length,
-      data:{
-        answer: results.rows
-      }
-    });
+//     console.log('select answers with specified questionid')
+//     //console.log("HIER GUCKEN: "+JSON.stringify(results.rows))
+//     res.json(results.rows)
+//     res.status(200).json({
+//       status: "success",
+//       results: results.rows.length,
+//       data:{
+//         answer: results.rows
+//       }
+//     });
     
-  } catch (e) {
-    console.log(e)
-  }
-})
+//   } catch (e) {
+//     console.log(e)
+//   }
+// })
+
+
+
+
 module.exports = router;
