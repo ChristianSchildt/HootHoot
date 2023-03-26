@@ -344,20 +344,18 @@
 .report-participant{
     border: 2px solid #476D7C;
     border-radius: 1em;
-    float: left;
     width: 22vw;
     height: 60vh;
-    margin-left: 2vw;
+    margin: auto;
     overflow: hidden;
 }
 
 .report-stats{
     border: 2px solid #476D7C;
     border-radius: 1em;
-    float: right;
     width: 45vw;
     height: 60vh;
-    margin-right: 2vw;
+    margin: auto;
     overflow: hidden;
 }
 

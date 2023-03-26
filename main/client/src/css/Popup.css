@@ -27,8 +27,7 @@
     width: 80vw;
     height: 80vh;
     opacity: 0;
-    pointer-events: none;
-    
+    pointer-events: none;  
 }
 
 .popup.sichtbar

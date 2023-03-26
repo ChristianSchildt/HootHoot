@@ -56,12 +56,14 @@ const data = {
     ]
 };
 
-class t_AnalysesMenuPage extends React.Component{
+class t_GameReportPage extends React.Component{
     constructor(props) {
         super(props);
         this.state={
             hoothoots: [{}],
-            currenthoothoots: [{}]
+            currenthoothoots: [{}],
+            currentParticipant: [{}],
+            currentReports: []
         };
     }
 
@@ -94,8 +96,23 @@ class t_AnalysesMenuPage extends React.Component{
 
             console.log(data.data.gameResults)
             this.setState({ hoothoots: data.data.gameResults })
-            
-            
+
+            const gameDataMap = new Map();
+            data.data.gameResults.forEach(element => {
+                const key = element.sessionid + element.question_id
+                if (!gameDataMap.has(key)) {
+                    /*const dateS = element.datum
+                    const date = new Date(dateS);
+                    const formattedDate = date.toLocaleDateString('de-DE') + ' ' + date.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' });*/
+                    gameDataMap.set(key, { title: element.datum, data: [element] })
+                } else {
+                    gameDataMap.get(key).data.push(element)
+                }
+            })
+            this.setState({currentReports: Array.from(gameDataMap.values())})
+            console.log("testmap")
+            //console.log(gameDataMap)
+            console.log(this.state.currentReports)
 
         } catch(e) {
             console.log(e)
@@ -107,7 +124,7 @@ class t_AnalysesMenuPage extends React.Component{
         console.log(idPopup);
         await this.setState({currenthoothoots: value});
         console.log(this.state.currenthoothoots);
-        await this.openPopup(idPopup)
+        this.openPopup(idPopup);
     }
 
     async openPopup(idPopup) {
@@ -151,11 +168,12 @@ class t_AnalysesMenuPage extends React.Component{
                             <Field classNameField="report-field"
                                 classNameTitle="report-field-title"
                                 valueTitle="Berichte">
-                                {this.state.hoothoots.map((hoothoot) => (
+                                {this.state.currentReports.map((cReport) => (
                                  <Button
                                     className="button-report" 
-                                    value={hoothoot.datum} 
-                                    onClick={() => this.setCurrentHoothoot("popup-report",hoothoot)}>
+                                    value={cReport.title} 
+                                    onClick={() => this.setCurrentHoothoot("popup-report",cReport.data)}
+                                    >
                                 </Button> 
                                 ))}
                             </Field>
@@ -169,26 +187,30 @@ class t_AnalysesMenuPage extends React.Component{
                         srcImage="/images/button_close.png"
                         onClickImage={() => this.closePopup("popup-report")}
                         valueTitle="Bericht">
-                    
+                        <Row>
+                        <Col>
                         <Field classNameField="report-participant"
                                 classNameTitle="analyse-question-field-title"
                                 valueTitle="Teilnehmer">
-                                {this.state.hoothoots.map((choothoot) => (
-                                <LibraryTile key="dummy" classNameLibrarytext="librarytext" valuetext="dummy" /> 
+                                {this.state.currenthoothoots.map((choothoot) => (
+                                <LibraryTile key={choothoot.id} classNameLibrarytext="librarytext" valuetext={choothoot.name} /> 
                                 ))}
-                        </Field> 
+                        </Field>
+                        </Col>
+                        <Col>
                         <Field classNameField="report-stats"
                                 classNameTitle="analyse-question-field-title"
                                 valueTitle="Statistik">
-                                {this.state.hoothoots.map((choothoot) => (
+
                                     <Bar
                                         id="analysebarchart"
-                                        options={options}
+                                        options={this.state.currenthoothoots.name}
                                         data={data}>
                                     </Bar>
-                                ))}
-                        </Field>   
 
+                        </Field> 
+                        </Col>  
+                        </Row>
                     </Popup>
                     </Container>
             </div>
@@ -196,4 +218,4 @@ class t_AnalysesMenuPage extends React.Component{
     }
 }
 
-export default t_AnalysesMenuPage;
+export default t_GameReportPage;

@@ -127,7 +127,7 @@ class t_AnalysesMenuPage extends React.Component{
                                         id="analysebarchart"
                                         options={options}
                                         data={data}>
-                                </Bar>
+                                    </Bar>
                                 <Col>
                                 <Field classNameField="average-time"
                                 classNameTitle="analyse-field-title"
