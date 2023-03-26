@@ -140,9 +140,6 @@ class t_AnalysesMenuPage extends React.Component{
                                 </div>
                                 </Field>
                                 </Col>
-
-
-
                                 <Col>
                                 <Field classNameField="average-vote"
                                 classNameTitle="analyse-field-title"

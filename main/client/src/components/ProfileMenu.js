@@ -103,7 +103,7 @@ class ProfileMenu extends React.Component {
             <div>
                 <Text
                     id="text-welcome-teacher"
-                    value={"Guten Tag, Herr " + this.state.userdata.user_name}>
+                    value={"Guten Tag, " + this.state.userdata.user_name}>
                 </Text>
                 <Imagebutton
                     id="profilepicture"
@@ -115,6 +115,7 @@ class ProfileMenu extends React.Component {
                 <Popup classNamePopup="popup"
                         idPopup="popup-profile"
                         altImage="button-close Platzhalter"
+                        classNameimg="popup-close"
                         onClickImage={() => this.closePopup("popup-profile")}
                         srcImage="/images/button_close.png"
                         valueTitle="Profil bearbeiten">
@@ -164,6 +165,11 @@ class ProfileMenu extends React.Component {
                                 </Button>    
                             </Col>
                         </Row>
+                        <Button
+                                    className="button-popup"
+                                    value="Abmelden"
+                                    href="//localhost:3000">
+                        </Button>    
                     </Popup>
             </div>
         )

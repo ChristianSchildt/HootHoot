@@ -28,6 +28,19 @@
     height: 2em;
 }
 
+.button-report{
+    margin-top: 2em;
+    border: 1px solid #ffffff;
+    border-radius: 0.5em;
+    font-family: 'Calibri';
+    font-size: 1.4em;
+    font-weight: bold;
+    background-color: #040E23;
+    color: white;
+    width: 50vw;
+    height: 2em;
+}
+
 #button-registration-tlandingpage
 {
     margin-top: 3em;
@@ -261,6 +274,7 @@
 {
     border: 3px solid #ffffff;
 }
+
 
 @media (width <650px){
     #button_switchansicht_min{

@@ -4,14 +4,13 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Text from './Text';
-import Button from '../components/Button.js';
-import Imagebutton from './Imagebutton';
+import Imagebutton from '../components/Imagebutton';
 
-class PopupCourse extends React.Component {
+class Popup extends React.Component {
   
   render() {
     return (
-        <div className={this.props.classNamePopup}
+        <div className={this.props.classNameReportPopup}
           id={this.props.idPopup}>
             <Container>
               <Row>
@@ -38,4 +37,4 @@ class PopupCourse extends React.Component {
   }
 }
 
-export default PopupCourse;
+export default Popup;

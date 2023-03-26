@@ -6,11 +6,16 @@ import Text from '../components/Text';
 import Picture from '../components/Picture';
 import MenuNavigation from '../components/MenuNavigation';
 import Field from '../components/Field';
-import AnalysesTile from '../components/AnalysesTile';
+import ReportTile from '../components/ReportTile';
 import ProfileMenu from '../components/ProfileMenu';
 import {Chart as ChartJS, CategoryScale,LinearScale,BarElement,Title,Tooltip,Legend,} from 'chart.js';
 import { Bar } from 'react-chartjs-2';
+import Popup from '../components/Popup';
 import '../css/analyses.css';
+import InputField from '../components/InputField';
+import Button from '../components/Button';
+import AnalysesTile from '../components/AnalysesTile';
+
 
 ChartJS.register(
     CategoryScale,
@@ -55,7 +60,8 @@ class t_AnalysesMenuPage extends React.Component{
     constructor(props) {
         super(props);
         this.state={
-            hoothoots: [{}]
+            hoothoots: [{}],
+            currenthoothoots: [{}]
         };
     }
 
@@ -85,16 +91,31 @@ class t_AnalysesMenuPage extends React.Component{
             // data.gameSession.forEach(element => {
             //     array.push(element)
             // }); 
-
+            console.log("Data")
             console.log(data.data.gameSession)
-            this.setState({ hoothoots: data.data.gameSession })
-            
-            
+            this.setState({ hoothoots: data.data.gameSession });  
 
         } catch(e) {
             console.log(e)
         }
     }
+    async setCurrentHoothoot(idPopup,value){
+        console.log("dummy");
+        console.log(value);
+        console.log(idPopup);
+        await this.setState({currenthoothoots: value});
+        console.log(this.state.currenthoothoots);
+        this.openPopup(idPopup)
+    }
+
+    async openPopup(idPopup) {
+        console.log(idPopup);
+        document.getElementById(idPopup).classList.add("sichtbar");
+    }
+    closePopup(idPopup) {
+        document.getElementById(idPopup).classList.remove("sichtbar");
+    }
+  
 
     render() {
     return(
@@ -122,55 +143,37 @@ class t_AnalysesMenuPage extends React.Component{
                         </Col>
                     </Row>
                     <Row>
-                        <Col md={{ span:3, offset: 1}}>
-                            <Field classNameField="analyse-question-field"
-                                classNameTitle="analyse-question-field-title"
-                                valueTitle="Fragen">
-                                {this.state.hoothoots.map((hoothoot) => (  
-                                    <AnalysesTile key={hoothoot.id} classNameLibrarytext="librarytext" valuetext={hoothoot.datum}  /> 
+                        <Col>
+                            <Field classNameField="report-field"
+                                classNameTitle="report-field-title"
+                                valueTitle="Berichte">
+                                {this.state.hoothoots.map((hoothoot) => (
+                                 <Button
+                                    className="button-report" 
+                                    value={hoothoot.datum} 
+                                    onClick={() => this.setCurrentHoothoot("popup-report",hoothoot)}>
+                                </Button> 
                                 ))}
                             </Field>
                         </Col>
-                        <Col>
-                            <Field classNameField="analyse-field"
-                                classNameTitle="analyse-field-title"
-                                valueTitle="Analyse">
-                                    <Bar
-                                        id="analysebarchart"
-                                        options={options}
-                                        data={data}>
-                                </Bar>
-                                <Col>
-                                <Field classNameField="average-time"
-                                classNameTitle="analyse-field-title"
-                                valueTitle="Average Time">
-                                <div id="div-average-time">
-                                    <Text
-                                        id="div-average-time-count"
-                                        value="12">
-                                    </Text>
-                                </div>
-                                </Field>
-                                </Col>
-
-
-
-                                <Col>
-                                <Field classNameField="average-vote"
-                                classNameTitle="analyse-field-title"
-                                valueTitle="Average Vote">
-                                    <div id="div-average-vote">
-                                        <Text
-                                            id="div-average-vote-count"
-                                            value="24">
-                                        </Text>
-                                    </div>
-                                </Field>
-                                </Col>
-                                
-                            </Field>
-                        </Col>
                     </Row>
+                {/* {this.state.currenthoothoots.map((choothoot) => ( */}
+                    <Popup classNamePopup="reportpopup"
+                        idPopup="popup-report"
+                        classNameimg="reportpopup-close"
+                        altImage="button-close Platzhalter"
+                        srcImage="/images/button_close.png"
+                        onClickImage={() => this.closePopup("popup-report")}
+                        // valueTitle={choothoot.datum}
+                        >
+                        <Field classNameField="analyse-question-field"
+                                classNameTitle="analyse-question-field-title"
+                                valueTitle="Fragen">
+                                    <AnalysesTile key="dummy" classNameLibrarytext="librarytext" valuetext="dummy" questionone="dummy" questiontwo="dummy" /> 
+                        </Field>   
+                    </Popup>
+                 {/* ))} */}
+
                 </Container>
             </div>
        );     
