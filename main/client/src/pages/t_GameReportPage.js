@@ -71,7 +71,7 @@ class t_AnalysesMenuPage extends React.Component{
 
     async getAnalysis() {
         try {
-            const response = await fetch('http://localhost:5000/api/game_sessions/', {
+            const response = await fetch('http://localhost:5000/api/game_result/', {
                 method: "GET",
                 headers: { "jwt_token": localStorage.token }
             });
@@ -79,7 +79,7 @@ class t_AnalysesMenuPage extends React.Component{
             console.log(data)
             
             const array = []
-            data.data.gameSession.forEach(element => {
+            data.data.gameResults.forEach(element => {
                 const dateS = element.datum
                 const date = new Date(dateS);
 
@@ -91,9 +91,11 @@ class t_AnalysesMenuPage extends React.Component{
             // data.gameSession.forEach(element => {
             //     array.push(element)
             // }); 
-            console.log("Data")
-            console.log(data.data.gameSession)
-            this.setState({ hoothoots: data.data.gameSession });  
+
+            console.log(data.data.gameResults)
+            this.setState({ hoothoots: data.data.gameResults })
+            
+            
 
         } catch(e) {
             console.log(e)
