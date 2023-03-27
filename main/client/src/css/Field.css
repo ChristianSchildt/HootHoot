@@ -411,3 +411,15 @@
         margin: auto;
     }
 }
+
+@media (width < 1300px) {
+    .field-hoothoots {
+        width: 70vw;
+    }
+}
+
+@media (width < 750px) {
+    .field-hoothoots {
+        width: 90vw;
+    }
+}

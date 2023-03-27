@@ -25,7 +25,7 @@ class QuestionTile extends React.Component {
         <div className="questiontile">
             <Container fluid>
                 <Row>
-                    <Col md={1}>
+                    <Col xs={2} sm={2} md={1}>
                         <div className="form-check">
                             <input
                                 type="checkbox"
@@ -36,13 +36,13 @@ class QuestionTile extends React.Component {
                             </input>
                         </div>
                     </Col>
-                    <Col md={8}>
+                    <Col xs={8} sm={8} md={8}>
                         <Text
                             className="questiontext"
                             value={this.props.questiontext}>
                         </Text>
                     </Col>
-                    <Col md={3}>
+                    <Col xs={2} sm={2} md={3}>
                         <Text
                             className="coursetext"
                             value={this.props.coursetext}>
