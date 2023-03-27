@@ -7,7 +7,7 @@
     height: 50px;
 }
 #owl{
-    height: 400px;
+    height: 40vh;
 }
 
 #question-picture-preview
@@ -20,4 +20,11 @@
     /* border: 2px solid white; */
     color: blue;
     transition: 0.3s;
+}
+@media (width <1000px){
+    #owl{
+        width: 0px;
+        height: 0px;
+        visibility: collapse;      
+    }    
 }

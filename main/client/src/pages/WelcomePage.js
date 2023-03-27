@@ -25,7 +25,7 @@ function WelcomePage() {
                     {/* TODO: Tiles näher aneinander */}
                     <Col>
                         <Button
-                            className="tile"
+                            className="homeleft"
                             value="Ich bin Lehrkraft"
                             href="/teacher">
                         </Button>
@@ -39,7 +39,7 @@ function WelcomePage() {
                     </Col>
                     <Col>
                         <Button
-                            className="tile"
+                            className="homeright"
                             value="Ich bin Lernender"
                             href="/student">
                         </Button>
