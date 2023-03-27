@@ -204,7 +204,6 @@ class t_GameReportPage extends React.Component{
 
                                     <Bar
                                         id="analysebarchart"
-                                        options={this.state.currenthoothoots.name}
                                         data={data}>
                                     </Bar>
 

@@ -24,6 +24,9 @@
     width: 10em;
     height: 15em;
 }
+.homeleft:hover{
+    border: 2px solid #ffffff;
+}
 .homeright{
     border: 1px solid #ffffff;
     border-radius: 1em;
@@ -33,6 +36,9 @@
     color: #ffffff;
     width: 10em;
     height: 15em;
+}
+.homeright:hover{
+    border: 2px solid #ffffff;
 }
 
 .button
@@ -59,6 +65,9 @@
     color: white;
     width: 50vw;
     height: 2em;
+}
+.button-report:hover{
+    border: 2px solid #ffffff;
 }
 
 #button-registration-tlandingpage
@@ -109,6 +118,27 @@
     color: white;
     width: 11em;
     height: 2em;
+}
+.button-popup-logout
+{
+    margin-top: 2em;
+    border: 1px solid #ffffff;
+    border-radius: 0.5em;
+    font-family: 'Calibri';
+    font-size: 1.4em;
+    font-weight: bold;
+    background-color: #040E23;
+    color: white;
+    width: 11em;
+    height: 2em;
+}
+.button-popup:hover
+{
+    background-color: #009f05;
+}
+.button-popup-logout:hover
+{
+    background-color: #d60000;
 }
 
 #button-back-letStudentsjoinPage
@@ -279,6 +309,9 @@
 
 #button_answermin{
     margin: 1% 1% 1% 1%;
+}
+#button_answermin:hover{
+    background-color: rgb(87, 87, 87);
 }
 
 #winnerButton{ 

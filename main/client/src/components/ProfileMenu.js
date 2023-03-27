@@ -166,7 +166,7 @@ class ProfileMenu extends React.Component {
                             </Col>
                         </Row>
                         <Button
-                                    className="button-popup"
+                                    className="button-popup-logout"
                                     value="Abmelden"
                                     href="//localhost:3000">
                         </Button>    
