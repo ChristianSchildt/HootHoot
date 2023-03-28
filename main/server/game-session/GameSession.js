@@ -236,11 +236,12 @@ class GameSession {
                 const selectedAnswerId = element.answersId;
 
                 if (this.sessionid == null) {
-                    this.sessionid = await pool.query("INSERT INTO game_result (name, time, selected_answer_id, question_id) VALUES ($1,$2, $3, $4) RETURNING sessionid", [name, time, selectedAnswerId, questionId]);
-                    console.log("________________________________sessionid")
+                    this.sessionid = await pool.query("INSERT INTO game_result (name, time, selected_answer_id, question_id)" 
+                    +" VALUES ($1,$2, $3, $4) RETURNING sessionid", [name, time, selectedAnswerId, questionId]);
                     console.log(this.sessionid.rows[0].sessionid)
                 } else {
-                     await pool.query("INSERT INTO game_result (question_id, name, time, selected_answer_id, sessionid) VALUES ($1,$2,$3,$4,$5)", [questionId, name, time, selectedAnswerId, this.sessionid.rows[0].sessionid]);
+                     await pool.query("INSERT INTO game_result (question_id, name, time, selected_answer_id, sessionid)"
+                     +" VALUES ($1,$2,$3,$4,$5)", [questionId, name, time, selectedAnswerId, this.sessionid.rows[0].sessionid]);
                 }
                 
             };
