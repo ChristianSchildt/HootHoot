@@ -186,19 +186,17 @@ class t_GameReportPage extends React.Component{
                         altImage="button-close Platzhalter"
                         srcImage="/images/button_close.png"
                         onClickImage={() => this.closePopup("popup-report")}
-                        valueTitle="Bericht">
+                        valueTitle="Zusammenfassung">
                         <Row>
-                        <Col>
-                        <Field classNameField="report-participant"
+                            <Col>
+                                <Field classNameField="report-participant"
                                 classNameTitle="analyse-question-field-title"
                                 valueTitle="Teilnehmer">
                                 {this.state.currenthoothoots.map((choothoot) => (
                                 <LibraryTile key={choothoot.id} classNameLibrarytext="librarytext" valuetext={choothoot.name} /> 
                                 ))}
-                        </Field>
-                        </Col>
-                        <Col>
-                        <Field classNameField="report-stats"
+                                </Field>
+                                <Field classNameField="report-stats"
                                 classNameTitle="analyse-question-field-title"
                                 valueTitle="Statistik">
 
@@ -207,8 +205,8 @@ class t_GameReportPage extends React.Component{
                                         data={data}>
                                     </Bar>
 
-                        </Field> 
-                        </Col>  
+                                </Field>  
+                            </Col>
                         </Row>
                     </Popup>
                     </Container>

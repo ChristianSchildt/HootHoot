@@ -354,21 +354,22 @@
     margin-right: auto;
 }
 .report-participant{
+    float: left;
     border: 2px solid #476D7C;
     border-radius: 1em;
-    width: 22vw;
+    width: 25em;
     height: 60vh;
-    margin: auto;
+    margin-left: 1vw;
     overflow: hidden;
 }
 
 .report-stats{
+    float: right;
     border: 2px solid #476D7C;
     border-radius: 1em;
-    width: 45vw;
+    margin-right: 1vw;
+    width: 40em;
     height: 60vh;
-    margin: auto;
-    overflow: hidden;
 }
 
 @keyframes winnerwidth {

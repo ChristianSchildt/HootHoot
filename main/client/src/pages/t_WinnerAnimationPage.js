@@ -126,7 +126,7 @@ class t_WinnerAnimationPage extends React.Component {
                             </Swinner>
                         </Field>
                         <Field idField="winnerattendess">  
-                        <h2><u>Alle Teilnehmer</u></h2>
+                        <h2><u>Richtig Beantwortet:</u></h2>
                             {this.state.gameResults.map((player) => (  
                                     <LibraryTile classNameLibrarytext="librarytext" valuetext={(player.name + "\nPoints:" + player.points)} /> 
                                 ))}                         
