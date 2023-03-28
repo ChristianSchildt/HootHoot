@@ -51,12 +51,13 @@ class s_AnswerSelectionPage_Minimalist extends React.Component {
                             className="projectname-left"
                             value="HootHoot">
                         </Text>
-                        <Button
+                        {/* Switchbutton um zur Detailierten Seite zu wechseln*/}
+                        {/* <Button
                             className="button"
                             id="button_switchansicht_min"
                             value="Detailierte Ansicht"
                             href="/student/answerselectionDetailed">
-                        </Button>
+                        </Button> */}
                     </Col>
                 </Row>
                 <Row>

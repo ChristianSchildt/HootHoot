@@ -80,7 +80,7 @@
 
 #select-hoothoots
 {
-    padding-top: 3em;
+    padding-top: .7vh;
 }
 
 #question-overview
@@ -129,9 +129,12 @@
 {
     border: 3px solid white;
     border-radius: 1em;
-    width: 50vw;
+    min-width: 30em;
+    width: 60vw;
     /* min-width: ; */
-    height: 14em;
+    min-height: 25vh;
+    height: auto;
+    margin-top: 10vh;
 }
 
 /* 2 Spalten innerhalb des Divs erzeugen */
@@ -141,12 +144,21 @@
     width: 50%;
 }
 
+.div-playernames
+{
+    /* border: 1px solid #476D7C; */
+    border-radius: 1em;
+    margin-top: 6vh;
+    min-height: 10vh;
+    height: auto;
+}
+
 #div-media
 {
     border: 1px solid #476D7C;
     border-radius: 1em;
     min-width: 60vw;
-    height: 29em;
+    height: 55vh;
     margin-top: 1.5em;
 }
 
@@ -285,6 +297,24 @@
     font-size: 1.6em;
     margin-top: 0.5em;
 }
+.report-field
+{
+    height: 45em;
+    width: 70vw;
+    border: 0.5px solid #476D7C;
+    border-radius: 1em;
+    color: white;
+    margin: auto;
+    overflow-y: scroll;
+    margin-top: 3vh;
+}
+.report-field-title
+{
+    text-align: center;
+    font-family: 'Calibri';
+    font-size: 1.6em;
+    margin-top: 0.5em;
+}
 
 .average-time{
     height: 13em;
@@ -323,7 +353,24 @@
     margin-left: auto;
     margin-right: auto;
 }
+.report-participant{
+    float: left;
+    border: 2px solid #476D7C;
+    border-radius: 1em;
+    width: 25em;
+    height: 60vh;
+    margin-left: 1vw;
+    overflow: hidden;
+}
 
+.report-stats{
+    float: right;
+    border: 2px solid #476D7C;
+    border-radius: 1em;
+    margin-right: 1vw;
+    width: 40em;
+    height: 60vh;
+}
 
 @keyframes winnerwidth {
     0%   {width: 75vw;}
@@ -375,5 +422,17 @@
     {
         padding-top: 2vh;
         margin: auto;
+    }
+}
+
+@media (width < 1300px) {
+    .field-hoothoots {
+        width: 70vw;
+    }
+}
+
+@media (width < 750px) {
+    .field-hoothoots {
+        width: 90vw;
     }
 }

@@ -15,7 +15,7 @@ class Popup extends React.Component {
             <Container>
               <Row>
                 <Col>
-                  <Imagebutton className="popup-close"
+                  <Imagebutton className={this.props.classNameimg}
                     alt={this.props.altImage}
                     href={this.props.hrefImage}
                     src={this.props.srcImage}

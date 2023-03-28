@@ -97,7 +97,12 @@ class t_LetStudentsJoinPage extends React.Component {
             <div className ="tLetStudentsJoinPage">
                 <Container fluid>
                     <Row>
-                        <Col md={2}>
+                        <Col xs={6}
+                            sm={6} 
+                            md={6}
+                            lg={6}
+                            xl={6}
+                            xxl={6}>
                             <Picture
                                 id="logomenue"
                                 src="/images/profil.png"
@@ -108,7 +113,12 @@ class t_LetStudentsJoinPage extends React.Component {
                                 value="HootHoot">
                             </Text>
                         </Col>
-                        <Col md={{span: 2, offset: 8}}>
+                        <Col xs={6}
+                            sm={6} 
+                            md={6}
+                            lg={6}
+                            xl={6}
+                            xxl={6}>
                             <Button
                                 className="button"
                                 id="button-back-letStudentsjoinPage"
@@ -117,41 +127,51 @@ class t_LetStudentsJoinPage extends React.Component {
                             </Button>
                         </Col>
                     </Row>
-                    <Row>
-                        <Col md={{span: 6, offset: 3}}>
-                            <Field idField="join-info">
-                                <Col>
-                                    <div className="column">
-                                        <Text
-                                            className=""
-                                            id="joinUnder"
-                                            value="Mitmachen unter">
-                                        </Text>
-                                    
-                                        <Text
-                                            className=""
-                                            id="webAdress"
-                                            value="[Hier wird die Web-Adresse stehen]">
-                                        </Text>
-                                    </div>
-                                </Col>
-                                <Col>
-                                    <div className="column">
-                                        <Text
-                                            className=""
-                                            id="text-gamePIN"
-                                            value="Spiel-PIN: ">
-                                        </Text>
-                                    
-                                        <Text
-                                            className=""
-                                            id="number-gamePIN"
-                                            value={this.state.pin}>
-                                        </Text>
-                                    </div>   
-                                </Col>
-                            </Field>
-                        </Col>
+                    <Row className="justify-content-sm-center">
+                        <Field idField="join-info">
+                            <Container fluid>
+                                <Row>
+                                    <Col xs={12}
+                                        sm={12} 
+                                        md={12}
+                                        lg={12}
+                                        xl={7}
+                                        xxl={6}>
+                                        <div>
+                                            <Text
+                                                className=""
+                                                id="joinUnder"
+                                                value="Mitmachen unter">
+                                            </Text>
+                                            <Text
+                                                className=""
+                                                id="webAdress"
+                                                value="193.175.85.52:3000/student">
+                                            </Text>
+                                        </div>
+                                    </Col>
+                                    <Col xs={12}
+                                        sm={12} 
+                                        md={12}
+                                        lg={12}
+                                        xl={5}
+                                        xxl={6}>
+                                        <div>
+                                            <Text
+                                                className=""
+                                                id="text-gamePIN"
+                                                value="Spiel-PIN">
+                                            </Text>
+                                            <Text
+                                                className=""
+                                                id="number-gamePIN"
+                                                value={this.state.pin}>
+                                            </Text>
+                                        </div>   
+                                    </Col>
+                                </Row>
+                            </Container>
+                        </Field>
                     </Row>
                     <Row>
                         <Col>
@@ -172,18 +192,24 @@ class t_LetStudentsJoinPage extends React.Component {
                             </Button>
                         </Col>
                     </Row>
-                    <Row>
-                        {this.state.players.map((player) => (  
-                            <Col md={2}>
-                                <div className="playernames">
-                                    <Text
-                                        className="playername"
-                                        id=""
-                                        value={player}>
-                                    </Text>
-                                </div>
-                            </Col>
-                        ))}
+                    <Row className="justify-content-sm-center">
+                        <Col md={8}>
+                            <div className="div-playernames">
+                                <Row className="justify-content-sm-center">
+                                    {this.state.players.map((player) => (
+                                        <Col md={2}>
+                                            <div className="playernames">
+                                                <Text
+                                                    className="playername"
+                                                    id=""
+                                                    value={player}>
+                                                </Text>
+                                            </div>
+                                        </Col>
+                                    ))}
+                                </Row>
+                            </div>
+                        </Col>
                     </Row>
                 </Container>
             </div>

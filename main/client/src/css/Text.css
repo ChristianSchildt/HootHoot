@@ -37,6 +37,18 @@
     margin-bottom: 2em;
 }
 
+.questiontext
+{
+    text-align: left;
+    margin-top: .2vh;
+}
+
+.coursetext
+{
+    text-align: right;
+    margin-top: 1.5vh;
+}
+
 #joinUnder
 {
     color: white;
@@ -49,7 +61,9 @@
 #webAdress
 {
     font-family: 'Calibri';
-    font-size: 1.4em;
+    font-weight: bold;
+    font-size: 2em;
+    padding-top: .75em;
 }
 
 #text-gamePIN
@@ -57,7 +71,7 @@
     color: white;
     font-family: 'Calibri';
     font-size: 1.4em;
-    padding-top: 1.3em;
+    padding-top: 2.3em;
     margin-bottom: 0em;
     text-align: center;
 }
@@ -85,11 +99,11 @@
     width: 10em;
     color: white;
     padding-top: .35em;
-    margin-top: 5em;
+    margin-top: 2em;
     font-family: 'Calibri';
     font-size: 1.1em;
     /* Präsentationsabstand */
-    margin-left: 20vw;
+    /* margin-left: 20vw; */
 }
 
 #div-HootHoot-question
@@ -120,14 +134,14 @@
 
 #countdown
 {
-    padding-top: .3em;
+    padding-top: .4em;
     color: white;
     font-size: 1.7em;
 }
 
 #media
 {
-    padding-top: 2.8em;
+    padding-top: 19vh;
     font-size: 3em;
 }
 

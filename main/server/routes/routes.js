@@ -150,13 +150,17 @@ router.get('/api/courses/:courseid/questions', async(req, res) => {
   }
 })
 
-//get all questions for the current user
+//get all questions for the current user with coursename
 router.get('/api/user/questions', authorize, async(req, res) => {
   try {
-    const results = await pool.query('SELECT * FROM question '+
-                                     'WHERE user_id = $1', 
+    const results = await pool.query('SELECT q.*, c.name "coursename" ' + 
+                                     'FROM question q ' +
+                                     'INNER JOIN course c ' + 
+                                     'ON q.courseid = c.id ' +
+                                     'WHERE q.user_id = $1 ' +
+                                     'ORDER BY q.courseid', 
                                       [req.user.id]);
-    console.log('select all questions for the current user')
+    console.log('select all questions for the current user with coursename')
 
     res.json(results.rows)
     res.status(200).json({
@@ -284,10 +288,12 @@ router.delete('/api/questions/:questionid/answers/', async(req, res) => {
 })
 
 //Get all data from game_session
-router.get('/api/game_sessions/', async (req, res) => {
+router.get('/api/game_sessions/', authorize, async (req, res) => {
   try{
     const questionId = req.params.questionid;
-    const results = await pool.query('SELECT * FROM game_session');
+    const results = await pool.query('SELECT gs.id, gs.question_id, gs.player_times, gs.answerid,'
+    +' gs.datum, gs.sessionid, q.user_id FROM game_session gs JOIN question q on gs.question_id=q.id'
+    +' WHERE q.user_id=$1',[req.user.id]);
     
     res.status(200).json({
       status:"success",
@@ -300,6 +306,28 @@ router.get('/api/game_sessions/', async (req, res) => {
     console.log(e)
   }
 })
+
+
+//Get all data from game_result
+router.get('/api/game_result/', authorize, async (req, res) => {
+  try{
+    const questionId = req.params.questionid;
+    const results = await pool.query('SELECT gr.id, gr.question_id, gr.name, gr.time, gr.selected_answer_id,'
+    +' gr.datum, gr.sessionid, q.user_id FROM game_result gr JOIN question q on gr.question_id=q.id'
+    +' WHERE q.user_id=$1',[req.user.id]);
+    
+    res.status(200).json({
+      status:"success",
+      results: results.rows.length,
+      data: {
+        gameResults: results.rows
+      }
+    })
+  }catch(e){
+    console.log(e)
+  }
+})
+
 
 //get a game_session for analysis page
 router.get('/api/:sessionid/game_sessions/', async (req, res) => {
@@ -318,5 +346,30 @@ router.get('/api/:sessionid/game_sessions/', async (req, res) => {
     console.log(e)
   }
 })
+
+
+// //userId from questionId
+// router.get('/api/answers/:questionid', async(req, res) => {
+//   try {
+//     const results = await pool.query('SELECT * FROM answer WHERE questionid = $1', [req.params.questionid]);
+    
+//     console.log('select answers with specified questionid')
+//     //console.log("HIER GUCKEN: "+JSON.stringify(results.rows))
+//     res.json(results.rows)
+//     res.status(200).json({
+//       status: "success",
+//       results: results.rows.length,
+//       data:{
+//         answer: results.rows
+//       }
+//     });
+    
+//   } catch (e) {
+//     console.log(e)
+//   }
+// })
+
+
+
 
 module.exports = router;

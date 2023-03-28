@@ -4,6 +4,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Text from './Text';
+import Button from '../components/Button.js';
 import Imagebutton from './Imagebutton';
 
 class PopupCourse extends React.Component {

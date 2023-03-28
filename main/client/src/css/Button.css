@@ -12,8 +12,34 @@
 .tile:hover
 {
     border: 3px solid #ffffff;
+    
 }
-
+.homeleft{
+    border: 1px solid #ffffff;
+    border-radius: 1em;
+    font-family: 'Calibri';
+    font-size: 1.3em;
+    background-color: #040E23;
+    color: #ffffff;
+    width: 10em;
+    height: 15em;
+}
+.homeleft:hover{
+    border: 2px solid #ffffff;
+}
+.homeright{
+    border: 1px solid #ffffff;
+    border-radius: 1em;
+    font-family: 'Calibri';
+    font-size: 1.3em;
+    background-color: #040E23;
+    color: #ffffff;
+    width: 10em;
+    height: 15em;
+}
+.homeright:hover{
+    border: 2px solid #ffffff;
+}
 
 .button
 {
@@ -26,6 +52,22 @@
     color: white;
     width: 8em;
     height: 2em;
+}
+
+.button-report{
+    margin-top: 2em;
+    border: 1px solid #ffffff;
+    border-radius: 0.5em;
+    font-family: 'Calibri';
+    font-size: 1.4em;
+    font-weight: bold;
+    background-color: #040E23;
+    color: white;
+    width: 50vw;
+    height: 2em;
+}
+.button-report:hover{
+    border: 2px solid #ffffff;
 }
 
 #button-registration-tlandingpage
@@ -76,6 +118,27 @@
     color: white;
     width: 11em;
     height: 2em;
+}
+.button-popup-logout
+{
+    margin-top: 2em;
+    border: 1px solid #ffffff;
+    border-radius: 0.5em;
+    font-family: 'Calibri';
+    font-size: 1.4em;
+    font-weight: bold;
+    background-color: #040E23;
+    color: white;
+    width: 11em;
+    height: 2em;
+}
+.button-popup:hover
+{
+    background-color: #009f05;
+}
+.button-popup-logout:hover
+{
+    background-color: #d60000;
 }
 
 #button-back-letStudentsjoinPage
@@ -247,6 +310,9 @@
 #button_answermin{
     margin: 1% 1% 1% 1%;
 }
+#button_answermin:hover{
+    background-color: rgb(87, 87, 87);
+}
 
 #winnerButton{ 
     width: auto;
@@ -261,8 +327,60 @@
 {
     border: 3px solid #ffffff;
 }
+@media (width <1000px){
+    .homeleft{
+        float: left;
+        margin: auto;
+        margin-top: 20vh;
+        border: 1px solid #ffffff;
+        border-radius: 1em;
+        font-family: 'Calibri';
+        font-size: 1.3em;
+        background-color: #040E23;
+        color: #ffffff;
+        width: 40vw;
+        height: 20vh;
+    }
+    .homeright{
+        float: right;
+        margin: auto;
+        margin-top: 20vh;
+        border: 1px solid #ffffff;
+        border-radius: 1em;
+        font-family: 'Calibri';
+        font-size: 1.3em;
+        background-color: #040E23;
+        color: #ffffff;
+        width: 40vw;
+        height: 20vh;
+    }
+
+}
 
 @media (width <650px){
+    .homeleft{
+        margin: auto;
+        border: 1px solid #ffffff;
+        border-radius: 1em;
+        font-family: 'Calibri';
+        font-size: 1.3em;
+        background-color: #040E23;
+        color: #ffffff;
+        width: 40vw;
+        height: 20vh;
+    }
+    .homeright{
+        margin: auto ;
+        border: 1px solid #ffffff;
+        border-radius: 1em;
+        font-family: 'Calibri';
+        font-size: 1.3em;
+        background-color: #040E23;
+        color: #ffffff;
+        width: 40vw;
+        height: 20vh;
+    }
+
     #button_switchansicht_min{
         float: right;
         width: 40%;

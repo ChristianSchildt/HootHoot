@@ -28,6 +28,18 @@
     border-color: #476D7C;
 }
 
+#searchQuestion-hoothoots
+{
+    width: 25vw;
+    min-width: 20em;
+    height: 2em;
+    margin-top: .3em;
+    margin-bottom: 1em;
+    font-size: 1.2em;
+    border-radius: .5em;
+    margin-top: 3vh;
+}
+
 #inputField-coursename
 {
     width: 30vw;
