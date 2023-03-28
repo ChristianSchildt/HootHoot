@@ -8,6 +8,7 @@ DROP TABLE IF EXISTS media CASCADE;
 DROP TABLE IF EXISTS question_media CASCADE;
 DROP TABLE IF EXISTS quiz CASCADE;
 DROP TABLE IF EXISTS game_session CASCADE;
+DROP TABLE IF EXISTS game_result CASCADE;
 DROP TABLE IF EXISTS review CASCADE;
 DROP TABLE IF EXISTS user_quiz CASCADE;
 DROP TABLE IF EXISTS quiz_question CASCADE;
@@ -98,7 +99,7 @@ CREATE TABLE game_result
     selected_answer_id uuid REFERENCES answer(id),
 	datum TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     sessionid uuid DEFAULT uuid_generate_v4(),
-    question_id uuid REFERENCES question(id),
+    question_id uuid REFERENCES question(id)
 ); 
 
 CREATE TABLE review 

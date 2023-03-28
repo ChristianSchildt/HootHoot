@@ -168,7 +168,7 @@ class t_GameReportPage extends React.Component{
     async getAnswers(questionid) {
         try {
             if (questionid !== 1) {
-            const response = await fetch('http://localhost:5000/api/answers/'+questionid);
+            const response = await fetch('http://193.175.85.52:443/api/answers/'+questionid);
             const data = await response.json()
             this.setState({answers: data})
             console.log("Answers:")
