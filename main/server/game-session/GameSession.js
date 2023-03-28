@@ -244,12 +244,10 @@ class GameSession {
                      +" VALUES ($1,$2,$3,$4,$5)", [questionId, name, time, selectedAnswerId, this.sessionid.rows[0].sessionid]);
                 }
                 
-            };
+            }
         } catch (e) {
             console.log(e);
-
         }
-
     }
 
 
