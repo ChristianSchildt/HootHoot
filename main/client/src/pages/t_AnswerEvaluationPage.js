@@ -148,8 +148,8 @@ class t_AnswerEvaluationPage extends React.Component {
                                 </Text>
                             </div>
                         </Col>
-                    <Row>
-                        <Col md={{span: 8, offset: 3}}>
+                    <Row className="justify-content-sm-center">
+                        <Col md={6}>
                             {/* <Field idField="evaluation"> */}
                                 {/* Hier */}
                                 {/* <div className="evaluation-diagramm"
