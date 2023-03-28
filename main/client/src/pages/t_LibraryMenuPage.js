@@ -248,7 +248,7 @@ function T_LibraryMenuPage() {
                     </Col>
                     <Col xs={{span: 6, order: 2}}
                         sm={{span: 5, order: 2}} 
-                        md={{span: 4, /*offset: 5,*/ order: 2}}
+                        md={{span: 4, order: 2}}
                         lg={{span: 3, order: 3}}
                         xl={{span: 3, order: 3}}
                         xxl={{span: 2, order: 3}}>

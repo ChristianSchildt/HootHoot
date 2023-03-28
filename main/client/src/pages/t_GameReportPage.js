@@ -143,7 +143,12 @@ class t_GameReportPage extends React.Component{
         <div className='tAnalysesMenuPage'>
                 <Container fluid>
                     <Row>
-                        <Col md={2}>
+                        <Col xs={{span: 6, order: 1}} 
+                            sm={{span: 7, order: 1}} 
+                            md={{span: 8, order: 1}}
+                            lg={{span: 3, order: 1}}
+                            xl={{span: 3, order: 1}}
+                            xxl={{span: 2, order: 1}}>
                              <Picture
                                 id="logomenue"
                                 src="/images/profil.png"
@@ -154,12 +159,21 @@ class t_GameReportPage extends React.Component{
                                 value="HootHoot">
                             </Text>
                         </Col>
-
-                        <Col md={7}>
+                        <Col xs={{span: 12, order: 3}} 
+                            sm={{span: 12, order: 3}} 
+                            md={{span: 12, order: 3}}
+                            lg={{span: 6, order: 2}}
+                            xl={{span: 6, order: 2}}
+                            xxl={{span: 8, order: 2}}>
                             <MenuNavigation className="menu-navigation"
                             id3="mark"/>
                         </Col>
-                        <Col md={{ span: 2, offset: 1}}>
+                        <Col xs={{span: 6, order: 2}}
+                            sm={{span: 5, order: 2}} 
+                            md={{span: 4, order: 2}}
+                            lg={{span: 3, order: 3}}
+                            xl={{span: 3, order: 3}}
+                            xxl={{span: 2, order: 3}}>
                             <ProfileMenu/>
                         </Col>
                     </Row>
