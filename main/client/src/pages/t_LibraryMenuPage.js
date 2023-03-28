@@ -373,12 +373,11 @@ function T_LibraryMenuPage() {
                                         <div id='select-hoothoots'>
                                             {(filteredData.map((question, i) => {
                                                 return (
-                                                    <div>
+                                                    <div key={question.id}>
                                                         <QuestionTile
                                                             labelCheckbox={question.id}
                                                             isSelectedCheckbox={checkboxIsSelected[i+1]}
                                                             onCheckboxChange={handleCheckboxChange}
-                                                            key={question.id}
                                                             questiontext={question.name}
                                                             coursetext={question.coursename}>
                                                         </QuestionTile>
