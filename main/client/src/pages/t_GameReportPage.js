@@ -39,7 +39,7 @@ const options = {
     },
 };
 
-const average = {'Antwort A': 4, 
+const average = {'Antwort A': 12, 
                  'Antwort B': 11, 
                  'Antwort C': 1, 
                  'Antwort D': 2};
@@ -62,8 +62,18 @@ class t_GameReportPage extends React.Component{
         this.state={
             hoothoots: [{}],
             currenthoothoots: [{}],
-            currentParticipant: [{}],
-            currentReports: []
+            currentReports: [],
+            answers: [{}],
+            barchar: {
+                average,
+                datasets: [
+                  {
+                    label: 'Durchschnittliche Antworten',
+                    data: average,
+                    backgroundColor: '#476D7C',
+                  },
+                ]
+            },
         };
     }
 
@@ -110,19 +120,77 @@ class t_GameReportPage extends React.Component{
                 }
             })
             this.setState({currentReports: Array.from(gameDataMap.values())})
-            console.log("testmap")
-            //console.log(gameDataMap)
-            console.log(this.state.currentReports)
 
         } catch(e) {
             console.log(e)
         }
     }
+    async countAnswers(answerid){
+        console.log("answerid:");
+        console.log(this.state.answers);
+        let a=0,b=0,c=0,d=0;
+        for(let el in answerid){
+            if(this.state.currenthoothoots[el].selected_answer_id==this.state.answers[0].id){
+                a++;
+            }
+            if(this.state.currenthoothoots[el].selected_answer_id==this.state.answers[1].id){
+                b++;
+            }
+            if(this.state.currenthoothoots[el].selected_answer_id==this.state.answers[2].id){
+                c++;
+            }
+            if(this.state.currenthoothoots[el].selected_answer_id==this.state.answers[3].id){
+                d++;
+            }
+        }
+
+        const average = {'Antwort A': a, 
+                 'Antwort B': b, 
+                 'Antwort C': c, 
+                 'Antwort D': d};
+
+        let data = {
+            average,
+            datasets: [
+              {
+                label: 'Durchschnittliche Antworten',
+                data: average,
+                backgroundColor: '#476D7C',
+              },
+            ]
+        };
+  
+        
+        this.setState({barchar: data});
+
+    }
+
+    async getAnswers(questionid) {
+        try {
+            if (questionid !== 1) {
+            const response = await fetch('http://localhost:5000/api/answers/'+questionid);
+            const data = await response.json()
+            this.setState({answers: data})
+            console.log("Answers:")
+            console.log(this.state.answers)
+            }
+        }catch(e){
+            console.log(e);
+        }
+    }
+
     async setCurrentHoothoot(idPopup,value){
-        console.log("dummy");
+        console.log("testmap")
+        console.log(this.state.barchar);
+        //console.log(gameDataMap)
+        console.log(this.state.currentReports)
+        console.log("value");
         console.log(value);
         console.log(idPopup);
+        console.log(value[0].question_id);
         await this.setState({currenthoothoots: value});
+        await this.getAnswers(value[0].question_id);
+        await this.countAnswers(value);
         console.log(this.state.currenthoothoots);
         this.openPopup(idPopup);
     }
@@ -200,29 +268,25 @@ class t_GameReportPage extends React.Component{
                         altImage="button-close Platzhalter"
                         srcImage="/images/button_close.png"
                         onClickImage={() => this.closePopup("popup-report")}
-                        valueTitle="Bericht">
+                        valueTitle="Zusammenfassung">
                         <Row>
-                        <Col>
-                        <Field classNameField="report-participant"
+                            <Col>
+                                <Field classNameField="report-participant"
                                 classNameTitle="analyse-question-field-title"
                                 valueTitle="Teilnehmer">
                                 {this.state.currenthoothoots.map((choothoot) => (
                                 <LibraryTile key={choothoot.id} classNameLibrarytext="librarytext" valuetext={choothoot.name} /> 
                                 ))}
-                        </Field>
-                        </Col>
-                        <Col>
-                        <Field classNameField="report-stats"
+                                </Field>
+                                <Field classNameField="report-stats"
                                 classNameTitle="analyse-question-field-title"
                                 valueTitle="Statistik">
-
                                     <Bar
                                         id="analysebarchart"
-                                        data={data}>
+                                        data={this.state.barchar}>
                                     </Bar>
-
-                        </Field> 
-                        </Col>  
+                                </Field>  
+                            </Col>
                         </Row>
                     </Popup>
                     </Container>
