@@ -98,7 +98,7 @@ CREATE TABLE game_result
     selected_answer_id uuid REFERENCES answer(id),
 	datum TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     sessionid uuid DEFAULT uuid_generate_v4(),
-    question_id uuid REFERENCES question(id),
+    question_id uuid REFERENCES question(id)
 ); 
 
 CREATE TABLE review 
