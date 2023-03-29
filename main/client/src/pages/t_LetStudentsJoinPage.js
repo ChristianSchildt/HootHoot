@@ -146,7 +146,7 @@ class t_LetStudentsJoinPage extends React.Component {
                                             <Text
                                                 className=""
                                                 id="webAdress"
-                                                value="193.175.85.52:443/student">
+                                                value="193.175.85.52">
                                             </Text>
                                         </div>
                                     </Col>
