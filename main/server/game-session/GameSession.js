@@ -136,6 +136,12 @@ class GameSession {
         this.currentQuestionIndex++
         this.question = this.questions[this.currentQuestionIndex];
 
+        for (const player of this.players.values()) {
+            player.answerIndex = undefined;
+            player.points = undefined;
+            player.time = undefined;
+        };
+
         callback(this.question);
     }
 
