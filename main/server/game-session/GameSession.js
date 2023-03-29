@@ -20,6 +20,8 @@ class GameSession {
 
         this.sessionid = null;
 
+        this.dataSaved = false;
+
         host.on('get-answer-counts', (callback) => { this.getAnswerCounts(host, callback); });
         host.on('get-sorted-game-results', (callback) => { this.getSortedGameResults(host, callback); });
         host.on('question-started', () => { this.startQuestion(host); });
@@ -109,7 +111,8 @@ class GameSession {
                 });
             }
         };
-        if (results.length > 0) {
+        if (results.length > 0 && !this.dataSaved) {
+            this.dataSaved = true;
             this.saveGameResults(this.question.id, results);
         }
     }
@@ -135,6 +138,7 @@ class GameSession {
         this.time = undefined;
         this.currentQuestionIndex++
         this.question = this.questions[this.currentQuestionIndex];
+        this.dataSaved = false;
 
         for (const player of this.players.values()) {
             player.answerIndex = undefined;
