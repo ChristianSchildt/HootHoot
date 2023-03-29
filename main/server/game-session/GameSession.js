@@ -64,7 +64,7 @@ class GameSession {
     selectAnswer(socket, answerIndex) {
         let player = this.players.get(socket.id);
         player.answerIndex = answerIndex;
-        player.time = answerIndex == this.question.correctAnswerIndex ? Math.round((Date.now() - this.startTime) / 1000) : 0;
+        player.time = answerIndex == this.question.correctAnswerIndex ? Math.round((Date.now() - this.startTime) / 1000) : -1;
         player.points = answerIndex == this.question.correctAnswerIndex ? pointsCalcFunc(this.question.time, (Date.now() - this.startTime) / 1000) : 0;
 
         console.log("user " + player.name + " selected answer " + answerIndex + " (" + player.points + " points)");
