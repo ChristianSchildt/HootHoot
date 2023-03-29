@@ -60,10 +60,10 @@ class t_GameReportPage extends React.Component{
     constructor(props) {
         super(props);
         this.state={
-            hoothoots: [{}],
-            currenthoothoots: [{}],
+            hoothoots: [],
+            currenthoothoots: [],
             currentReports: [],
-            answers: [{}],
+            answers: [],
             barchar: {
                 average,
                 datasets: [
@@ -130,16 +130,16 @@ class t_GameReportPage extends React.Component{
         console.log(this.state.answers);
         let a=0,b=0,c=0,d=0;
         for(let el in answerid){
-            if(this.state.currenthoothoots[el].selected_answer_id==this.state.answers[0].id){
+            if(this.state.answers.length > 0 && this.state.currenthoothoots[el].selected_answer_id==this.state.answers[0].id){
                 a++;
             }
-            if(this.state.currenthoothoots[el].selected_answer_id==this.state.answers[1].id){
+            if(this.state.answers.length > 1 && this.state.currenthoothoots[el].selected_answer_id==this.state.answers[1].id){
                 b++;
             }
-            if(this.state.currenthoothoots[el].selected_answer_id==this.state.answers[2].id){
+            if(this.state.answers.length > 2 && this.state.currenthoothoots[el].selected_answer_id==this.state.answers[2].id){
                 c++;
             }
-            if(this.state.currenthoothoots[el].selected_answer_id==this.state.answers[3].id){
+            if(this.state.answers.length > 3 && this.state.currenthoothoots[el].selected_answer_id==this.state.answers[3].id){
                 d++;
             }
         }
