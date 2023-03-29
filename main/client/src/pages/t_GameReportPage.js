@@ -25,6 +25,7 @@ ChartJS.register(
     Tooltip,
     Legend
 );
+const pointsCalcFunc = (time, elapsedTime) => elapsedTime == -1 ? 0: Math.round(1000 * (time - elapsedTime) / time)
 
 const options = {
     responsive: true,
@@ -192,7 +193,9 @@ class t_GameReportPage extends React.Component{
         await this.getAnswers(value[0].question_id);
         await this.countAnswers(value);
         console.log(this.state.currenthoothoots);
-        this.openPopup(idPopup);
+        if(this.state.currenthoothoots.length>0){
+            this.openPopup(idPopup);
+        }
     }
 
     async openPopup(idPopup) {
@@ -275,16 +278,26 @@ class t_GameReportPage extends React.Component{
                                 classNameTitle="analyse-question-field-title"
                                 valueTitle="Teilnehmer">
                                 {this.state.currenthoothoots.map((choothoot) => (
-                                <LibraryTile key={choothoot.id} classNameLibrarytext="librarytext" valuetext={choothoot.name} /> 
+                                <LibraryTile key={choothoot.id} classNameLibrarytext="librarytext" valuetext={choothoot.name + ": " +pointsCalcFunc(20,choothoot.time)} /> 
                                 ))}
                                 </Field>
                                 <Field classNameField="report-stats"
                                 classNameTitle="analyse-question-field-title"
-                                valueTitle="Statistik">
+                                valueTitle="Statistik">               
                                     <Bar
-                                        id="analysebarchart"
-                                        data={this.state.barchar}>
+                                            id="analysebarchart"
+                                            data={this.state.barchar}>
                                     </Bar>
+                                <Field classNameField="vote-count"
+                                        classNameTitle="analyse-field-title"
+                                        valueTitle="Vote Count">
+                                        <div id="div-average-vote">
+                                        <Text
+                                            id="div-average-vote-count"
+                                            value={this.state.currenthoothoots.length}>
+                                        </Text>
+                                    </div>
+                                </Field>
                                 </Field>  
                             </Col>
                         </Row>

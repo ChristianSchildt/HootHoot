@@ -168,7 +168,7 @@ class ProfileMenu extends React.Component {
                         <Button
                                     className="button-popup-logout"
                                     value="Abmelden"
-                                    href="//localhost:443">
+                                    href="//193.175.85.52">
                         </Button>    
                     </Popup>
             </div>
