@@ -112,6 +112,12 @@ class GameSession {
         if (results.length > 0) {
             this.saveGameResults(this.question.id, results);
         }
+
+        for (const player of this.players.values()) {
+            player.answerIndex = undefined;
+            player.points = undefined;
+            player.time = undefined;
+        };
     }
 
     hasAnotherQuestion(socket, callback) {
@@ -135,12 +141,6 @@ class GameSession {
         this.time = undefined;
         this.currentQuestionIndex++
         this.question = this.questions[this.currentQuestionIndex];
-
-        for (const player of this.players.values()) {
-            player.answerIndex = undefined;
-            player.points = undefined;
-            player.time = undefined;
-        };
 
         callback(this.question);
     }
